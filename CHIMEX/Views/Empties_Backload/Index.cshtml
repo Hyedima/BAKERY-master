@@ -1,0 +1,175 @@
+﻿@model IEnumerable<CHIMEX.Models.Empties_Backload>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    DateTime StartDate = Convert.ToDateTime(ViewBag.sdate);
+    DateTime EndDate = Convert.ToDateTime(ViewBag.edate);
+
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+    int sn = 0;
+    int totalEmpty = 0;
+    int totalPlastic = 0;
+}
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Emptie Backloaded</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <form action="@Url.Action("Index", "Empties_Backload")" method="post">
+            <div class="col-md-3">
+                <label>
+                    Start Date
+                </label>
+                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    End Date
+                </label>
+                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+            </div>
+            <div class="col-md-6">
+                <br />
+                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+            </div>
+            <div class="col-md-12">
+                <hr />
+            </div>
+        </form>
+        <hr />
+        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#backload"> Backload Empties</button>
+        <hr />
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th>
+                        SN
+                    </th>
+                    <th>
+                        Loaded By
+                    </th>
+                    <th>
+                        Item
+                    </th>
+                    <th>
+                        Qty Loaded
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    sn++;
+                    sn++;
+                    if (item.Emptytype.name == "EMPTY")
+                    {
+                        totalEmpty += Convert.ToInt32(item.qty);
+                    }
+                    else
+                    {
+                        totalPlastic += Convert.ToInt32(item.qty);
+                    }
+                    <tr>
+                        <td>
+                            @sn
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.useraccount.firstname)
+                            @Html.DisplayFor(modelItem => item.useraccount.lastname)
+                            @Html.DisplayFor(modelItem => item.useraccount.othernames)
+                        </td>
+                        <td>
+                            @item.Emptytype.name
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.qty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.insertdate)
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <th colspan="1"></th>
+                    <th>
+                        Total Empties BackLoaded:
+                    </th>
+                    <th>
+                        @totalEmpty
+                    </th>
+                    <th>
+                        Total Pastic BackLoaded:
+                    </th>
+                    <th>
+                        @totalPlastic
+                    </th>
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>
+
+
+<!-- Modal -->
+<div id="backload" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Backload Empties</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="@Url.Action("Backload","Empties_Backload")">
+                    <label>
+                        Empties Type
+                    </label>
+                    <select class="form-control" required="" name="itemid">
+                        @foreach (var row in db.Emptytypes.ToList())
+                        {
+                            <option value="@row.id">@row.name</option>
+                        }
+                    </select>
+                    <label>
+                        Enter Quantity of Empties You want to backload
+                    </label>
+                    <input type="number" required="" name="qty" class="form-control" />
+                    <label>
+                        Description
+                    </label>
+                    <input type="text" required="" name="description" class="form-control" />
+                    <hr />
+                    <button class="btn btn-sm btn-success">post</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

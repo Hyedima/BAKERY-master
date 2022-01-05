@@ -1,0 +1,83 @@
+﻿@model CHIMEX.Models.EmptiesReceived
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EmptiesReceived</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.emptcustid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emptcustid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.insertdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insertdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.insertuser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insertuser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer.customer_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer.customer_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Emptytype.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emptytype.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

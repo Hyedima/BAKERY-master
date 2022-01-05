@@ -1,0 +1,75 @@
+﻿@model CHIMEX.Models.empty_stock
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>empty_stock</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.openingstock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.openingstock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empty_received)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empty_received)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.plastic_recieved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.plastic_recieved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.backload)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.backload)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.insertdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insertdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.useraccount.branchid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.useraccount.branchid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

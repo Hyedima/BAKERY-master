@@ -1,0 +1,90 @@
+﻿@model IEnumerable<CHIMEX.Models.transaction>
+
+@{
+    ViewBag.Title = "Supply";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Transactions</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <form action="@Url.Action("Supply", "Stocks")" method="post">
+            <div class="col-md-4">
+                <label>
+                    Start Date
+                </label>
+                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+            </div>
+            <div class="col-md-4">
+                <label>
+                    End Date
+                </label>
+                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+            </div>
+            <div class="col-md-2">
+                <br />
+                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+            </div>
+            <div class="col-md-12">
+                <hr />
+            </div>
+        </form>
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th>
+                        Customer
+                    </th>
+                    <th>
+                        Transaction Type
+                    </th>
+                    <th>
+                        Transaction Date
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer.customer_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.paymenttype)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.trnx_date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </td>
+                        <td>
+                            |<a href="@Url.Action("Supply/"+item.id,"Sales")">Supply</a> || 
+                            <a href="@Url.Action("PreviewTranx/"+item.id,"Sales")">Preview</a>|
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>

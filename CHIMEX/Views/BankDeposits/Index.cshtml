@@ -1,0 +1,151 @@
+﻿@model IEnumerable<CHIMEX.Models.BankDeposit>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+
+    DateTime StartDate = Convert.ToDateTime(ViewBag.sdate);
+    DateTime EndDate = Convert.ToDateTime(ViewBag.edate);
+}
+
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Bank Deposits</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <form action="@Url.Action("Index", "BankDeposits")" method="post">
+            <div class="col-md-3">
+                <label>
+                    Start Date
+                </label>
+                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    End Date
+                </label>
+                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    User
+                </label>
+                <select class="form-control" name="userid" required="">
+                    <option value="ALL">All Users</option>
+                    @foreach (var item in db.useraccounts.ToList())
+                    {
+                        <option value="@item.id">
+                            @item.firstname
+                            @item.lastname
+                            @item.othernames
+                    </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <br />
+                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+            </div>
+            <div class="col-md-12">
+                <hr />
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <hr />
+
+            </div>
+        </form>
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th class="text-center" colspan="2">
+                        <h4>
+                            GOBBLES BAKERY
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <h4>
+                            BANK DEPOSIT REPORT
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Printed by: @user.firstname @user.lastname @user.othernames
+                    </th>
+                    <th>
+                        Printed As at: @DateTime.Now
+                    </th>
+                </tr>
+            </table>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        SN
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Deposited By
+                    </th>
+                    <th>
+                        Bank
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Amount (N)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.insertdate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.deposited_by)
+                            (<small>
+                                @item.useraccount.firstname
+                                @item.useraccount.lastname
+                                @item.useraccount.othernames
+                            </small>)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.bank)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.insertdate)
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>
+

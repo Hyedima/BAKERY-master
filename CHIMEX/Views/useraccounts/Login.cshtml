@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = null;// "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="service-w3l" id="services" style="background-image:url(../../Images/bg.jpg);">
+        <div class="container">
+
+            <div class="service-grids">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 ser-grid">
+                    <div class="ser-top">
+
+                        <div class="clearfix"></div>
+
+                        <form id="frmLogin" method="post" action="@Url.Action("Login", "UserAccounts")">
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>User Login</h4>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div id="msg" class="text text-danger">@ViewBag.error</div>
+                                <div id="success" class="text text-success"></div>
+                                <label>Email</label>
+                                <input type="email" name="email" id="email" class="form-control" />
+                                <label>Password</label>
+                                <input type="password" name="password" id="password" class="form-control" />
+                                <div class="clearfix"></div>
+                                <hr />
+                                <button class="btn btn-success" id="btnLogin">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>*@
+
+@*<script>
+                    //Add new member
+                    $(function () {
+                        $("#btnLogin").click('submit', function (e) {
+                            var password = document.getElementById("password").value;
+                            var email = document.getElementById("email").value;
+
+                            if (password === "" || password === null || email === "" || email === null) {
+                                var dataToPost = $("#frmLogin").serialize();
+                                $.ajax({
+                                    type: "POST",
+                                    data: dataToPost,
+                                    url: "@Url.Action("Login", "UserAccounts")",
+                                    success: function (data) {
+                                        //alert("Login Success. " + data[0]);
+                                        document.getElementById("success").innerHTML = "Login Success."+ data[0];
+                                        document.forms["frmLogin"].reset();
+                                    },
+                                    error: function () {
+                                        document.getElementById("msg").innerHTML = "An error occured, Please review your entries and retry.";
+                                    }
+                                })
+                            }
+                            else
+                            {
+                                document.getElementById("msg").innerHTML = "Login failed. Please enter password or Email.";
+                            }
+                            return false;
+                        })
+                    })
+    </script>*@
+
+
+<!DOCTYPE html>
+<html lang="en" class="body-full-height">
+<head>
+    <!-- META SECTION -->
+    <title>GOBBLES BAKERY-Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="~/joli/css/theme-default.css" />
+    <!-- EOF CSS INCLUDE -->
+</head>
+<body>
+
+    <div class="login-container" style="background-image: url('~/joli/img/snacksbanner.jpg');">
+
+        <div class="login-box animated fadeInDown">
+
+            <div class="login-body">
+                <center>
+                    <h1 class="text-capitalize login-title">
+
+                        GOBBLES BAKERY
+                    </h1>
+                    <br />
+                    <br />
+                </center>
+                <div class="login-title"><strong>Welcome</strong>, Please login</div>
+                <form id="frmLogin" method="post" action="@Url.Action("Login", "UserAccounts")">
+                    @Html.AntiForgeryToken()
+
+
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div id="msg" class="text text-danger">@ViewBag.error</div>
+                        <div id="success" class="text text-success"></div>
+                        <label>Email</label>
+                        <input type="email" name="email" id="email" class="form-control" />
+                        <label>Password</label>
+                        <input type="password" name="password" id="password" class="form-control" />
+
+                        <div class="clearfix"></div>
+                        <hr />
+                        <button class="btn btn-success" id="btnLogin">Login</button>
+                    </div>
+                </form>
+            </div>
+            <div class="login-footer">
+                <div class="pull-left">
+                    &copy; @DateTime.Now.Year GOBBLES BAKERY
+                </div>
+                <div class="pull-right">
+                    <a href="#@Url.Action("Index","Home")">About</a> |
+                    <a href="@Url.Action("Index","Home")">Privacy</a> |
+                    <a href="@Url.Action("Index","Home")">Contact Us</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,366 @@
+﻿@model IEnumerable<CHIMEX.Models.transaction>
+
+@{
+    ViewBag.Title = "ViewCustomertrnx";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+
+    DateTime StartDate = Convert.ToDateTime(ViewBag.sdate);
+    DateTime EndDate = Convert.ToDateTime(ViewBag.edate);
+    int sn = 0;
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+    decimal ttlAmt = 0;
+    decimal ttlpaid = 0;
+    decimal ttlbal = 0;
+
+    decimal cashPay = 0;
+    decimal ChequePay = 0;
+    decimal TransPay = 0;
+    decimal POSpay = 0;
+
+    decimal CreditsAmnt = 0;
+    decimal creditPay = 0;
+}
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES-->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Cutomers Transactions</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <form action="@Url.Action("ViewCustomertrnx", "Sales")" method="post">
+            <div class="col-md-3">
+                <label>
+                    Start Date
+                </label>
+                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    End Date
+                </label>
+                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    Customer
+                </label>
+                <select class="form-control" name="customerid" required="">
+                    <option value="ALL">All Customers</option>
+                    @foreach (var item in db.customers.ToList())
+                    {
+                        <option value="@item.id">@item.customer_name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <br />
+                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+            </div>
+            <div class="col-md-12">
+                <hr />
+            </div>
+        </form>
+        <hr />
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th class="text-center" colspan="2">
+                        <h4>
+                            GOBBLES BAKERY
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <h4>
+                            CUSTOMER TRANSACTION REPORT
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Printed by: @user.firstname @user.lastname @user.othernames
+                    </th>
+                    <th>
+                        Printed As at: @DateTime.Now
+                    </th>
+                </tr>
+            </table>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        SN
+                    </th>
+                    <th>
+                        Customer
+                    </th>
+                    <th>
+                        Tranaction Type
+                    </th>
+                    <th class="text-right">
+                        Transaction Amount ( &#8358 )
+                    </th>
+                    <th class="text-right">
+                        Amount Paid ( &#8358 )
+                    </th>
+                    <th class="text-right">
+                        Balance ( &#8358 )
+                    </th>
+                    <th class="text-right">
+                        Date
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    sn++;
+                    
+                    <tr>
+                        <td>
+                            @sn
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer.customer_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.paymenttype)
+                        </td>
+                        <td class="text-right">
+                            @{
+                                var trnAmount = db.sales.Where(p => p.transaction_id == item.id).Sum(p => p.total_amount);
+                            }
+
+                            @String.Format("{0:#,#.00}", trnAmount)
+                        </td>
+                        <td class="text-right">
+                            @{
+/*var paidAmount = db.salespayments.Where(p => p.transactionid == item.id).Sum(p => p.amount);
+if (paidAmount == null)
+{
+    paidAmount = 0;
+}
+
+//payment Modes
+cashPay += Convert.ToDecimal( db.salespayments.Where(p => p.transactionid == item.id && p.paymenttype =="CASH").Sum(p => p.amount));
+ChequePay += Convert.ToDecimal(db.salespayments.Where(p => p.transactionid == item.id && p.paymenttype == "CHEQUE").Sum(p => p.amount));
+TransPay += Convert.ToDecimal(db.salespayments.Where(p => p.transactionid == item.id && p.paymenttype == "TRANSFER").Sum(p => p.amount));
+POSpay += Convert.ToDecimal(db.salespayments.Where(p => p.transactionid == item.id && p.paymenttype == "POS").Sum(p => p.amount));
+
+//get credit and payment
+if(item.paymenttype == "CREDIT")
+{
+    CreditsAmnt += Convert.ToDecimal(trnAmount);
+    creditPay += Convert.ToDecimal(db.salespayments.Where(p => p.transactionid == item.id).Sum(p => p.amount));
+}*/
+                            }
+                            @{ 
+//String.Format("{0:#,#.00}", paidAmount)
+                            }
+                        </td>
+                        <td class="text-right">
+                            @{
+//var bal = trnAmount - paidAmount;
+//@String.Format("{0:#,#.00}", bal)
+                            }
+                            
+                        </td>
+                        <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.trnx_date)
+                        </td>
+                    </tr>
+                    /*
+                                    ttlAmt += Convert.ToDecimal(trnAmount);
+                                    ttlpaid +=Convert.ToDecimal(paidAmount);
+                                    ttlbal += Convert.ToDecimal(bal);
+                                    */
+                                }
+                <tr>
+                    <th colspan="3" class="text-center">
+                        TOTAL
+                    </th>
+                    <th class="text-right">
+                        @String.Format("{0:#,#.00}", ttlAmt)
+                    </th>
+                    <th class="text-right">
+                        @String.Format("{0:#,#.00}", ttlpaid)
+                    </th>
+                    <th class="text-right">
+                        @{ 
+                            var ttbalc = ttlpaid - ttlAmt;
+                        }
+                        @String.Format("{0:#,#.00}", ttbalc )
+                    </th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td colspan="7"></td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <div class="col-md-3">
+                            <table class="table">
+                                <tr>
+                                    <th colspan="2">
+                                        Payment Details
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CASH PAYMENT:
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:#,#.00}", cashPay)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        CHEQUE PAYMENT:
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:#,#.00}", ChequePay)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        POS PAYMENT:
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:#,#.00}", POSpay)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        TRANSFER PAYMENT:
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:#,#.00}", TransPay)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        TOTAL
+                                    </th>
+                                    <th>
+                                        @String.Format("{0:#,#.00}", TransPay + ChequePay + POSpay + cashPay + TransPay)
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3">
+                            @*<table class="table">
+                                <tr>
+                                    <th colspan="2">
+                                        Credit Details
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        TOTAL CREDITS
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:#,#.00}", CreditsAmnt )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        TOTAL PAID CREDIT
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:#,#.00}", creditPay)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        CREDIT BALANCE
+                                    </th>
+                                    <th>
+                                        @String.Format("{0:#,#.00}", CreditsAmnt - creditPay)
+                                    </th>
+                                </tr>
+                            </table>*@
+                        </div>
+                        <div class="col-md-3">
+                            <table class="table">
+                                <tr>
+                                    <th colspan="2">
+                                         BALANCE
+                                    </th>
+                                </tr>
+                                @*<tr>
+                                    <td>
+                                        Balance B/F
+                                    </td>
+                                    <td>
+                                        @{
+                                            var opningbalance = db.Balances.Where(p => p.insertdate >= StartDate && p.insertdate < EndDate).Sum(p => p.amount);
+                                        }
+                                        @String.Format("{0:#,#.00}", opningbalance)
+                                    </td>
+                                </tr>*@
+                                <tr>
+                                    <td>
+                                        Sales Balance
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:#,#.00}", ttbalc)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Expensis
+                                    </td>
+                                    <td>
+                                        @{
+                                            decimal Exp = 0;
+                                            foreach(var item in db.Expensis.Where(p => p.insertdate >= StartDate && p.insertdate < EndDate))
+                                            {
+                                                Exp += Convert.ToDecimal(item.amount);
+                                            }
+                                        }
+                                        @String.Format("{0:#,#.00}", Exp)
+                                    </td>
+                                </tr>
+                                @*<tr>
+                                    <td>
+                                        Bank Deposits
+                                    </td>
+                                    <td>
+                                        @{ 
+                                            var dep = db.BankDeposits.Where(p => p.insertdate >= StartDate && p.insertdate < EndDate).Sum(p => p.amount);
+                                        }
+                                        @String.Format("{0:#,#.00}", dep)
+                                    </td>
+                                </tr>*@
+                                <tr>
+                                    <th>
+                                        Balance At Hand
+                                    </th>
+                                    <th>
+                                        @{ 
+                                            var bals = ttbalc - Exp;
+                                        }
+                                        @String.Format("{0:#,#.00}", bals)
+                                    </th>
+                                </tr>
+                               
+                            </table>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>
+

@@ -1,0 +1,192 @@
+﻿@model IEnumerable<CHIMEX.Models.customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    DateTime StartDate = Convert.ToDateTime(ViewBag.sdate);
+    DateTime EndDate = Convert.ToDateTime(ViewBag.edate);
+
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+    var empo = 0;
+    var empr = 0;
+    var empplas = 0;
+
+}
+
+
+<div class="col-md-12">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Customers Empties </h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <form action="@Url.Action("Index", "Empty")" method="post">
+            <div class="col-md-3">
+                <label>
+                    Start Date
+                </label>
+                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    End Date
+                </label>
+                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    Customer
+                </label>
+                <select class="form-control" name="customerid" required="">
+                    <option value="ALL">ALL Customers</option>
+                    @foreach (var item in db.customers.ToList())
+                    {
+                        <option value="@item.id">@item.customer_name </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <br />
+                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+            </div>
+            <div class="col-md-12">
+                <hr />
+            </div>
+        </form>
+        <hr />
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th class="text-center" colspan="2">
+                        <h4>
+                            GOBBLES BAKERY
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <h4>
+                            CUSTOMERS EMPTIES REPORT
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Printed by: @user.firstname @user.lastname @user.othernames
+                    </th>
+                    <th>
+                        Printed As at: @DateTime.Now
+                    </th>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <th>
+                        SN
+                    </th>
+                    <th>
+                        Customer
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+                    <th>
+                        Empties Owing
+                    </th>
+                    <th>
+                        Empties Received
+                    </th>
+                    <th>
+                        Plastics Received
+                    </th>
+                    <th>
+                        Balance
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    sn++;
+                    <tr>
+                        <td>
+                            @sn
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.phone)
+                        </td>
+                        <td>
+                            @{ 
+                                var empt_owing = db.EspectedEmpties.Where(p => p.customerid == item.id).Sum(p => p.qty);
+                                if(empt_owing == null)
+                                {
+                                    empt_owing = 0;
+                                }
+                                empo += Convert.ToInt32(empt_owing);
+                            }
+                            @empt_owing
+                        </td>
+                        <td>
+                            @{
+                                var empt_recieved = db.EmptiesReceiveds.Where(p => p.customerid == item.id && p.itemid == "1").Sum(p => p.qty);
+                                if(empt_recieved == null)
+                                {
+                                    empt_recieved = 0;
+                                }
+                                empr += Convert.ToInt32( empt_recieved);
+                            }
+                            @empt_recieved
+                        </td>
+                        <td>
+                            @{
+                                var plast_recieved = db.EmptiesReceiveds.Where(p => p.customerid == item.id && p.itemid == "2").Sum(p => p.qty);
+                                if (plast_recieved == null)
+                                {
+                                    plast_recieved = 0;
+                                }
+                                empplas += Convert.ToInt32(empt_recieved);
+                            }
+                            @empt_recieved
+                        </td>
+                        <td>
+                            @{ 
+                                var empt_bal = empt_owing - empt_recieved;
+                            }
+                            @empt_bal
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <th colspan="3">
+                        TOTAL
+                    </th>
+                    <th>
+                        @empo
+                    </th>
+                    <th>
+                        @empr
+                    </th>
+                    <th>
+                        @{ 
+                            var bal = empr - empo;
+                        }
+                        @bal
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>

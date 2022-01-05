@@ -1,0 +1,107 @@
+﻿@model CHIMEX.Models.Expensi
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="col-md-4"></div>
+<div class="col-md-4">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Payment Voucher</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <div class="panel-body" id="rpt">
+            <div id="PrintPage" style="margin: 0px; padding: opx; padding-bottom:0px;">
+                <h3 class="text-center">GOBBLES BAKERY</h3>
+                <h5 class="text-center">
+                    Think fresh, think phillycious
+                </h5>
+                <p class="text-center">
+                    NO. 37, Bourmediene Road, Narayi High Cost Junction Kaduna.
+                </p>
+                <p class="text-center">
+                    08154546234, 09032155947
+                </p>
+                <h3 class="text-center ">***********************</h3>
+                <h3 class="text-center">PAYMENT VOUCHER</h3>
+                <h4 class="text-center">---------------------------</h4>
+                <table class="table" style="margin: 0px; padding: opx; padding-bottom:0px;">
+                    <tr>
+                        <td colspan="2">
+                            <label>
+                                PV ID:
+                            </label>
+                        </td>
+                        <td colspan="2">
+                            <label>
+                                @Model.id
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label>
+                                Date:
+                            </label>
+                        </td>
+                        <td colspan="2">
+                            <label>
+                                @DateTime.Now
+                            </label>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="2">
+                            <label>
+                                Requested By:
+                            </label>
+                        </td>
+                        <td colspan="2">
+                            <label>
+                                @Model.useraccount.firstname @Model.useraccount.lastname @Model.useraccount.othernames
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label>Head:</label>
+                        </td>
+                        <td colspan="2">
+                            @Model.head
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label>Description:</label>
+                        </td>
+                        <td colspan="2">
+                            @Model.description
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <th colspan="2">
+                            Amount:
+                        </th>
+                        <th colspan="2" class="text-right">
+                            @Model.amount
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "ChangeUserType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+}
+
+
+<div class="col-md-3"></div>
+<div class="col-md-6">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Change User Roles & Office </h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div class="btn text-success">@ViewBag.message</div>
+            <form action="@Url.Action("ChangeUserType","useraccounts")" method="post">
+                <label>User</label>
+                <select class="form-control" name="userid">
+                    @foreach (var item in db.useraccounts.ToList())
+            {
+                        <option value="@item.id">@item.firstname @item.lastname</option>
+                    }
+                </select>
+                <label>User Type</label>
+                <select name="usertype" class="form-control">
+                    <option value="SALES_CLARK">SALES_CLARK</option>
+                    <option value="STORE_KEEPER">STORE_KEPPER</option>
+                    <option value="ADMIN">SYSTEM ADMIN</option>
+                </select>
+                <label>Branch Office</label>
+                <select name="branchid" class="form-control">
+                    <option value="">--branch--</option>
+                    @foreach (var item in db.Branches.ToList())
+                    {
+                        <option value="@item.id">@item.name</option>
+                    }
+                </select>
+                <button class="btn btn-success">Save Cahnges</button>
+            </form>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>
+

@@ -1,0 +1,245 @@
+﻿@model CHIMEX.Models.transaction
+
+@{
+    ViewBag.Title = "SalesPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    decimal TotalAmount = 0;
+}
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Sales Payment</h3>
+            <ul class="panel-controls">
+                @*<li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>*@
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <div id="PrintPage" style="margin: 0px; padding: opx; padding-bottom:0px;">
+                                <h3 class="text-center">DE-CHIMEX ENTERPRISES LTD</h3>
+                                <h5 class="text-center">
+                                    LIQUOR WHOLESALES
+                                </h5>
+                                <p class="text-center">
+                                    No. 5-17 Emir Road, S/Gari, Kano P.O.Box 13817, Kano
+                                </p>
+                                <p class="text-center">
+                                    08065882581, 08069533407
+                                </p>
+                                <h3 class="text-center ">*****Transaction Receipt*****</h3>
+                                <h3 class="text-center">@Model.paymenttype</h3>
+                                <h4 class="text-center">---------------------------</h4>
+                                <table class="table" style="margin: 0px; padding: opx; padding-bottom:0px;">
+                                    <tr>
+                                        <td colspan="2">
+                                            <label>
+                                                Transaction ID:
+                                            </label>
+                                        </td>
+                                        <td colspan="2">
+                                            <label>
+                                                @Model.id
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label>
+                                                Date:
+                                            </label>
+                                        </td>
+                                        <td colspan="2">
+                                            <label>
+                                                @DateTime.Now
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label>Customer:</label>
+                                        </td>
+                                        <td colspan="2">
+                                            @Model.customer.customer_name
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <label>
+                                                Sold by:
+                                            </label>
+                                        </td>
+                                        <td colspan="2">
+                                            <label>
+                                                @Model.useraccount.firstname @Model.useraccount.lastname @Model.useraccount.othernames
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr class="success">
+                                        <th>
+                                            Item
+                                        </th>
+                                        <th>
+                                            Unit Price
+                                        </th>
+                                        <th>
+                                            Quantity
+                                        </th>
+                                        <th>
+                                            Amount (&#8358)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+
+                                    @foreach (var item in db.sales.Where(p => p.transaction_id == Model.id))
+                                    {
+                                        TotalAmount += Convert.ToDecimal(item.total_amount);
+
+                                        <tr class="">
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.product.product_name)
+                                            </td>
+                                            <td>
+                                                @String.Format("{0:#,#.00}", item.unitprice)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.qty)
+                                            </td>
+                                            @*<td>
+                                                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                                                </td>*@
+                                            <td>
+                                                @String.Format("{0:#,#.00}", item.total_amount)
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td colspan="3">
+                                            <h3>Amount</h3>
+                                        </td>
+                                        <td>
+                                            <h3 class="text-bold">
+                                                @String.Format("{0:#,#.00}", TotalAmount)
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="text-center">
+                                            AMOUNT PAID
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3">
+                                            Payment Date
+                                        </th>
+                                        <th>
+                                            Amount
+                                        </th>
+                                    </tr>
+                                    @{
+                                        var totalpay = 0;
+                                    }
+                                    @foreach (var item in db.salespayments.Where(p=>p.customerid == Model.customerid && p.transactionid == Model.id))
+                                    {
+                                        totalpay += Convert.ToInt32(item.amount);
+                                        <tr>
+                                            <td colspan="3">
+                                                @item.insertdate
+                                            </td>
+                                            <td>
+                                                @String.Format("{0:#,#.00}", item.amount)
+                                            </td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <th colspan="3">
+                                            Total Amount Paid
+                                        </th>
+                                        <th>
+                                            @String.Format("{0:#,#.00}", totalpay)
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3">
+                                            BALANCE
+                                        </th>
+                                        <th>
+                                            @{
+                                                var bal = TotalAmount - totalpay;
+                                            }
+                                            @String.Format("{0:#,#.00}", bal)
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                            <script>
+                        //Save Complains
+                        $(function () {
+                            $("#btnPost").click('submit', function (e) {
+                                        @*$(location).attr("href", "@Url.Action("Sale","Sales")");*@
+                                    })
+                        })
+                            </script>
+                            <hr />
+                            <div class="col-md-12">
+                                <button class="btn btn-success btn-line pull-right" onclick="javascript:printDiv('PrintPage');">
+                                    <i class="icon icon-print"></i>
+                                    Print
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>
+                    Sales Payment
+                </h3>
+                @if (bal <= 0)
+                {
+                    <h2>
+                        Payment is complete. You have no outstanding Payment
+                    </h2>
+                }
+                else
+                {
+                <form method="post" action="@Url.Action("Salespayment","Sales")">
+                    <input type="hidden" required="" value="@Model.customerid" name="customerid" class="form-control" />
+                    <input type="hidden" required="" value="@Model.id" name="transactionid" class="form-control" />
+                    <label>Customer</label>
+                    <input type="text" required="" value="@Model.customer.customer_name" name="" class="form-control" />
+                    <label>Payment Type</label>
+                    <select class="form-control" required="" name="paymenttype">
+                        <option value="" disabled="">--Select Payment Type--</option>
+                            <option value="CASH">CASH</option>
+                            <option value="CHEQUE">CHEQUE</option>
+                            <option value="TRANSFER">TRANSFER</option>
+                            <option value="POS">POS</option>
+                    </select>
+                    <label>Amount(N)</label>
+                    <input type="number" required="" name="amount" class="form-control" value="0.00" />
+                    <label>Notes</label>
+                    <input type="text" value="" required="" name="notes" class="form-control" />
+                    <button class="btn btn-success btn-sm">Post</button>
+                </form>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>
+

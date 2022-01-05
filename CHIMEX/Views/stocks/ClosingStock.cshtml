@@ -1,0 +1,123 @@
+﻿@model IEnumerable<CHIMEX.Models.stocks_closing>
+
+@{
+    ViewBag.Title = "ClosingStock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    int sn = 0;
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+}
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">STOCK</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <form action="@Url.Action("ClosingStock", "Stocks")" method="post">
+            <div class="col-md-4">
+                <label>
+                    Start Date
+                </label>
+                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+            </div>
+            <div class="col-md-4">
+                <label>
+                    End Date
+                </label>
+                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+            </div>
+            <div class="col-md-2">
+                <br />
+                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+            </div>
+            <div class="col-md-12">
+                <hr />
+            </div>
+        </form>
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th class="text-center" colspan="2">
+                        <h4>
+                            GOBBLES BAKERY
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <h4>
+                            CLOSING STOCK REPORT
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Printed by: @user.firstname @user.lastname @user.othernames
+                    </th>
+                    <th>
+                        Printed As at: @DateTime.Now
+                    </th>
+                </tr>
+            </table>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        SN
+                    </th>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Qty
+                    </th>
+
+                    <th>
+                        Stock Keeper
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    sn++;
+                    <tr>
+                        <td>
+                            @sn
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.product_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.qty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.useraccount.firstname)
+                            @Html.DisplayFor(modelItem => item.useraccount.lastname)
+                            @Html.DisplayFor(modelItem => item.useraccount.othernames)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.update_date)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>
+

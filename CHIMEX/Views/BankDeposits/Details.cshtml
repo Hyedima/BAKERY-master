@@ -1,0 +1,67 @@
+﻿@model CHIMEX.Models.BankDeposit
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BankDeposit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.deposited_by)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deposited_by)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.insertdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insertdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.useraccount.branchid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.useraccount.branchid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

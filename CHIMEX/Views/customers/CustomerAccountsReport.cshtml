@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CHIMEX.Models.customer>
+
+@{
+    ViewBag.Title = "CustomerAccountsReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    int sn = 0;
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+}
+<div class="col-md-12">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Customer</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <div class="panel-body" id="rpt">
+            <table class="table" id="">
+                <thead>
+                    <tr>
+                        <th>
+                            SN
+                        </th>
+                        <th>
+                            Customer Name
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th class="text-right">
+                            ACCOUNT BALANCE ( &#8358 )
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        sn++;
+                        <tr>
+                            <td>
+                                @sn
+                            </td>
+                            <td>
+                                    @Html.DisplayFor(modelItem => item.customer_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.address)
+                            </td>
+                            <td class="text-right">
+                                @{
+                                    decimal actbalance = 0;
+                                    var bal = db.customer_ledger.Where(p => p.customerid == item.id).OrderByDescending(p => p.insertdate).FirstOrDefault();
+                                    if (bal != null)
+                                    {
+                                        actbalance = Convert.ToDecimal(bal.balance);
+                                    }
+                                }
+
+                                @String.Format("{0:#,#.00}", actbalance)
+                            </td>
+                        </tr>
+                                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>

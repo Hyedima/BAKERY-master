@@ -1,0 +1,187 @@
+﻿@model CHIMEX.Models.salesmenledger
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>salesmenledger</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.item)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.item)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.openingstock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.openingstock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stockreceived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stockreceived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.additionalstock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.additionalstock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.totalstock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.totalstock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.soldstock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soldstock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stockreturned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stockreturned)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emptiesreturned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emptiesreturned)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empties_owings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empties_owings)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.store_attendant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.store_attendant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cash_taken)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cash_taken)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.store_keeper)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.store_keeper)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Receipt_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Receipt_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approved_by)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approved_by)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cashier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cashier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.week)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.week)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.store_supervisor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.store_supervisor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.recoreded_by)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.recoreded_by)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.salesman.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.salesman.firstname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

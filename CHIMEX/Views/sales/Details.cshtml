@@ -1,0 +1,107 @@
+﻿@model CHIMEX.Models.sale
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sale</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.product_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.unitprice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.unitprice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_sold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_sold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sold_by)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sold_by)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer.customer_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer.customer_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product.product_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product.product_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stock.product_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stock.product_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.transaction.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.transaction.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.useraccount.branchid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.useraccount.branchid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

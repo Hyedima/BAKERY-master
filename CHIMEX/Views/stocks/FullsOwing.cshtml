@@ -1,0 +1,205 @@
+﻿@model IEnumerable<CHIMEX.Models.transaction>
+
+@{
+    ViewBag.Title = "FullsOwing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    int sn = 0;
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+}
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Stocks (Fulls owing)</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <form action="@Url.Action("FullsOwing", "Stocks")" method="post">
+            <div class="col-md-3">
+                <label>
+                    Start Date
+                </label>
+                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    End Date
+                </label>
+                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+            </div>
+            <div class="col-md-3">
+                <label>
+                    Customer
+                </label>
+                <select class="form-control" name="customerid" required="">
+                    <option value="ALL">All Customers</option>
+                    @foreach (var item in db.customers.ToList())
+                    {
+                        <option value="@item.id">@item.customer_name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <br />
+                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+            </div>
+            <div class="col-md-12">
+                <hr />
+            </div>
+        </form>
+        <hr />
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th class="text-center" colspan="2">
+                        <h4>
+                            GOBBLES BAKERY
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <h4>
+                            STOCKS REPORT (Fulls Owing by transaction)
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Printed by: @user.firstname @user.lastname @user.othernames
+                    </th>
+                    <th>
+                        Printed As at: @DateTime.Now
+                    </th>
+                </tr>
+            </table>
+           
+            <table class="table">
+                <tr>
+                    <th>
+                        SN
+                    </th>
+                    <th>
+                        Customer
+                    </th>
+                    <th>
+                        Tranaction Type
+                    </th>
+
+                    <th>
+                        Fulls Owing
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    sn++;
+                    <tr>
+                        <th>
+                            @sn
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.customer.customer_name)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.paymenttype)
+                        </th>
+                        <th>
+                            @{
+                                var qtySold = db.sales.Where(p => p.transaction_id == item.id).Sum(p => p.qty);
+                                var qtySupplied = db.supplies.Where(p => p.transaction_id == item.id).Sum(p => p.qty);
+                                if (qtySupplied == null)
+                                {
+                                    qtySupplied = 0;
+                                }
+                                if (qtySold == null)
+                                {
+                                    qtySold = 0;
+                                }
+
+                                var fullsowing = qtySold - qtySupplied;
+                            }
+                            @fullsowing
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.trnx_date)
+                        </th>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            @{
+                                int ssn = 0;
+                            }
+                            <table class="table">
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        SN
+                                    </th>
+                                    <th>
+                                        Product
+                                    </th>
+                                    <th>
+                                        Qty Sold
+                                    </th>
+                                    <th>
+                                        Qty Supplied
+                                    </th>
+                                    <th>
+                                        Fulls Owing
+                                    </th>
+                                </tr>
+                                @foreach (var row in db.sales.Where(p => p.transaction_id == item.id && p.customer_id == item.customerid))
+                {
+                    ssn++;
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            @ssn
+                                        </td>
+                                        <td>
+                                            @row.product_name
+                                        </td>
+                                        <td>
+                                            @row.qty
+                                        </td>
+                                        <td>
+                                            @{
+                                                var sup = db.supplies.Where(p => p.transaction_id == item.id && p.customer_id == row.customer_id && p.product_id == row.product_id).Sum(p => p.qty);
+                                                if (sup == null)
+                                                {
+                                                    sup = 0;
+                                                }
+                                            }
+                                            @sup
+                                        </td>
+                                        <td>
+                                            @{
+                                                var ful = row.qty - sup;
+                                            }
+                                            @ful
+                                        </td>
+                                    </tr>
+                                                }
+                            </table>
+                        </td>
+                    </tr>
+                                                }
+
+            </table>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>
+

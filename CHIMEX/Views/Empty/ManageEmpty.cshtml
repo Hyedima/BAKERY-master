@@ -1,0 +1,291 @@
+﻿@model IEnumerable<CHIMEX.Models.customer>
+
+    @{
+        ViewBag.Title = "ManageEmpty";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        int sn = 0;
+        CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+        DateTime StartDate = Convert.ToDateTime(ViewBag.sdate);
+        DateTime EndDate = Convert.ToDateTime(ViewBag.edate);
+
+        string userid = Session["userid"].ToString();
+        var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+        var empo = 0;
+        var empr = 0;
+        var plas = 0;
+    }
+
+
+        <div class="col-md-12">
+            <!-- START PANEL WITH CONTROL CLASSES -->
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Customers Empties </h3>
+                    <ul class="panel-controls">
+                        <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                    </ul>
+                </div>
+                @*
+                <form action="@Url.Action("ManageEmpty", "Empty")" method="post">
+                    <div class="col-md-3">
+                        <label>
+                            Start Date
+                        </label>
+                        <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            End Date
+                        </label>
+                        <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            Customer
+                        </label>
+                        <select class="form-control" name="customerid" required="">
+                            <option value="ALL">ALL Customers</option>
+                            @foreach (var item in db.customers.ToList())
+                            {
+                                <option value="@item.id">@item.customer_name </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+                    </div>
+                    <div class="col-md-12">
+                        <hr />
+                    </div>
+                </form>
+                *@
+                <hr />
+                <!--<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#backload"> Backload Empties</button>-->
+                <hr />
+                <div class="panel-body" id="rpt">
+                    <table class="table">
+                        <tr>
+                            <th class="text-center" colspan="2">
+                                <h4>
+                                    GOBBLES BAKERY
+                                </h4>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <h4>
+                                    CUSTOMERS EMPTIES REPORT
+                                </h4>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                Printed by: @user.firstname @user.lastname @user.othernames
+                            </th>
+                            <th>
+                                Printed As at: @DateTime.Now
+                            </th>
+                        </tr>
+                    </table>
+                    <table class="table" id="search">
+                        <thead>
+                            <tr>
+                                <th>
+                                    SN
+                                </th>
+                                <th>
+                                    Customer
+                                </th>
+                                <th>
+                                    Phone
+                                </th>
+                                <th>
+                                    Empties Owing
+                                </th>
+
+                                <th>
+                                    Empties Received
+                                </th>
+                                <th>
+                                    Plastics
+                                </th>
+                                <th>
+                                    Balance
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                sn++;
+                                <tr>
+                                    <td>
+                                        @sn
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.customer_name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.phone)
+                                    </td>
+                                    <td>
+                                        @{
+                                            var empt_owing = db.EspectedEmpties.Where(p => p.customerid == item.id).Sum(p => p.qty);
+                                            if (empt_owing == null)
+                                            {
+                                                empt_owing = 0;
+                                            }
+                                            empo += Convert.ToInt32(empt_owing);
+                                        }
+                                        @empt_owing
+                                    </td>
+                                    <td>
+                                        @{
+                                            var empt_recieved = db.EmptiesReceiveds.Where(p => p.customerid == item.id && p.Emptytype.name == "EMPTY").Sum(p => p.qty);
+                                            if (empt_recieved == null)
+                                            {
+                                                empt_recieved = 0;
+                                            }
+                                            empr += Convert.ToInt32(empt_recieved);
+                                        }
+                                        @empt_recieved
+                                    </td>
+                                    <td>
+                                        @{
+                                            var plastic_recieved = db.EmptiesReceiveds.Where(p => p.customerid == item.id && p.Emptytype.name == "PLASTIC").Sum(p => p.qty);
+                                            if (plastic_recieved == null)
+                                            {
+                                                plastic_recieved = 0;
+                                            }
+                                            plas += Convert.ToInt32(plastic_recieved);
+                                        }
+                                        @plastic_recieved
+                                    </td>
+                                    <td>
+                                        @{
+                                            var empt_bal = empt_owing - (empt_recieved + (plastic_recieved / 2));
+                                        }
+                                        @empt_bal
+                                    </td>
+                                    @*<td>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#empo__@item.id">Empties Owing</button>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#empr__@item.id">Empties Received</button>
+
+                    <!-- Modal -->
+                    <div id="empo__@item.id" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Empties Owing</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="@Url.Action("Owing","Empty")">
+                                        <input type="hidden" name="customerid" value="@item.id" />
+                                        <label>
+                                            Empties Type
+                                        </label>
+                                        <select class="form-control" required="" name="itemid">
+                                            @foreach (var row in db.Emptytypes.ToList())
+                                            {
+                                                <option value="@row.id">@row.name</option>
+                                            }
+                                        </select>
+                                        <label>
+                                            Enter Quantity of Empties
+                                        </label>
+                                        <input type="number" required="" name="qty" class="form-control" />
+                                        <button class="btn btn-sm btn-success">post</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Modal -->
+                    <div id="empr__@item.id" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Empties Received</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="@Url.Action("Received","Empty")">
+                                        <input type="hidden" name="customerid" value="@item.id" />
+                                        <label>
+                                            Empties Type
+                                        </label>
+                                        <select class="form-control" required="" name="itemid">
+                                            @foreach (var row in db.Emptytypes.ToList())
+                                            {
+                                                <option value="@row.id">@row.name</option>
+                                            }
+                                        </select>
+                                        <label>
+                                            Enter Quantity of Empties
+                                        </label>
+                                        <input type="number" required="" name="qty" class="form-control" />
+                                        <button class="btn btn-sm btn-success">post</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </td>
+                                    *@
+                                </tr>
+                                            }
+                            <tr>
+                                <td></td>
+                                <th></th>
+                                
+                                <th colspan="">
+                                    TOTAL
+                                </th>
+                                <th>
+                                    @empo
+                                </th>
+                                <th>
+                                    @empr
+                                </th>
+                                <th>
+                                    @plas
+                                </th>
+                                <th>
+                                    @{
+                                        var bal = empr - empo;
+                                    }
+                                    @bal
+                                </th>
+                            </tr>
+                        </tbody>
+
+                        
+                        
+                    </table>
+                </div>
+            </div>
+            <!-- END PANEL WITH CONTROL CLASSES -->
+        </div>
+
+

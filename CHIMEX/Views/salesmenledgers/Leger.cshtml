@@ -1,0 +1,87 @@
+﻿@model CHIMEX.Models.salesman
+
+@{
+    ViewBag.Title = "Leger";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+}
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Sales Men Ledger</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th>Brand Name</th>
+                    <th>Opening Stock</th>
+                    <th>Stock Received</th>
+                    <th>Additional Stock</th>
+                    <th>Total Stock</th>
+                    <th>Stock Sold</th>
+                    <th>Stock Returned</th>
+                    <th>Empties Returned</th>
+                    <th>Empties/Owing Outstanding </th>
+                    <th>Store Attendant</th>
+                    <th>Remarks</th>
+                    <th>Cash Tracking</th>
+                </tr>
+                @foreach(var item in db.salesmenledgers.Where(p=>p.salesmanid == Model.id))
+                {
+                    <tr>
+                        <td>
+                            @item.salesman.firstname @item.salesman.lastname
+                        </td>
+                        <td>
+                            @item.item
+                        </td>
+                        <td>
+                            @item.openingstock
+                        </td>
+                        <td>
+                            @item.stockreceived
+                        </td>
+                        <td>
+                            @item.additionalstock
+                        </td>
+                        <td>
+                            @item.totalstock
+                        </td>
+                        <td>
+                            @item.soldstock
+                        </td>
+                        <td>
+                            @item.stockreturned
+                        </td>
+                        <td>
+                            @item.emptiesreturned
+                        </td>
+                        <td>
+                            @item.empties_owings
+                        </td>
+                        <td>
+                            @item.store_attendant
+                        </td>
+                        <td>
+                            @item.remarks
+                        </td>
+                        <td>
+                            @item.cash_taken
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>

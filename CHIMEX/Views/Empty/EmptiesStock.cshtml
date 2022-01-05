@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "EmptiesStock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    DateTime StartDate = Convert.ToDateTime(ViewBag.sdate);
+    DateTime EndDate = Convert.ToDateTime(ViewBag.edate);
+
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+}
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Empties Stock</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th>SN</th>
+                    <th>Date</th>
+                    <th>Opening Stock</th>
+                    <th>Goods Received</th>
+                    <th>Back Load</th>
+                    <th>Balance</th>
+                </tr>
+                @{ 
+                    var dates = new List<DateTime>();
+
+                    for (DateTime dt = StartDate; dt <= EndDate; dt = dt.AddDays(1))
+                    {
+                        sn++;
+                        <tr>
+                            <td>
+                                @sn
+                            </td>
+                            <td>
+                                @dt
+                            </td>
+                            <td>
+                                @*@{ 
+                                    var rc = db.EmptiesReceiveds.Where(p => p.insertdate >= dt && p.insertdate < dt.AddDays(1)).Sum(p=>p.qty);
+                                    //var es = db.EspectedEmpties.Where(p => p.insertdate >= dt && p.insertdate < dt.AddDays(1)).ToList();
+                                    var bk = db.Empties_Backload.Where(p => p.insertdate >= dt && p.insertdate < dt.AddDays(1)).Sum(p=>p.qty);
+                                    var op = rc - bk;
+                                }
+                                @op*@
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                                    }
+                }
+            </table>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>

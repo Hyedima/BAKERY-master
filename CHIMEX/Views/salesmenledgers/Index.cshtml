@@ -1,0 +1,154 @@
+﻿@model IEnumerable<CHIMEX.Models.salesmenledger>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.item)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.openingstock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stockreceived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.additionalstock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.totalstock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soldstock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stockreturned)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emptiesreturned)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.empties_owings)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.store_attendant)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cash_taken)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.store_keeper)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Receipt_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.approved_by)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cashier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.week)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.store_supervisor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.recoreded_by)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.salesman.firstname)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.item)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.openingstock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stockreceived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.additionalstock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.totalstock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soldstock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stockreturned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emptiesreturned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.empties_owings)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.store_attendant)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cash_taken)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.store_keeper)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Receipt_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.approved_by)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cashier)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.week)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.store_supervisor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recoreded_by)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.salesman.firstname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

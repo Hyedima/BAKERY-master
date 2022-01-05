@@ -1,0 +1,51 @@
+﻿@model CHIMEX.Models.stock
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>stock</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.update_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.update_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product.product_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product.product_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.useraccount.branchid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.useraccount.branchid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

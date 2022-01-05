@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "SupplyReceipt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "SupplyReceipt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    decimal TotalAmount = 0;
+    string id = ViewBag.id;
+}
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Stock Out</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <div class="panel-body" id="rpt">
+            <div class="row">
+                <div class="col-md-6" id="PrintPage">
+                    <h3 class="text-center">GOBBLES BAKERY</h3>
+                    <p class="text-center">
+                        NO. 37, Bourmediene Road, Narayi High Cost Junction Kaduna.
+                    </p>
+                    <p class="text-center">
+                        08154546234, 09032155947
+                    </p>
+                    <h3 class="text-center ">*****Stock Out Receipt*****</h3>
+                    <h4 class="text-center">---------------------------</h4>
+                    <table class="table">
+                        <tr class="success">
+                            <th>
+                                Item
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in db.main_stocks_Report.Where(p => p.batch_id == id))
+                        {
+                            <tr class="">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.main_stocks.product.product_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.qty)
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>
+                                <hr />
+                                <div class="col-md-12">
+                                    <button class="btn btn-success btn-line" onclick="javascript:printDiv('PrintPage');">
+                                        <i class="icon icon-print"></i>
+                                        Print
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>

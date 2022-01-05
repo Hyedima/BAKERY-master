@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a3b0ad9214f2492d8caf3431cb45b776" Name="Diagram1">
+        <EntityTypeShape EntityType="BakeryModel.Balance" Width="1.5" PointX="5.25" PointY="47.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.BankDeposit" Width="1.5" PointX="5.25" PointY="50.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.Branch" Width="1.5" PointX="0.75" PointY="50.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.cart" Width="1.5" PointX="16.5" PointY="56.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.customer_ledger" Width="1.5" PointX="15.75" PointY="51.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.customer" Width="1.5" PointX="5.25" PointY="53.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.Empties_Backload" Width="1.5" PointX="5.25" PointY="59.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.EmptiesReceived" Width="1.5" PointX="10.5" PointY="55.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.empty_stock" Width="1.5" PointX="5.25" PointY="63.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.Emptytype" Width="1.5" PointX="8.25" PointY="44.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.EspectedEmpty" Width="1.5" PointX="7.5" PointY="59.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.Expensi" Width="1.5" PointX="5.25" PointY="66.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.larstock_added" Width="1.5" PointX="10.5" PointY="51.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.Larstock" Width="1.5" PointX="10.5" PointY="59.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.main_stocks" Width="1.5" PointX="8.25" PointY="63.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.main_stocks_Report" Width="1.5" PointX="10.5" PointY="64" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.main_stocks_Report_temp" Width="1.5" PointX="18.5" PointY="66.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.order_cart" Width="1.5" PointX="18.5" PointY="50.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.Order" Width="1.5" PointX="7.5" PointY="49.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.paymentvoucher" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.product" Width="1.5" PointX="16.25" PointY="45.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.sale" Width="1.5" PointX="19.5" PointY="56" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.sales_canceled" Width="1.5" PointX="15.5" PointY="61.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.salesman" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.salesmenledger" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.stock_complain" Width="1.5" PointX="10.25" PointY="47.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.stock" Width="1.5" PointX="13.25" PointY="60.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.stocks_added" Width="1.5" PointX="18.5" PointY="62.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.stocks_closing" Width="1.5" PointX="21.5" PointY="62" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.stocks_opening" Width="1.5" PointX="21.5" PointY="52" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.supply" Width="1.5" PointX="13.5" PointY="55.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.supplies_temp" Width="1.5" PointX="13.5" PointY="50.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.transaction" Width="1.5" PointX="7.5" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryModel.useraccount" Width="1.5" PointX="3" PointY="52.5" IsExpanded="true" />
+        <AssociationConnector Association="BakeryModel.FK_Balance_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_BankDeposits_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_transactions_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_useraccount_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_cart_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_cart_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_cart_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_cart_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_cart_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Account_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_customer_ledger_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_customer_ledger_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_customer_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_EmptiesReceived_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_EspectedEmpties_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_larstock_added_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Larstock_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_order_cart_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Order_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_customer_canceled" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_supplies_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_supplies_temp_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_transactions_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Backload_Emptytype" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Empties_Backload_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_EmptiesReceived_Emptytype" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_EmptiesReceived_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_empty_stock_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_EspectedEmpties_Emptytype" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_EspectedEmpties_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Expensis_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Expensis_useraccount1" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_larstock_added_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_larstock_added_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Larstock_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Larstock_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_main_stocks_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_main_stocks_Report_main_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_main_stocks_Report_temp_main_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_main_stocks_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_main_stocks_Report_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_main_stocks_Report_temp_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_order_cart_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_order_cart_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_order_cart_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_order_cart_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_order_cart_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_Order_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_canceled_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stock_complain_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_closing_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_opening_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_supplies_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_supplies_temp_products" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_canceled_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_canceled_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_canceled_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_canceled_useraccount1" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_canceled_useraccount2" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_sales_canceled_useraccount3" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_salesmenledger_salesmen" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stock_complain_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_added_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_closing_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_opening_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_supplies_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_added_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_closing_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_stocks_opening_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_supplies_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryModel.FK_transactions_useraccount" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BakeryModel.bonu" Width="1.5" PointX="3" PointY="8.25" />
+        <EntityTypeShape EntityType="BakeryModel.deduction" Width="1.5" PointX="3" PointY="11.375" />
+        <EntityTypeShape EntityType="BakeryModel.Salary" Width="1.5" PointX="3" PointY="14.5" />
+        <EntityTypeShape EntityType="BakeryModel.staff" Width="1.5" PointX="0.75" PointY="11" />
+        <AssociationConnector Association="BakeryModel.FK_bonus_staff" />
+        <AssociationConnector Association="BakeryModel.FK_deductions_staff" />
+        <AssociationConnector Association="BakeryModel.FK_Salary_staff" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

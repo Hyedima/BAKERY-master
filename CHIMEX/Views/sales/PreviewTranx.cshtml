@@ -1,0 +1,205 @@
+﻿@model CHIMEX.Models.transaction
+
+@{
+    ViewBag.Title = "PreviewTranx";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    decimal TotalAmount = 0;
+}
+
+<div class="col-md-12">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Preview Transaction</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>
+        <div class="panel-body" id="rpt">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Items Sold</h4>
+                    <table class="table">
+                        <tr>
+                            <td colspan="2">
+                                <label>Customer: @Model.customer.customer_name</label>
+
+
+                            </td>
+                            <td colspan="2">
+                                <label>
+                                    Date: @DateTime.Now
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label>
+                                    Payment Type: @Model.paymenttype
+                                </label>
+                            </td>
+                            <td colspan="2">
+                                <label>
+                                    Sold by: @Model.useraccount.firstname @Model.useraccount.lastname @Model.useraccount.othernames
+                                </label>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <th>
+                                Item
+                            </th>
+                            <th>
+                                Unit Price
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Amount (&#8358)
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in db.sales.Where(p => p.transaction_id == Model.id))
+                        {
+                            TotalAmount += Convert.ToDecimal(item.total_amount);
+
+                            <tr class="">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.product.product_name)
+                                </td>
+                                <td>
+                                    @String.Format("{0:#,#.00}", item.unitprice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.qty)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                                </td>*@
+                                <td>
+                                    @String.Format("{0:#,#.00}", item.total_amount)
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                        <tr>
+                            <th colspan="3">
+                                Amount
+                            </th>
+                            <th>
+                                    <!--&#8358 --> @String.Format("{0:#,#.00}", TotalAmount)
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <table class="table">
+                        
+                        <tr>
+                            <td colspan="4">
+                                Payments
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td colspan="2">
+                                Payment Date
+                            </td>
+                            <td colspan="2">
+                                Amount
+                            </td>
+                        </tr>
+                        @{
+                            var totalpay = 0;
+                        }
+                       @*@foreach (var item in db.salespayments.Where(p => p.customerid == Model.customerid && p.transactionid == Model.id))
+                        {
+                            totalpay += Convert.ToInt32(item.amount);
+                            <tr>
+                                <td colspan="2">
+                                    @item.insertdate
+                                </td>
+                                <td colspan="2">
+                                    @item.amount
+                                </td>
+
+                            </tr>
+                        }*@
+                        <tr>
+                            <th colspan="2">
+                                Total Amount Paid
+                            </th>
+                            <th colspan="2">
+                                @totalpay
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                BALANCE
+                            </th>
+                            <th colspan="2">
+                                @{
+                                    var bal = TotalAmount - totalpay;
+                                }
+                                @bal
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <table class="table">
+                        <tr>
+                            <td colspan="4">
+                                Supplies
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <th>
+                                Item
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            @*<th>
+                                Fulls Owing
+                            </th>*@
+                        </tr>
+                        @foreach (var item in db.supplies.Where(p => p.transaction_id == Model.id))
+                        {
+                            <tr class="">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.product.product_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.qty)
+                                </td>
+                               @* <td>
+                                    @{
+                                        var fulls = item.qty - db.supplies.Where(p => p.transaction_id == item.transaction_id && p.stock_id == item.stock_id && p.product_id == item.product_id).Sum(p => p.qty);
+                                    }
+                                    @if (fulls == null)
+                                    {
+                                        <label>
+                                            @item.qty
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label>
+                                            @fulls
+                                        </label>
+                                    }
+                                </td>*@
+                            </tr>
+                                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>
