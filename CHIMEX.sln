@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHILERP", "CHIMEX\PHILERP.csproj", "{A874DDDA-C3A3-4689-B892-A5B0CDFA1BDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{6F503726-0889-442A-A5A9-38BD6A73A02A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A874DDDA-C3A3-4689-B892-A5B0CDFA1BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A874DDDA-C3A3-4689-B892-A5B0CDFA1BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A874DDDA-C3A3-4689-B892-A5B0CDFA1BDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F503726-0889-442A-A5A9-38BD6A73A02A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F503726-0889-442A-A5A9-38BD6A73A02A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F503726-0889-442A-A5A9-38BD6A73A02A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F503726-0889-442A-A5A9-38BD6A73A02A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
