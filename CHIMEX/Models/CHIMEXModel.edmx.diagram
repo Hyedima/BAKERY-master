@@ -125,6 +125,15 @@
         <AssociationConnector Association="BakeryModel.FK_bonus_staff" />
         <AssociationConnector Association="BakeryModel.FK_deductions_staff" />
         <AssociationConnector Association="BakeryModel.FK_Salary_staff" />
+        <EntityTypeShape EntityType="BakeryModel.production" Width="1.5" PointX="22.5" PointY="55.5" />
+        <EntityTypeShape EntityType="BakeryModel.salarybatch" Width="1.5" PointX="5.25" PointY="35.125" />
+        <AssociationConnector Association="BakeryModel.FK_bonus_salarybatch" />
+        <AssociationConnector Association="BakeryModel.FK_deductions_salarybatch" />
+        <AssociationConnector Association="BakeryModel.FK_production_useraccounts" />
+        <AssociationConnector Association="BakeryModel.FK_Salary_salarybatch" />
+        <AssociationConnector Association="BakeryModel.FK_salarybatch_staff" />
+        <AssociationConnector Association="BakeryModel.FK_salarybatch_useraccounts" />
+        <AssociationConnector Association="BakeryModel.FK_production_stocks" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

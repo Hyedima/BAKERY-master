@@ -38,6 +38,7 @@
           <Property Name="insertdate" Type="datetime" />
           <Property Name="status" Type="varchar" MaxLength="200" />
           <Property Name="decription" Type="varchar" MaxLength="200" />
+          <Property Name="batchid" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Branches">
           <Key>
@@ -105,6 +106,7 @@
           <Property Name="insertdate" Type="datetime" />
           <Property Name="status" Type="varchar" MaxLength="200" />
           <Property Name="decription" Type="varchar" MaxLength="200" />
+          <Property Name="batchid" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Empties_Backload">
           <Key>
@@ -286,6 +288,19 @@
           <Property Name="approved_by" Type="varchar" MaxLength="200" />
           <Property Name="approved_on" Type="datetime" />
         </EntityType>
+        <EntityType Name="production">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" />
+          <Property Name="decription" Type="varchar" MaxLength="200" />
+          <Property Name="stockid" Type="varchar" MaxLength="200" />
+          <Property Name="qty_bags" Type="int" />
+          <Property Name="qty_items" Type="int" />
+          <Property Name="insertdate" Type="datetime" />
+          <Property Name="insertuser" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="products">
           <Key>
             <PropertyRef Name="id" />
@@ -307,6 +322,18 @@
           <Property Name="insertdate" Type="datetime" />
           <Property Name="status" Type="varchar" MaxLength="200" />
           <Property Name="decription" Type="varchar" MaxLength="200" />
+          <Property Name="batchid" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="salarybatch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="staffid" Type="varchar" MaxLength="200" />
+          <Property Name="notes" Type="varchar" MaxLength="200" />
+          <Property Name="status" Type="varchar" MaxLength="200" />
+          <Property Name="insertdate" Type="datetime" />
+          <Property Name="insertuser" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="sales">
           <Key>
@@ -581,15 +608,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_bonus_staff">
-          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+        <Association Name="FK_bonus_salarybatch">
+          <End Role="salarybatch" Type="Self.salarybatch" Multiplicity="0..1" />
           <End Role="bonus" Type="Self.bonus" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="staff">
+            <Principal Role="salarybatch">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="bonus">
-              <PropertyRef Name="staffid" />
+              <PropertyRef Name="batchid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -689,15 +716,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_deductions_staff">
-          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+        <Association Name="FK_deductions_salarybatch">
+          <End Role="salarybatch" Type="Self.salarybatch" Multiplicity="0..1" />
           <End Role="deductions" Type="Self.deductions" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="staff">
+            <Principal Role="salarybatch">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="deductions">
-              <PropertyRef Name="staffid" />
+              <PropertyRef Name="batchid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1061,15 +1088,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Salary_staff">
-          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+        <Association Name="FK_production_stocks">
+          <End Role="stocks" Type="Self.stocks" Multiplicity="0..1" />
+          <End Role="production" Type="Self.production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stocks">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production">
+              <PropertyRef Name="stockid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_production_useraccounts">
+          <End Role="useraccounts" Type="Self.useraccounts" Multiplicity="0..1" />
+          <End Role="production" Type="Self.production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="useraccounts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production">
+              <PropertyRef Name="insertuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salary_salarybatch">
+          <End Role="salarybatch" Type="Self.salarybatch" Multiplicity="0..1" />
           <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salarybatch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="batchid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_salarybatch_staff">
+          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+          <End Role="salarybatch" Type="Self.salarybatch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="staff">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Salary">
+            <Dependent Role="salarybatch">
               <PropertyRef Name="staffid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_salarybatch_useraccounts">
+          <End Role="useraccounts" Type="Self.useraccounts" Multiplicity="0..1" />
+          <End Role="salarybatch" Type="Self.salarybatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="useraccounts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salarybatch">
+              <PropertyRef Name="insertuser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1559,8 +1634,10 @@
           <EntitySet Name="order_cart" EntityType="Self.order_cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="paymentvouchers" EntityType="Self.paymentvouchers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="production" EntityType="Self.production" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="salarybatch" EntityType="Self.salarybatch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sales" EntityType="Self.sales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sales_canceled" EntityType="Self.sales_canceled" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="salesmen" EntityType="Self.salesmen" Schema="dbo" store:Type="Tables" />
@@ -1592,8 +1669,8 @@
             <End Role="useraccounts" EntitySet="useraccounts" />
             <End Role="BankDeposits" EntitySet="BankDeposits" />
           </AssociationSet>
-          <AssociationSet Name="FK_bonus_staff" Association="Self.FK_bonus_staff">
-            <End Role="staff" EntitySet="staff" />
+          <AssociationSet Name="FK_bonus_salarybatch" Association="Self.FK_bonus_salarybatch">
+            <End Role="salarybatch" EntitySet="salarybatch" />
             <End Role="bonus" EntitySet="bonus" />
           </AssociationSet>
           <AssociationSet Name="FK_cart_customer" Association="Self.FK_cart_customer">
@@ -1628,8 +1705,8 @@
             <End Role="useraccounts" EntitySet="useraccounts" />
             <End Role="customers" EntitySet="customers" />
           </AssociationSet>
-          <AssociationSet Name="FK_deductions_staff" Association="Self.FK_deductions_staff">
-            <End Role="staff" EntitySet="staff" />
+          <AssociationSet Name="FK_deductions_salarybatch" Association="Self.FK_deductions_salarybatch">
+            <End Role="salarybatch" EntitySet="salarybatch" />
             <End Role="deductions" EntitySet="deductions" />
           </AssociationSet>
           <AssociationSet Name="FK_Empties_Backload_useraccount" Association="Self.FK_Empties_Backload_useraccount">
@@ -1752,9 +1829,25 @@
             <End Role="useraccounts" EntitySet="useraccounts" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Salary_staff" Association="Self.FK_Salary_staff">
-            <End Role="staff" EntitySet="staff" />
+          <AssociationSet Name="FK_production_stocks" Association="Self.FK_production_stocks">
+            <End Role="stocks" EntitySet="stocks" />
+            <End Role="production" EntitySet="production" />
+          </AssociationSet>
+          <AssociationSet Name="FK_production_useraccounts" Association="Self.FK_production_useraccounts">
+            <End Role="useraccounts" EntitySet="useraccounts" />
+            <End Role="production" EntitySet="production" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_salarybatch" Association="Self.FK_Salary_salarybatch">
+            <End Role="salarybatch" EntitySet="salarybatch" />
             <End Role="Salary" EntitySet="Salary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_salarybatch_staff" Association="Self.FK_salarybatch_staff">
+            <End Role="staff" EntitySet="staff" />
+            <End Role="salarybatch" EntitySet="salarybatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_salarybatch_useraccounts" Association="Self.FK_salarybatch_useraccounts">
+            <End Role="useraccounts" EntitySet="useraccounts" />
+            <End Role="salarybatch" EntitySet="salarybatch" />
           </AssociationSet>
           <AssociationSet Name="FK_sales_canceled_products" Association="Self.FK_sales_canceled_products">
             <End Role="products" EntitySet="products" />
@@ -2380,6 +2473,7 @@
           <NavigationProperty Name="stocks_opening" Relationship="Self.FK_stocks_opening_stocks" FromRole="stocks" ToRole="stocks_opening" />
           <NavigationProperty Name="useraccount" Relationship="Self.FK_stocks_useraccount" FromRole="stocks" ToRole="useraccounts" />
           <NavigationProperty Name="supplies" Relationship="Self.FK_supplies_stocks" FromRole="stocks" ToRole="supplies" />
+          <NavigationProperty Name="productions" Relationship="BakeryModel.FK_production_stocks" FromRole="stock" ToRole="production" />
         </EntityType>
         <EntityType Name="stocks_added">
           <Key>
@@ -2542,6 +2636,8 @@
           <NavigationProperty Name="stocks_opening" Relationship="Self.FK_stocks_opening_useraccount" FromRole="useraccounts" ToRole="stocks_opening" />
           <NavigationProperty Name="supplies" Relationship="Self.FK_supplies_useraccount" FromRole="useraccounts" ToRole="supplies" />
           <NavigationProperty Name="transactions" Relationship="Self.FK_transactions_useraccount" FromRole="useraccounts" ToRole="transactions" />
+          <NavigationProperty Name="productions" Relationship="BakeryModel.FK_production_useraccounts" FromRole="useraccount" ToRole="production" />
+          <NavigationProperty Name="salarybatches" Relationship="BakeryModel.FK_salarybatch_useraccounts" FromRole="useraccount" ToRole="salarybatch" />
         </EntityType>
         <Association Name="FK_Balance_useraccount">
           <End Role="useraccounts" Type="Self.useraccount" Multiplicity="0..1" />
@@ -3873,6 +3969,36 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="productions" EntityType="BakeryModel.production" />
+          <EntitySet Name="salarybatches" EntityType="BakeryModel.salarybatch" />
+          <AssociationSet Name="FK_bonus_salarybatch" Association="BakeryModel.FK_bonus_salarybatch">
+            <End Role="salarybatch" EntitySet="salarybatches" />
+            <End Role="bonu" EntitySet="bonus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_deductions_salarybatch" Association="BakeryModel.FK_deductions_salarybatch">
+            <End Role="salarybatch" EntitySet="salarybatches" />
+            <End Role="deduction" EntitySet="deductions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_production_useraccounts" Association="BakeryModel.FK_production_useraccounts">
+            <End Role="useraccount" EntitySet="useraccounts" />
+            <End Role="production" EntitySet="productions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_salarybatch" Association="BakeryModel.FK_Salary_salarybatch">
+            <End Role="salarybatch" EntitySet="salarybatches" />
+            <End Role="Salary" EntitySet="Salaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_salarybatch_staff" Association="BakeryModel.FK_salarybatch_staff">
+            <End Role="staff" EntitySet="staffs" />
+            <End Role="salarybatch" EntitySet="salarybatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_salarybatch_useraccounts" Association="BakeryModel.FK_salarybatch_useraccounts">
+            <End Role="useraccount" EntitySet="useraccounts" />
+            <End Role="salarybatch" EntitySet="salarybatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_production_stocks" Association="BakeryModel.FK_production_stocks">
+            <End Role="stock" EntitySet="stocks" />
+            <End Role="production" EntitySet="productions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="bonu">
           <Key>
@@ -3885,6 +4011,8 @@
           <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="decription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="staff" Relationship="BakeryModel.FK_bonus_staff" FromRole="bonu" ToRole="staff" />
+          <Property Name="batchid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="salarybatch" Relationship="BakeryModel.FK_bonus_salarybatch" FromRole="bonu" ToRole="salarybatch" />
         </EntityType>
         <EntityType Name="deduction">
           <Key>
@@ -3897,6 +4025,8 @@
           <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="decription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="staff" Relationship="BakeryModel.FK_deductions_staff" FromRole="deduction" ToRole="staff" />
+          <Property Name="batchid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="salarybatch" Relationship="BakeryModel.FK_deductions_salarybatch" FromRole="deduction" ToRole="salarybatch" />
         </EntityType>
         <EntityType Name="Salary">
           <Key>
@@ -3909,6 +4039,8 @@
           <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="decription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="staff" Relationship="BakeryModel.FK_Salary_staff" FromRole="Salary" ToRole="staff" />
+          <Property Name="batchid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="salarybatch" Relationship="BakeryModel.FK_Salary_salarybatch" FromRole="Salary" ToRole="salarybatch" />
         </EntityType>
         <EntityType Name="staff">
           <Key>
@@ -3925,6 +4057,7 @@
           <NavigationProperty Name="bonus" Relationship="BakeryModel.FK_bonus_staff" FromRole="staff" ToRole="bonu" />
           <NavigationProperty Name="deductions" Relationship="BakeryModel.FK_deductions_staff" FromRole="staff" ToRole="deduction" />
           <NavigationProperty Name="Salaries" Relationship="BakeryModel.FK_Salary_staff" FromRole="staff" ToRole="Salary" />
+          <NavigationProperty Name="salarybatches" Relationship="BakeryModel.FK_salarybatch_staff" FromRole="staff" ToRole="salarybatch" />
         </EntityType>
         <Association Name="FK_bonus_staff">
           <End Type="BakeryModel.staff" Role="staff" Multiplicity="0..1" />
@@ -3973,6 +4106,121 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="production">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="decription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="qty_bags" Type="Int32" />
+          <Property Name="qty_items" Type="Int32" />
+          <Property Name="insertdate" Type="DateTime" Precision="3" />
+          <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="useraccount" Relationship="BakeryModel.FK_production_useraccounts" FromRole="production" ToRole="useraccount" />
+          <Property Name="stockid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="stock" Relationship="BakeryModel.FK_production_stocks" FromRole="production" ToRole="stock" />
+        </EntityType>
+        <EntityType Name="salarybatch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="staffid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="insertdate" Type="DateTime" Precision="3" />
+          <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bonus" Relationship="BakeryModel.FK_bonus_salarybatch" FromRole="salarybatch" ToRole="bonu" />
+          <NavigationProperty Name="deductions" Relationship="BakeryModel.FK_deductions_salarybatch" FromRole="salarybatch" ToRole="deduction" />
+          <NavigationProperty Name="Salaries" Relationship="BakeryModel.FK_Salary_salarybatch" FromRole="salarybatch" ToRole="Salary" />
+          <NavigationProperty Name="staff" Relationship="BakeryModel.FK_salarybatch_staff" FromRole="salarybatch" ToRole="staff" />
+          <NavigationProperty Name="useraccount" Relationship="BakeryModel.FK_salarybatch_useraccounts" FromRole="salarybatch" ToRole="useraccount" />
+        </EntityType>
+        <Association Name="FK_bonus_salarybatch">
+          <End Type="BakeryModel.salarybatch" Role="salarybatch" Multiplicity="0..1" />
+          <End Type="BakeryModel.bonu" Role="bonu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salarybatch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bonu">
+              <PropertyRef Name="batchid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_deductions_salarybatch">
+          <End Type="BakeryModel.salarybatch" Role="salarybatch" Multiplicity="0..1" />
+          <End Type="BakeryModel.deduction" Role="deduction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salarybatch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="deduction">
+              <PropertyRef Name="batchid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_production_useraccounts">
+          <End Type="BakeryModel.useraccount" Role="useraccount" Multiplicity="0..1" />
+          <End Type="BakeryModel.production" Role="production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="useraccount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production">
+              <PropertyRef Name="insertuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salary_salarybatch">
+          <End Type="BakeryModel.salarybatch" Role="salarybatch" Multiplicity="0..1" />
+          <End Type="BakeryModel.Salary" Role="Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salarybatch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="batchid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_salarybatch_staff">
+          <End Type="BakeryModel.staff" Role="staff" Multiplicity="0..1" />
+          <End Type="BakeryModel.salarybatch" Role="salarybatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salarybatch">
+              <PropertyRef Name="staffid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_salarybatch_useraccounts">
+          <End Type="BakeryModel.useraccount" Role="useraccount" Multiplicity="0..1" />
+          <End Type="BakeryModel.salarybatch" Role="salarybatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="useraccount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salarybatch">
+              <PropertyRef Name="insertuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_production_stocks">
+          <End Type="BakeryModel.stock" Role="stock" Multiplicity="0..1" />
+          <End Type="BakeryModel.production" Role="production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stock">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production">
+              <PropertyRef Name="stockid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4499,6 +4747,7 @@
           <EntitySetMapping Name="bonus">
             <EntityTypeMapping TypeName="BakeryModel.bonu">
               <MappingFragment StoreEntitySet="bonus">
+                <ScalarProperty Name="batchid" ColumnName="batchid" />
                 <ScalarProperty Name="decription" ColumnName="decription" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="insertdate" ColumnName="insertdate" />
@@ -4511,6 +4760,7 @@
           <EntitySetMapping Name="deductions">
             <EntityTypeMapping TypeName="BakeryModel.deduction">
               <MappingFragment StoreEntitySet="deductions">
+                <ScalarProperty Name="batchid" ColumnName="batchid" />
                 <ScalarProperty Name="decription" ColumnName="decription" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="insertdate" ColumnName="insertdate" />
@@ -4523,6 +4773,7 @@
           <EntitySetMapping Name="Salaries">
             <EntityTypeMapping TypeName="BakeryModel.Salary">
               <MappingFragment StoreEntitySet="Salary">
+                <ScalarProperty Name="batchid" ColumnName="batchid" />
                 <ScalarProperty Name="decription" ColumnName="decription" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="insertdate" ColumnName="insertdate" />
@@ -4570,6 +4821,32 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BakeryModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BakeryModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="productions">
+            <EntityTypeMapping TypeName="BakeryModel.production">
+              <MappingFragment StoreEntitySet="production">
+                <ScalarProperty Name="stockid" ColumnName="stockid" />
+                <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+                <ScalarProperty Name="qty_items" ColumnName="qty_items" />
+                <ScalarProperty Name="qty_bags" ColumnName="qty_bags" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salarybatches">
+            <EntityTypeMapping TypeName="BakeryModel.salarybatch">
+              <MappingFragment StoreEntitySet="salarybatch">
+                <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="staffid" ColumnName="staffid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

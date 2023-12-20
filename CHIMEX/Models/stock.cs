@@ -25,6 +25,7 @@ namespace CHIMEX.Models
             this.stocks_closing = new HashSet<stocks_closing>();
             this.stocks_opening = new HashSet<stocks_opening>();
             this.supplies = new HashSet<supply>();
+            this.productions = new HashSet<production>();
         }
     
         public string id { get; set; }
@@ -51,5 +52,7 @@ namespace CHIMEX.Models
         public virtual useraccount useraccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<supply> supplies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<production> productions { get; set; }
     }
 }

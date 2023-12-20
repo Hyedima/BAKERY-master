@@ -47,6 +47,8 @@ namespace CHIMEX.Models
             this.stocks_opening = new HashSet<stocks_opening>();
             this.supplies = new HashSet<supply>();
             this.transactions = new HashSet<transaction>();
+            this.productions = new HashSet<production>();
+            this.salarybatches = new HashSet<salarybatch>();
         }
     
         public string id { get; set; }
@@ -124,5 +126,9 @@ namespace CHIMEX.Models
         public virtual ICollection<supply> supplies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<transaction> transactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<production> productions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<salarybatch> salarybatches { get; set; }
     }
 }

@@ -1,134 +1,788 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- META SECTION -->
-    <title>Gobbles Bakery   </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <!-- END META SECTION -->
-  
-    <!-- CSS INCLUDE -->
-    <link rel="stylesheet" type="text/css" id="theme" href="~/joli/css/theme-default.css" />
-    <!-- EOF CSS INCLUDE -->
-</head>
-<body>
-    <!-- START PAGE CONTAINER -->
-    <div class="page-container">
+﻿@{
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    //var cur = db.currents.FirstOrDefault();
+    var userid = Session["userid"];
+    var email = Session["email"];
+}
 
-        <!-- START PAGE SIDEBAR -->
-        @Html.Partial("~/Views/Shared/_Leftbar.cshtml")
-        <!-- END PAGE SIDEBAR -->
-        <!-- PAGE CONTENT -->
-        <div class="page-content">
-            <!-- START X-NAVIGATION VERTICAL -->
-            @Html.Partial("~/Views/Shared/_Header.cshtml")
-            <!-- END X-NAVIGATION VERTICAL -->
-            <!-- START BREADCRUMB -->
-            <!-- END BREADCRUMB -->
-            <!-- PAGE CONTENT WRAPPER -->
-            <div class="page-content-wrap">
-                @RenderBody()
-                <!-- START DASHBOARD CHART -->
-                <div class="chart-holder" id="dashboard-area-1" style="height: 200px;"></div>
-                <div class="block-full-width">
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Dana</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Dana" name="description" />
+    <meta content="Codeicon Technology" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/Content/web/assets/images/favicon.ico">
+
+    <!-- jquery.vectormap css -->
+    <link href="~/Content/web/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+          type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="~/Content/web/assets/css/bootstrap.min.css" id="bootstrap-styledd" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/Content/web/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/Content/web/assets/css/app.min.css" id="app-styledd" rel="stylesheet" type="text/css" />
+
+    <!-- DataTables -->
+    <link href="~/Content/web/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/web/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+          type="text/css" />
+
+    <!-- Responsive Table css -->
+    <link href="~/Content/web/assets/libs/admin-resources/rwd-table/rwd-table.min.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- Responsive datatable examples -->
+    <link href="~/Content/web/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
+          type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="~/Content/web/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</head>
+
+<body data-layout="detached" data-topbar="colored">
+
+
+
+    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
+
+    <div class="container-fluid">
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+
+            <header id="page-topbar">
+                <div class="navbar-header">
+                    <div class="container-fluid">
+                        <div class="float-end">
+
+                            <div class="dropdown d-inline-block d-lg-none ms-2">
+                                <button type="button" class="btn header-item noti-icon waves-effect"
+                                        id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <i class="mdi mdi-magnify"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                                     aria-labelledby="page-header-search-dropdown">
+
+                                    <form class="p-3">
+                                        <div class="m-0">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Search ..."
+                                                       aria-label="Recipient's username">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="mdi mdi-magnify"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="dropdown d-none d-sm-inline-block">
+                                @*<button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    <img class="" src="~/Content/web/assets/images/flags/us.jpg" alt="Header Language" height="16">
+                                </button>*@
+                                <div class="dropdown-menu dropdown-menu-end">
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <img src="~/Content/web/assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <img src="~/Content/web/assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <img src="~/Content/web/assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <img src="~/Content/web/assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown d-none d-lg-inline-block ms-1">
+                                <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+                                    <i class="mdi mdi-fullscreen"></i>
+                                </button>
+                            </div>
+
+                            <div class="dropdown d-inline-block">
+                                <button type="button" class="btn header-item noti-icon waves-effect"
+                                        id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <i class="mdi mdi-bell-outline"></i>
+                                    <span class="badge rounded-pill bg-danger ">
+                                        @*@db.notifications.Where(p => p.receiver == email && p.isread == "False").Count()*@                                                                            
+                                    </span>
+        
+                                        </button>
+        
+                                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                                     aria-labelledby="page-header-notifications-dropdown">
+                                    <div class="p-3">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <h6 class="m-0"> Notifications </h6>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a href="#!" class="small"> View All</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-simplebar style="max-height: 230px;">
+
+                                        @*@foreach (var item in db.notifications.Where(p => p.receiver == email && p.isread == "False").ToList())
+                                        {
+                                            <a href="@Url.Action("Notification","Notifications", new {id = item.id})" class="text-reset notification-item">
+                                                <div class="d-flex align-items-start">
+                                                    <div class="avatar-xs me-3">
+                                                        <span class="avatar-title bg-primary rounded-circle font-size-16">
+                                                            <i class="bx bx-cart"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex-1">
+                                                        <h6 class="mt-0 mb-1">@item.title</h6>
+                                                        <div class="font-size-12 text-muted">
+                                                            <p class="mb-1">@item.description</p>
+                                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i>@item.insertdate</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        }*@
+
+                                        @*<a href="" class="text-reset notification-item">
+                                            <div class="d-flex align-items-start">
+                                                <img src="~/Content/web/assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs"
+                                                     alt="user-pic">
+                                                <div class="flex-1">
+                                                    <h6 class="mt-0 mb-1">James Lemire</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-1">It will seem like simplified English.</p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="d-flex align-items-start">
+                                                <div class="avatar-xs me-3">
+                                                    <span class="avatar-title bg-success rounded-circle font-size-16">
+                                                        <i class="bx bx-badge-check"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <h6 class="mt-0 mb-1">Your item is shipped</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-1">If several languages coalesce the grammar</p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="d-flex align-items-start">
+                                                <img src="~/Content/web/assets/images/users/avatar-4.jpg" class="me-3 rounded-circle avatar-xs"
+                                                     alt="user-pic">
+                                                <div class="flex-1">
+                                                    <h6 class="mt-0 mb-1">Salena Layfield</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>*@
+                                    </div>
+                                    <div class="p-2 border-top d-grid">
+                                        <a class="btn btn-sm btn-link font-size-14 " href="javascript:void(0)">
+                                            <i class="mdi mdi-arrow-right-circle me-1"></i> View More..
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown d-inline-block">
+                                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="rounded-circle header-profile-user" src="~/Content/web/assets/images/users/avatar-2.jpg"
+                                         alt="Header Avatar">
+                                    <span class="d-none d-xl-inline-block ms-1">@Session["email"]</span><!---DISPLAY THE LOGIN USER EMAIL-->
+                                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <!-- item-->
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-user font-size-16 align-middle me-1"></i>
+                                        Profile
+                                    </a>
+                                    <a class="dropdown-item d-block" href="#">
+                                        <span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> Settings
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-lock-open font-size-16 align-middle me-1"></i>
+                                        Lock screen
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" href="@Url.Action("Login","UserAccounts")">
+                                        <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> Logout
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown d-inline-block">
+                                <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
+                                    <i class="mdi mdi-settings-outline"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div>
+                            <!-- LOGO -->
+                            <div class="navbar-brand-box">
+                                <a href="@Url.Action("Index","Home")" class="logo logo-dark">
+                                    <span class="logo-sm">
+                                        <img src="~/Content/web/assets/images/logo-sm.png" alt="" height="20">
+                                    </span>
+                                    <span class="logo-lg">
+                                        <img src="~/Content/web/assets/images/logo-dark.png" alt="" height="17">
+                                    </span>
+                                </a>
+
+                                <a href="@Url.Action("Index","Home")" class="logo logo-light">
+                                    <span class="logo-sm">
+                                        @*////////////////////////     PAST QUESTON LOGO SHOULD BE HERE                  ////////////////////////////////////////////////////*@
+                                        <img src="~/Content/web/assets/images/logo-sm.png" alt="" height="20">
+                                    </span>
+                                    <span class="logo-lg">
+                                        <img src="~/Content/web/assets/images/logo-light.png" alt="" height="19">
+                                    </span>
+                                </a>
+                            </div>
+
+                            <button type="button" class="btn btn-sm px-3 font-size-16 header-item toggle-btn waves-effect"
+                                    id="vertical-menu-btn">
+                                <i class="fa fa-fw fa-bars"></i>
+                            </button>
+
+                            <!-- App Search-->
+                            <form class="app-search d-none d-lg-inline-block">
+                                <div class="position-relative">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="bx bx-search-alt"></span>
+                                </div>
+                            </form>
+
+                            <div class="dropdown dropdown-mega d-none d-lg-inline-block ms-2">
+                                @*<button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
+                                        aria-haspopup="false" aria-expanded="false">
+                                    Mega Menu
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </button>*@
+                                <div class="dropdown-menu dropdown-megamenu">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h5 class="font-size-14 mt-0">UI Components</h5>
+                                                    <ul class="list-unstyled megamenu-list text-muted">
+                                                        <li>
+                                                            <a href="javascript:void(0);">Lightbox</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Range Slider</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Sweet Alert</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Rating</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Forms</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Tables</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Charts</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <h5 class="font-size-14 mt-0">Applications</h5>
+                                                    <ul class="list-unstyled megamenu-list">
+                                                        <li>
+                                                            <a href="javascript:void(0);">Ecommerce</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Calendar</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Email</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Projects</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Tasks</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Contacts</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <h5 class="font-size-14 mt-0">Extra Pages</h5>
+                                                    <ul class="list-unstyled megamenu-list">
+                                                        <li>
+                                                            <a href="javascript:void(0);">Light Sidebar</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Compact Sidebar</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Horizontal layout</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Maintenance</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Coming Soon</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">Timeline</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);">FAQs</a>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <h5 class="font-size-14 mt-0">Components</h5>
+                                                    <div class="px-lg-2">
+                                                        <div class="row g-0">
+                                                            <div class="col">
+                                                                <a class="dropdown-icon-item" href="#">
+                                                                    <img src="~/Content/web/assets/images/brands/github.png" alt="Github">
+                                                                    <span>GitHub</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col">
+                                                                <a class="dropdown-icon-item" href="#">
+                                                                    <img src="~/Content/web/assets/images/brands/bitbucket.png" alt="bitbucket">
+                                                                    <span>Bitbucket</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col">
+                                                                <a class="dropdown-icon-item" href="#">
+                                                                    <img src="~/Content/web/assets/images/brands/dribbble.png" alt="dribbble">
+                                                                    <span>Dribbble</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row g-0">
+                                                            <div class="col">
+                                                                <a class="dropdown-icon-item" href="#">
+                                                                    <img src="~/Content/web/assets/images/brands/dropbox.png" alt="dropbox">
+                                                                    <span>Dropbox</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col">
+                                                                <a class="dropdown-icon-item" href="#">
+                                                                    <img src="~/Content/web/assets/images/brands/mail_chimp.png" alt="mail_chimp">
+                                                                    <span>Mail Chimp</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col">
+                                                                <a class="dropdown-icon-item" href="#">
+                                                                    <img src="~/Content/web/assets/images/brands/slack.png" alt="slack">
+                                                                    <span>Slack</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div>
+                                                        <div class="card text-white mb-0 overflow-hidden text-white-50"
+                                                             style="background-image: url('~/Content/web/assets/images/megamenu-img.png');background-size: cover;">
+                                                            <div class="card-img-overlay"></div>
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6">
+                                                                        <h4 class="text-white mb-3">Sale</h4>
+
+                                                                        <h5 class="text-white-50">
+                                                                            Up to <span class="font-size-24 text-white">50 %</span> Off
+                                                                        </h5>
+                                                                        <p>At vero eos accusamus et iusto odio.</p>
+                                                                        <div class="mb-4">
+                                                                            <a href="#" class="btn btn-success btn-sm">View more</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+
+            <!-- ========== Left Sidebar Start ========== -->
+            @Html.Partial("~/Views/Shared/_leftbar.cshtml")
+            <!-- ========== Left Sidebar End ========== -->
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                <div class="page-content">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="page-title mb-0 font-size-18">
+
+                                    <!---DISPLAYING THE TERM OF THE SESSION-->
+                                    <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                                        <li class="nav-item d-none d-md-block fc-center">
+                                            <div class="customize-input">
+                                                <h2 class="btn btn-outline-light btn-sm">
+                                                    <strong>
+                                                        Welcome to Donier Flight/Duty Hours Management  Dashboard
+                                                    </strong>
+                                                    
+                                                </h2>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </h4>
+
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item active"></li>
+                                    </ol>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+
+                    <div class="container-fluid">
+                        @if (TempData["success"] != null)
+                        {
+                            if (TempData["success"].ToString() == "true")
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <strong>Success! </strong> @TempData["message"]
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <strong>Error! </strong> @TempData["message"]
+                                </div>
+                            }
+                        }
+
+                        @RenderBody()
+
+                    </div>
+
+                    @* Printing Div *@
+                    <script language="javascript" type="text/javascript">
+                        function printDiv(divName) {
+                            var printContents = document.getElementById(divName).innerHTML;
+                            var originalContents = document.body.innerHTML;
+                            document.body.innerHTML = printContents;
+
+                            window.print();
+
+                            document.body.innerHTML = originalContents;
+                        }
+                    </script>
+                    <script>
+                        function myFunction() {
+                            // Declare variables
+                            var input, filter, table, tr, td, i, txtValue;
+                            input = document.getElementById("myInput");
+                            filter = input.value.toUpperCase();
+                            table = document.getElementById("search");
+                            tr = table.getElementsByTagName("tr");
+
+                            // Loop through all table rows, and hide those who don't match the search query
+                            for (i = 0; i < tr.length; i++) {
+                                td = tr[i].getElementsByTagName("td")[1];
+                                if (td) {
+                                    txtValue = td.textContent || td.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                    </script>
+
+                    @*//for searching*@
+                    <style>
+                        #myInput {
+                            background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+                            background-position: 10px 12px; /* Position the search icon */
+                            background-repeat: no-repeat; /* Do not repeat the icon image */
+                            width: 100%; /* Full-width */
+                            font-size: 16px; /* Increase font-size */
+                            padding: 12px 20px 12px 40px; /* Add some padding */
+                            border: 1px solid #ddd; /* Add a grey border */
+                            margin-bottom: 12px; /* Add some space below the input */
+                        }
+
+                        #search {
+                            border-collapse: collapse; /* Collapse borders */
+                            width: 100%; /* Full-width */
+                            border: 1px solid #ddd; /* Add a grey border */
+                            font-size: 18px; /* Increase font-size */
+                        }
+
+                            #search th, #search td {
+                                text-align: left; /* Left-align text */
+                                padding: 12px; /* Add padding */
+                            }
+
+                            #search tr {
+                                /* Add a bottom border to all table rows */
+                                border-bottom: 1px solid #ddd;
+                            }
+
+                                #search tr.header, #search tr:hover {
+                                    /* Add a grey background color to the table header and on hover */
+                                    background-color: #f1f1f1;
+                                }
+                    </style>
+
+
+
+
 
                 </div>
-                <!-- END DASHBOARD CHART -->
+                <!-- End Page-content -->
+
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <script>document.write(new Date().getFullYear())</script> © Qovex.
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-end d-none d-sm-block">
+                                    Design & Develop by Codeicon Technology
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- end main content-->
+
+        </div>
+        <!-- END layout-wrapper -->
+
+    </div>
+    <!-- end container-fluid -->
+    <!-- Right Sidebar -->
+    <div class="right-bar">
+        <div data-simplebar class="h-100">
+            <div class="rightbar-title px-3 py-4">
+                <a href="javascript:void(0);" class="right-bar-toggle float-end">
+                    <i class="mdi mdi-close noti-icon"></i>
+                </a>
+                <h5 class="m-0">Settings</h5>
+            </div>
+
+            <!-- Settings -->
+            <hr class="mt-0" />
+            <h6 class="text-center mb-0">Choose Layouts</h6>
+
+            <div class="p-4">
+                <div class="mb-2">
+                    <img src="~/Content/web/assets/images/layouts/layout-1.jpg" class="img-fluid img-thumbnail" alt="">
+                </div>
+
+                <div class="form-check form-switch mb-3">
+                    <input type="checkbox" class="form-check-input theme-choice" id="light-mode-switch" checked />
+                    <label class="form-check-label" for="light-mode-switch">Light Mode</label>
+                </div>
+
+                <div class="mb-2">
+                    <img src="~/Content/web/assets/images/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="">
+                </div>
+
+                <div class="form-check form-switch mb-3">
+                    <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch"
+                           data-bsStyle="~/Content/web/assets/css/bootstrap-dark.min.css" data-appStyle="~/Content/web/assets/css/app-dark.min.css" />
+                    <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
+                </div>
+
+                <div class="mb-2">
+                    <img src="~/Content/web/assets/images/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="">
+                </div>
+                <div class="form-check form-switch mb-5">
+                    <input type="checkbox" class="form-check-input theme-choice" id="rtl-mode-switch"
+                           data-appStyle="~/Content/web/assets/css/app-rtl.min.css" />
+                    <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
+                </div>
 
             </div>
-            <!-- END PAGE CONTENT WRAPPER -->
+
         </div>
-        <!-- END PAGE CONTENT -->
+        <!-- end slimscroll-menu-->
     </div>
-    <!-- END PAGE CONTAINER -->
-    <!-- START PRELOADS -->
-    <audio id="audio-alert" src="~/joli/audio/alert.mp3" preload="auto"></audio>
-    <audio id="audio-fail" src="~/joli/audio/fail.mp3" preload="auto"></audio>
-    <!-- END PRELOADS -->
-    <!-- START SCRIPTS -->
-   
+    <!-- /Right-bar -->
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
 
-    <!-- START THIS PAGE PLUGINS-->
-    <script type='text/javascript' src='~/joli/js/plugins/icheck/icheck.min.js'></script>
-    <script type="text/javascript" src="~/joli/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-    <script type="text/javascript" src="~/joli/js/plugins/scrolltotop/scrolltopcontrol.js"></script>
+    <!-- JAVASCRIPT -->
+    <!-- JAVASCRIPT -->
+    <script src="~/Content/web/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/Content/web/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/web/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="~/Content/web/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/Content/web/assets/libs/node-waves/waves.min.js"></script>
+    <script src="~/Content/web/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
 
-    <script type="text/javascript" src="~/joli/js/plugins/morris/raphael-min.js"></script>
-    <script type="text/javascript" src="~/joli/js/plugins/morris/morris.min.js"></script>
-    <script type="text/javascript" src="~/joli/js/plugins/rickshaw/d3.v3.js"></script>
-    <script type="text/javascript" src="~/joli/js/plugins/rickshaw/rickshaw.min.js"></script>
-    <script type='text/javascript' src='~/joli/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
-    <script type='text/javascript' src='~/joli/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>
-    <script type='text/javascript' src='~/joli/js/plugins/bootstrap/bootstrap-datepicker.js'></script>
-    <script type="text/javascript" src="~/joli/js/plugins/owl/owl.carousel.min.js"></script>
+    <!-- apexcharts -->
+    <script src="~/Content/web/assets/libs/apexcharts/apexcharts.min.js"></script>
 
-    <script type="text/javascript" src="~/joli/js/plugins/moment.min.js"></script>
-    <script type="text/javascript" src="~/joli/js/plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- END THIS PAGE PLUGINS-->
-    <!-- START TEMPLATE -->
-    <script type="text/javascript" src="~/joli/js/settings.js"></script>
+    <!-- jquery.vectormap map -->
+    <script src="~/Content/web/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/Content/web/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
 
-    <script type="text/javascript" src="~/joli/js/plugins.js"></script>
-    <script type="text/javascript" src="~/joli/js/actions.js"></script>
+    <script src="~/Content/web/assets/js/pages/dashboard.init.js"></script>
 
-    <script type="text/javascript" src="~/joli/js/demo_dashboard.js"></script>
-    <!-- END TEMPLATE -->
-    <!-- Print div begin -->
-    <script language="javascript" type="text/javascript">
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        var strHtml = " <link rel=\"stylesheet\" type=\"text/css\"  href=\"style.css\">";
+    <!-- Required datatable js -->
+    <script src="~/Content/web/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/web/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/Content/web/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/web/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/web/assets/libs/jszip/jszip.min.js"></script>
+    <script src="~/Content/web/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/Content/web/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/Content/web/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Content/web/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Content/web/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/Content/web/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/web/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
-        document.body.innerHTML = strHtml + printContents;
+    <!-- Datatable init js -->
+    <script src="~/Content/web/assets/js/pages/datatables.init.js"></script>
+
+    <!-- Responsive Table js -->
+    <script src="~/Content/web/assets/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
 
 
-        window.print();
 
-        document.body.innerHTML = originalContents;
-    }
-    </script>
-    <!-- Print div End -->
+    <!-- Table Editable plugin -->
+    <script src="~/Content/web/assets/libs/table-edits/build/table-edits.min.js"></script>
 
-   <!--<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>-->
+    <script src="~/Content/web/assets/js/pages/table-editable.int.js"></script>
 
-    <script type="text/javascript">
+
+    <!-- form repeater js -->
+    <script src="~/Content/web/assets/libs/jquery.repeater/jquery.repeater.min.js"></script>
+
+    <!-- form repeater init -->
+    <script src="~/Content/web/assets/js/pages/form-repeater.init.js"></script>
+
+
+    <!-- Sweet Alerts js -->
+    <script src="~/Content/web/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="~/Content/web/assets/js/pages/sweet-alerts.init.js"></script>
+
+
+    <!-- Init js -->
+    <script src="~/Content/web/assets/js/pages/table-responsive.init.js"></script>
+
+
+    <!-- App js -->
+    <script src="~/Content/web/assets/js/app.js"></script>
+
+
+    <!-- =========================From dantoro yason school project===================================== -->
+    @*<script src="~/Content/assets/assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="~/Content/assets/assets/libs/popper.js/dist/umd/popper.min.js"></script>*@
+    <script src="~/Content/assets/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- =========================From dantoro yason school project===================================== -->
+    <!-- =========================Drop down search select search ===================================== -->
+    <script src="~/Content/dist/js/select2.js"></script>
+    <link href="~/Content/dist/css/select2.css" rel="stylesheet" />
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <script>
         $(document).ready(function () {
-            $('#search').DataTable();
-           //alert("helloo");
+            $("select").select2();
         });
     </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#search1').DataTable();
-           //alert("helloo");
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#search2').DataTable();
-           //alert("helloo");
-        });
-    </script>
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
 
-
-
-    <!-- START PLUGINS -->
-    <script type="text/javascript" src="~/joli/js/plugins/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="~/joli/js/plugins/jquery/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="~/joli/js/plugins/bootstrap/bootstrap.min.js"></script>
-    <!-- END PLUGINS -->
-    <!-- THIS Datatable PLUGINS -->
-
-    <script type="text/javascript" src="~/joli/js/plugins/datatables/jquery.dataTables.min.js"></script>
-    <!-- END Datatable PLUGINS -->
-    <!-- END SCRIPTS -->
 </body>
+
 </html>
-
-
-

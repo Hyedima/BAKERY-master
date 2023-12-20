@@ -20,7 +20,9 @@ namespace CHIMEX.Models
         public Nullable<System.DateTime> insertdate { get; set; }
         public string status { get; set; }
         public string decription { get; set; }
+        public string batchid { get; set; }
     
         public virtual staff staff { get; set; }
+        public virtual salarybatch salarybatch { get; set; }
     }
 }

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CHIMEX.Models.production>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+}
+<div class="col-lg-offset-1 col-md-10">
+    <!-- START SALES & EVENTS BLOCK -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title-box">
+                <h3>Productions</h3>
+            </div>
+            <ul class="panel-controls" style="margin-top: 2px;">
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
+                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body ">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Stock</th>
+                        <th>Bags</th>
+                        <th>Qty</th>
+                        <th>Date</th>
+                        <th>User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ToList().OrderByDescending(p => p.insertdate))
+                    {
+                        sn++;
+                        <tr>
+                            <td>
+                                @sn
+                            </td>
+                            <td>
+                                @item.stock.product.product_name
+                            </td>
+                            <td>
+                                @item.qty_bags
+                            </td>
+                            <td>
+                                @item.qty_items
+                            </td>
+                            <td>
+                                @item.useraccount.firstname @item.useraccount.lastname
+                            </td>
+                            <td>
+                                @item.insertdate
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END SALES & EVENTS BLOCK -->
+</div>
+

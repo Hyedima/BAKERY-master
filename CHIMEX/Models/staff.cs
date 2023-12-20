@@ -20,6 +20,7 @@ namespace CHIMEX.Models
             this.bonus = new HashSet<bonu>();
             this.deductions = new HashSet<deduction>();
             this.Salaries = new HashSet<Salary>();
+            this.salarybatches = new HashSet<salarybatch>();
         }
     
         public string id { get; set; }
@@ -37,5 +38,7 @@ namespace CHIMEX.Models
         public virtual ICollection<deduction> deductions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Salary> Salaries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<salarybatch> salarybatches { get; set; }
     }
 }

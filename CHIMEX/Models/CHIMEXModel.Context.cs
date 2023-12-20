@@ -66,6 +66,8 @@ namespace CHIMEX.Models
         public virtual DbSet<deduction> deductions { get; set; }
         public virtual DbSet<Salary> Salaries { get; set; }
         public virtual DbSet<staff> staffs { get; set; }
+        public virtual DbSet<production> productions { get; set; }
+        public virtual DbSet<salarybatch> salarybatches { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

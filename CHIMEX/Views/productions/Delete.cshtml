@@ -1,0 +1,81 @@
+﻿@model CHIMEX.Models.production
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>production</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.decription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.decription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qty_bags)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qty_bags)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qty_items)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qty_items)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.insertdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insertdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product.product_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product.product_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.useraccount.branchid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.useraccount.branchid)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
