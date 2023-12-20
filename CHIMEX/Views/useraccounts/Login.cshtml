@@ -74,72 +74,72 @@
 
 
 @*<!DOCTYPE html>
-<html lang="en" class="body-full-height">
-<head>
-     META SECTION 
-    <title>GOBBLES BAKERY-Login</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <html lang="en" class="body-full-height">
+    <head>
+         META SECTION
+        <title>GOBBLES BAKERY-Login</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-     END META SECTION 
-     CSS INCLUDE 
-    <link rel="stylesheet" type="text/css" id="theme" href="~/joli/css/theme-default.css" />
-     EOF CSS INCLUDE 
-</head>
-<body>
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+         END META SECTION
+         CSS INCLUDE
+        <link rel="stylesheet" type="text/css" id="theme" href="~/joli/css/theme-default.css" />
+         EOF CSS INCLUDE
+    </head>
+    <body>
 
-    <div class="login-container" style="background-image: url('~/joli/img/snacksbanner.jpg');">
+        <div class="login-container" style="background-image: url('~/joli/img/snacksbanner.jpg');">
 
-        <div class="login-box animated fadeInDown">
+            <div class="login-box animated fadeInDown">
 
-            <div class="login-body">
-                <center>
-                    <h1 class="text-capitalize login-title">
+                <div class="login-body">
+                    <center>
+                        <h1 class="text-capitalize login-title">
 
-                        GOBBLES BAKERY
-                    </h1>
-                    <br />
-                    <br />
-                </center>
-                <div class="login-title"><strong>Welcome</strong>, Please login</div>
-                <form id="frmLogin" method="post" action="@Url.Action("Login", "UserAccounts")">
-                    @Html.AntiForgeryToken()
+                            GOBBLES BAKERY
+                        </h1>
+                        <br />
+                        <br />
+                    </center>
+                    <div class="login-title"><strong>Welcome</strong>, Please login</div>
+                    <form id="frmLogin" method="post" action="@Url.Action("Login", "UserAccounts")">
+                        @Html.AntiForgeryToken()
 
 
-                    <div class="form-horizontal">
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div id="msg" class="text text-danger">@ViewBag.error</div>
-                        <div id="success" class="text text-success"></div>
-                        <label>Email</label>
-                        <input type="email" name="email" id="email" class="form-control" />
-                        <label>Password</label>
-                        <input type="password" name="password" id="password" class="form-control" />
+                        <div class="form-horizontal">
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div id="msg" class="text text-danger">@ViewBag.error</div>
+                            <div id="success" class="text text-success"></div>
+                            <label>Email</label>
+                            <input type="email" name="email" id="email" class="form-control" />
+                            <label>Password</label>
+                            <input type="password" name="password" id="password" class="form-control" />
 
-                        <div class="clearfix"></div>
-                        <hr />
-                        <button class="btn btn-success" id="btnLogin">Login</button>
+                            <div class="clearfix"></div>
+                            <hr />
+                            <button class="btn btn-success" id="btnLogin">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="login-footer">
+                    <div class="pull-left">
+                        &copy; @DateTime.Now.Year GOBBLES BAKERY
                     </div>
-                </form>
-            </div>
-            <div class="login-footer">
-                <div class="pull-left">
-                    &copy; @DateTime.Now.Year GOBBLES BAKERY
-                </div>
-                <div class="pull-right">
-                    <a href="#@Url.Action("Index","Home")">About</a> |
-                    <a href="@Url.Action("Index","Home")">Privacy</a> |
-                    <a href="@Url.Action("Index","Home")">Contact Us</a>
+                    <div class="pull-right">
+                        <a href="#@Url.Action("Index","Home")">About</a> |
+                        <a href="@Url.Action("Index","Home")">Privacy</a> |
+                        <a href="@Url.Action("Index","Home")">Contact Us</a>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
-
-</body>
-</html>*@
+    </body>
+    </html>*@
 
 
 
@@ -166,9 +166,7 @@
 </head>
 
 <body>
-    <div class="home-btn d-none d-sm-block">
-        <a href="index.html" class="text-dark"><i class="fas fa-home h2"></i></a>
-    </div>
+    
     <div class="account-pages my-5 pt-sm-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -182,7 +180,7 @@
                                 </h5>
                                 <p class="text-white-50 mb-0">Welcome, Please login</p>
                                 <a href="index.html" class="logo logo-admin mt-4">
-                                    <img src="~/Content/web/assets/images/logo-sm-dark.png" alt="" height="30">
+                                    <img src="~/Content/web/assets/images/logo-sm-dark.png" alt="" height="50">
                                 </a>
                             </div>
                         </div>
@@ -215,10 +213,10 @@
                                     </div>
 
                                     @*<div class="mt-4 text-center">
-            <a href="pages-recoverpw.html" class="text-muted">
-                <i class="mdi mdi-lock me-1"></i> Forgot your password?
-            </a>
-        </div>*@
+                                            <a href="pages-recoverpw.html" class="text-muted">
+                                                <i class="mdi mdi-lock me-1"></i> Forgot your password?
+                                            </a>
+                                        </div>*@
                                 </form>
                             </div>
 

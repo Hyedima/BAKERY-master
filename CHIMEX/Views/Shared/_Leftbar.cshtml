@@ -1,7 +1,14 @@
-﻿
-@{
+﻿@{
     CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    string userid = "";
+    if (Session["userid"] != null)
+    {
+        userid = Session["userid"].ToString();
+    }
+    var User = db.useraccounts.Find(userid);
 }
+
+
 <!-- ========== Left Sidebar Start ========== -->
 <div class="vertical-menu">
 
@@ -13,19 +20,19 @@
                 <a href="@Url.Action("Index","Home")">
                     <b class="logo-icon">
                         <!-- Dark Logo icon -->
-                        <img src="~/Content/dist/assets/images/users/avatar-2.jpg" alt="" class="avatar-md mx-auto rounded-circle">
-
+                        <img src="~/Content/web/assets/images/users/avatar-2.jpg" alt="" class="avatar-md mx-auto rounded-circle">
                     </b>
                 </a>
             </div>
 
             <div class="mt-3">
-                <a href="" class="text-dark fw-medium font-size-16">@Session["email"]</a>
+                <a href="@Url.Action("Index","Home")"> Welcome @User.firstname @User.lastname</a>
+                <a href="" class="text-dark fw-medium font-size-16">@User.email</a>
                 <p class="text-body mt-1 mb-0 font-size-13">WELLCOME</p>
-                <a href="@Url.Action("Index","Home")"
-                   class="btn btn-primary fw-medium font-size-16">
-                    <i class="mdi mdi-home"></i>
-                    <span>DATA MANAGEMENT</span>
+                <a href="@Url.Action("ChangePassword/"+userid,"useraccounts")"
+                   class="btn btn-primary fw-medium font-size-10">
+                    <i class="mdi mdi-textbox-password"></i>
+                    <span>Change Password</span>
                 </a>
             </div>
         </div>
@@ -33,482 +40,368 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                @if (Session["usertype"] == null)
+
+
+                @if (Session["userid"] == null || Session["usertype"] == null)
                 {
 
                 }
                 else
                 {
-                    string usertype = Session["usertype"].ToString();
-                    if (usertype == "")
+
+                    string UserType = Session["usertype"].ToString();
+                    if (UserType == "ACCOUNT")
+                    { }
+                    if (UserType == "SALES_CLARK")
                     {
+                        <li class="menu-title">CASH OFFICE</li>
+
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Sales", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    SALES DASHBORD
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Products")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    PRODUCTS (FINISHED GOODS/ RAW MATERIALS)
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    MANAGE STOCKS (FINISHED GOODS)
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Orders")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    ORDER
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("UserSalesReport", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    SALES REPORT
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Customers")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    CUSTOMERS
+                                </span>
+                            </a>
+                        </li>
 
                     }
                     else
-                    if (usertype == "CASH")
+                    if (UserType == "STORE_KEEPER")
                     {
+                        <li class="menu-title">STORE KEEPER</li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Products")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    PRODUCTS (FINISHED GOODS/ RAW MATERIALS)
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    MANAGE STOCKS (FINISHED GOODS)
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("index", "main_stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    RAW MATERIALS
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("supply", "main_stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    GIVE OUT STOCK
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("StockoutReport", "main_stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    MAIN STORE REPORT
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Customers")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    CUSTOMERS
+                                </span>
+                            </a>
+                        </li>
 
                     }
-                    else
-                   if (usertype == "BOOKSHOP")
+                    if (UserType == "ADMIN")
                     {
-
-                    }
-                    else
-                   if (usertype == "MATERIALSALES")
-                    {
-
-                    }
-                    else
-                        if (usertype == "ADMIN")
-                    {
-                        <div id="sidebar-menu">
-                            <!-- Left Menu Start -->
-                            <ul class="metismenu list-unstyled" id="side-menu">
-                                <li class="menu-title">DATA MANAGEMENT</li>
-                                @*<li>
-                            <a href="javascript: void(0);" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i><span class="badge rounded-pill bg-info float-end">2</span>
-                                <span>Dashboard</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="index.html">Dashboard 1</a></li>
-                                <li><a href="index-2.html">Dashboard 2</a></li>
-                            </ul>
-                        </li>*@
-                                @*<li class="bg-primary">
-                            <a href="javascript: void(0);" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i><span class="badge rounded-pill bg-info float-end">2</span>
-                                <span class="text-white">MAIN STORE</span>
+                        <li class="menu-title">ADMIN</li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Products")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    PRODUCTS (FINISHED GOODS/ RAW MATERIALS)
+                                </span>
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Products","MainStore")" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i>
-                                <span>Products</span>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Productions")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    PRODUCTION
+                                </span>
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Stock","MainStore")" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i>
-                                <span>Stocks</span>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    MANAGE STOCKS
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("SalesReport", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    SALES REPORT
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("StockInReport","MainStore")" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i>
-                                <span>Add Stocks Report</span>
+                            <a class="sidebar-link" href="@Url.Action("Customertrnx", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    MODIFY TRANSACTION
+                                </span>
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("StockOutReport","MainStore")" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i>
-                                <span>Taken Stocks Report</span>
+                            <a class="sidebar-link" href="@Url.Action("Create", "Expensis")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    POST EXPENSIS
+                                </span>
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("SupplyDrinks","MainStore")" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i>
-                                <span>Suply Drinks</span>
-                            </a>
-                        </li>*@
-                                <li class="bg-primary">
-                                    <a href="javascript: void(0);" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span class="badge rounded-pill bg-info float-end">
-                                            @{
-                                                //string userid = Session["userid"].ToString();
-                                                string email = Session["email"].ToString();
-                                                int totalNotification = 0; // db.notifications.Where(p => p.receiver == email && p.isread == "False").Count();
-                                            }
-                                            @totalNotification
-                                        </span>
-                                        <span class="text-white">Notification</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("pilot","Crew")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Pilot</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("crew","Crew")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Crew</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("flighttime","Crew")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Flight Time</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("dutytime","Crew")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Duty Time</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="@Url.Action("flightDutyReport","Crew")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Flight/Duty Report</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("CrewDocuments","Crew")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Documentation</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("PersonalFiles","Documentation")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Trainings</span>
-                                    </a>
-                                </li>
-
-
-
-
-
-
-
-
-
-
-
-
-                                @*<li>
-                            <a href="@Url.Action("Profile","Home")" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i>
-                                <span>Aircraf</span>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Staffs")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    WAGES/SALARIES
+                                </span>
                             </a>
                         </li>
+                        <!--<li>
+                <a class="" href="@Url.Action("ViewCustomertrnx", "Sales")">
+                    <span class="fa fa-align-center"></span>
+                    TRANSACTION REPORT
+                </a>
+            </li>-->
                         <li>
-                            <a href="@Url.Action("Time","Home")" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i>
-                                <span>Flight Time Report</span>
+                            <a class="sidebar-link" href="@Url.Action("Changeusertype", "Useraccounts")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    USER ROLES
+                                </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="@Url.Action("Time","Home")" class="waves-effect">
-                                <i class="mdi mdi-airplay"></i>
-                                <span>Duty Time Report</span>
-                            </a>
-                        </li>*@
-
-                                <li class="menu-title">DATA MANAGEMENT</li>
-
-                                <li>
-                                    <a href="@Url.Action("index","Useraccounts")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>User Account</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Crew","Crew")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Crew Management</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("index","Customer")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Customer Management</span>
-                                    </a>
-                                </li>
-
-
-
-
-
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
-                                        <span>Aircraft Management</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li>
-                                            <a href="@Url.Action("Index","Aircraft")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>View Aircraft Listing</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Create","Aircraft")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Add New</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
-                                        <span>Aircraft Tech Logs</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li>
-                                            <a href="@Url.Action("Techlog","AircraftLog")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Techlog Listing</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("TechlogSheet","AircraftLog")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Techlog (By Date)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Create","AircraftLog")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Add New</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
-                                        <span>Crew Duty Logs</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li>
-                                            <a href="@Url.Action("Index","CrewDutyLog")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Crew Duty Listing</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Index","CrewDutyLog")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Crew Log (By Date)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Create","CrewDutyLog")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Add New</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
-                                        <span>Documentation</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li>
-                                            <a href="@Url.Action("crewdocuments","crew")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Documentation Listing</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="@Url.Action("Create","Documentation")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Add New</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-title">NOTIFICATION</li>
-                                <li>
-                                    <a href="@Url.Action("Index","Crew")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Notification</span>
-                                    </a>
-                                </li>
-
-
-                                <li class="menu-title">REPORTS</li>
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
-                                        <span>Crew</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li>
-                                            <a href="@Url.Action("Index","Crew")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Plot Hours (Multiple)</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="@Url.Action("Create","Crew")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Periodic Hours (All)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("PeriodHoursReportSingle","Crew")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Periodic Hours (Single)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Create","Crew")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Periodic Hours (Cross Match)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Create","Crew")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Pilot Cummuulative Hours</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
-                                        <span>Aircraft</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li>
-                                            <a href="@Url.Action("UsageStatsAll","Aircraft")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Usage Stats (All)</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="@Url.Action("Create","Aircraft")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Usage Stats (Single)</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
-                                        <span>Fuel</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li>
-                                            <a href="@Url.Action("Index","Fuel")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Annual Consumption</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
-                                        <span>Customers</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li>
-                                            <a href="@Url.Action("CustomerStatsUsageSingle","Customer")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Usage Stats (All)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Create","Customer")" class="waves-effect">
-                                                <i class="mdi mdi-airplay"></i>
-                                                <span>Usage Stats (Single)</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-
-
-                                <li class="menu-title">SETTINGS</li>
-
-                                <li>
-                                    <a href="@Url.Action("License","Settings")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Licenses</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="@Url.Action("DelayCodes","Settings")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Delay Codes</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Destination","Settings")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Destination</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("DocumentType","Settings")" class="waves-effect">
-                                        <i class="mdi mdi-airplay"></i>
-                                        <span>Document Type</span>
-                                    </a>
-                                </li>
-
-
-
-
-
-
-                            </ul>
-                        </div>
-
-                    }
-                }
-                <hr />
-                <li class="active">
-                    <a href="#"><span class="fa fa-desktop"></span> <span class="xn-text">CASH OFFICE</span></a>
-                </li>
-                <li>
-                    <a class="" href="@Url.Action("Sales", "Sales")">
-                        <span class="fa fa-align-center"></span>
-                        SALES DASHBORD
-                    </a>
-                </li>
-                <li>
-                    <a class="" href="@Url.Action("Index", "Products")">
-                        <span class="fa fa-align-center"></span>
-                        PRODUCTS (FINISHED GOODS/ RAW MATERIALS)
-                    </a>
-                </li>
-                <li>
-                    <a class="" href="@Url.Action("Index", "Stocks")">
-                        <span class="fa fa-align-center"></span>
-                        MANAGE STOCKS (FINISHED GOODS)
-                    </a>
-                </li>
-                <li>
-                    <a class="" href="@Url.Action("Index", "Orders")">
-                        <span class="fa fa-align-center"></span>
-                        ORDER
-                    </a>
-                </li>
-                <li>
-                    <a class="" href="@Url.Action("UserSalesReport", "Sales")">
-                        <span class="fa fa-align-center"></span>
-                        SALES REPORT
-                    </a>
-                </li>
+                        <!--<li>
+                <a class="" href="@Url.Action("Customers", "Sales")">
+                    <span class="fa fa-align-center"></span>
+                    CUSTOMERS ACCOUNT
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("SalesReport", "Sales")">
+                    <span class="fa fa-align-center"></span>
+                    SALES REPORT
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("Index", "empty_stock")">
+                    <span class="fa fa-align-center"></span>
+                    EMPTIES STOCK CARD
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("Index", "Empty")">
+                    <span class="fa fa-align-center"></span>
+                    EMPTIES REPORT
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("FullsOwing", "Stocks")">
+                    <span class="fa fa-align-center"></span>
+                    FULLS OWING REPORT
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("Index", "stock_complain")">
+                    <span class="fa fa-align-center"></span>
+                    PRODUCT COMPLAIN
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("Supply", "Stocks")">
+                    <span class="fa fa-align-center"></span>
+                    SUPPLIES
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("Index", "Stocks_added")">
+                    <span class="fa fa-align-center"></span>
+                    ADDED STOCKS REPORT
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("Index", "Products")">
+                    <span class="fa fa-align-center"></span>
+                    PRODUCTS
+                </a>
+            </li>
+            <li>
+                <a class="" href="@Url.Action("Index", "STOCKS")">
+                    <span class="fa fa-align-center"></span>
+                    STOCKS
+                </a>
+            </li>
                 <li>
                     <a class="" href="@Url.Action("Index", "Customers")">
                         <span class="fa fa-align-center"></span>
                         CUSTOMERS
+                    </a>
+                </li>-->
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "UserAccounts")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    USERS
+                                </span>
+                            </a>
+                        </li>
+                        <!------------------------------------------------------------------------------------------------------------------>
+                        <li class="menu-title">ACCOUNTANT</li>
+
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Sales", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    SALES
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Customers")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    CUSTOMERS
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("CustomerAccounts", "Customers")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    CUSTOMERS ACCOUNT
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("ViewCustomertrnx", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    TRANSACTION REPORT
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("index", "main_stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    RAW MATERIALS
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("supply", "main_stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    GIVE OUT STOCK
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("StockoutReport", "main_stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    MAIN STORE REPORT
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index", "Orders")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    ORDER
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    <div class="clearfix"></div>
+                }
+
+
+
+
+                <hr />
+
+                <li class="menu-title">CASH OFFICE</li>
+
+                <li>
+                    <a class="sidebar-link" href="@Url.Action("Sales", "Sales")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                            SALES DASHBORD
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-link" href="@Url.Action("Index", "Products")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                            PRODUCTS (FINISHED GOODS/ RAW MATERIALS)
+                            SALES DASHBORD
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                            MANAGE STOCKS (FINISHED GOODS)
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-link" href="@Url.Action("Index", "Orders")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                            ORDER
+                            SALES DASHBORD
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-link" href="@Url.Action("UserSalesReport", "Sales")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                            SALES REPORT
+                            SALES DASHBORD
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-link" href="@Url.Action("Index", "Customers")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                            CUSTOMERS
+                            SALES DASHBORD
+                        </span>
                     </a>
                 </li>
                 <li>
@@ -518,8 +411,8 @@
                     </a>
                 </li>
             </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
         </div>
-        <!-- Sidebar -->
-    </div>
-</div>
-<!-- Left Sidebar End -->
+        <!-- Left Sidebar End -->
