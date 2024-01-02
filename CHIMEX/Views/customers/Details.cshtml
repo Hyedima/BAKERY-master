@@ -17,42 +17,37 @@
 <div class="col-md-1"></div>
 <div class="col-md-10">
     <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
+    <div class="card">
+        <div class="card-header">
             <h3 class="panel-title">Customer Account</h3>
-            <ul class="panel-controls">
-                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
         </div>
-        <form method="post">
-            <div class="col-md-3">
-                <label>
-                    Start Date
-                </label>
-                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
-            </div>
-            <div class="col-md-3">
-                <label>
-                    End Date
-                </label>
-                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
-            </div>
-            <div class="col-md-2">
-                <br />
-                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
-            </div>
-            <div class="col-md-12">
-                <hr />
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#__@Model.id">Post Transaction</button>
-                <hr />
-            </div>
-        </form>
-        <hr />
-        <div class="panel-body" id="rpt">
+        
+        <div class="card-body" id="rpt">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            Start Date
+                        </label>
+                        <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            End Date
+                        </label>
+                        <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+                    </div>
+                    <div class="col-md-12">
+                        <hr />
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#__@Model.id">Post Transaction</button>
+                        <hr />
+                    </div>
+                </div>
+            </form>
             <table class="table">
                 <tr>
                     <th class="text-center" colspan="2">
@@ -98,7 +93,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var item in db.customer_ledger.Where(p=>p.customerid == Model.id && p.insertdate >= StartDate && p.insertdate < EndDate).OrderByDescending(p => p.insertdate).ToList())
+                    @foreach (var item in db.customer_ledger.Where(p => p.customerid == Model.id && p.insertdate >= StartDate && p.insertdate < EndDate).OrderByDescending(p => p.insertdate).ToList())
                     {
                         sn++;
                         <tr>
@@ -133,6 +128,11 @@
                             </td>
                         </tr>
                     }
+                    <tr>
+                        <td>
+                            <button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

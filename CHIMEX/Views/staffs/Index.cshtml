@@ -4,69 +4,65 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="col-md-1"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Staff</h3>
-            <ul class="panel-controls">
-                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
-        </div>
-        <div class="panel-body">
+<div class="row">
+    <div class="col-md-12">
+        <!-- START PANEL WITH CONTROL CLASSES -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="panel-title">
+                    Staff
 
+                </h3>
+            </div>
+            <div class="panel-body">
 
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
-            <table class="table">
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Phone No.
-                    </th>
-                    <th>
-                        Address
-                    </th>
-                    <th>
-                        Reg. Date 
-                    </th>
-                    <th></th>
-                </tr>
+                <button href="#" class="btn btn-outline-warning" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                <a href="@Url.Action("Create","staffs")" class="btn btn-outline-success"><span class="fa fa-user"></span>Add New Staff</a>
 
-                @foreach (var item in Model)
-                {
+                <table class="table">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.phone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.address)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.insertdate)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id }) | 
-                            @Html.ActionLink("Salaries", "Payrol", new { id = item.id })
-                        </td>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Phone No.
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Reg. Date
+                        </th>
+                        <th></th>
                     </tr>
-                }
 
-            </table>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.insertdate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
+                                @Html.ActionLink("Salaries", "Payrol", new { id = item.id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
         </div>
+        <!-- END PANEL WITH CONTROL CLASSES -->
     </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
 </div>

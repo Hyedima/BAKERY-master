@@ -11,123 +11,118 @@
     decimal ttlpaid = 0;
     decimal ttlbal = 0;
 }
-<div class="col-md-1"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Cutomers Transactions</h3>
-            <ul class="panel-controls">
-                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
-        </div>
-        <form action="@Url.Action("Customertrnx", "Sales")" method="post">
-            <div class="col-md-3">
-                <label>
-                    Start Date
-                </label>
-                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+<div class="row">
+    <div class="col-md-12">
+        <!-- START PANEL WITH CONTROL CLASSES -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="panel-title">Cutomers Transactions</h3>
             </div>
-            <div class="col-md-3">
-                <label>
-                    End Date
-                </label>
-                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
-            </div>
-            <div class="col-md-3">
-                <label>
-                    Customer
-                </label>
-                <select class="form-control" name="customerid" required="">
-                    <option value="ALL">All Customers</option>
-                    @foreach(var item in db.customers.ToList())
-                    {
-                        <option value="@item.id">@item.customer_name</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-2">
-                <br />
-                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
-            </div>
-            <div class="col-md-12">
-                <hr />
-            </div>
-        </form>
-        <hr />
-        <div class="panel-body" id="rpt">
-            <table class="table">
-                <tr>
-                    <th class="text-center" colspan="2">
-                        
-                        <h4>
-                            GOBBLES BAKERY
-                        </h4>
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <h4>
-                            CUSTOMER TRANSACTIONS
-                        </h4>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        Printed by: @user.firstname @user.lastname @user.othernames
-                    </th>
-                    <th>
-                        Printed As at: @DateTime.Now
-                    </th>
-                </tr>
-            </table>
-
-            <table class="table">
-                <tr>
-                    <th>
-                        SN
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th>
-                        Customer
-                    </th>
-                    <th>
-                        Tranaction Type
-                    </th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    sn++;
+            <form action="@Url.Action("Customertrnx", "Sales")" method="post">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            Start Date
+                        </label>
+                        <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            End Date
+                        </label>
+                        <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            Customer
+                        </label>
+                        <select class="form-control" name="customerid" required="">
+                            <option value="ALL">All Customers</option>
+                            @foreach (var item in db.customers.ToList())
+                            {
+                                <option value="@item.id">@item.customer_name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        <button class="btn btn-outline-success"><span class="icon glyphicon-filter"></span> Filter</button>
+                        <button href="#" class="btn btn-outline-warning" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                    </div>
+                </div>
+            </form>
+            <hr />
+            <div class="card-body" id="rpt">
+                <table class="table">
                     <tr>
-                        <td>
-                            @sn
-                        </td>
-                        <td>
-                            <a href="@Url.Action("cancelSales/"+item.id,"Sales")">
-                                @Html.DisplayFor(modelItem => item.trnx_date)
-                            </a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.customer.customer_name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.paymenttype)
-                        </td>
-                        
+                        <th class="text-center" colspan="2">
+
+                            <h4>
+                                GOBBLES BAKERY
+                            </h4>
+                        </th>
                     </tr>
-                                    
-                                }
-                
-            </table>
+                    <tr>
+                        <th colspan="2">
+                            <h4>
+                                CUSTOMER TRANSACTIONS
+                            </h4>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            Printed by: @user.firstname @user.lastname @user.othernames
+                        </th>
+                        <th>
+                            Printed As at: @DateTime.Now
+                        </th>
+                    </tr>
+                </table>
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            SN
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Customer
+                        </th>
+                        <th>
+                            Tranaction Type
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        sn++;
+                        <tr>
+                            <td>
+                                @sn
+                            </td>
+                            <td>
+                                <a href="@Url.Action("cancelSales/"+item.id,"Sales")">
+                                    @Html.DisplayFor(modelItem => item.trnx_date)
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customer.customer_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.paymenttype)
+                            </td>
+
+                        </tr>
+
+                    }
+
+                </table>
+            </div>
         </div>
+        <!-- END PANEL WITH CONTROL CLASSES -->
     </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
 </div>
+
 

@@ -12,20 +12,20 @@
     <div class="panel panel-warning">
         <div class="panel-heading">
             <h3 class="panel-title">Orders</h3>
-            <ul class="panel-controls">
-                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
+
         </div>
         <div class="panel-body" id="rpt">
-
-            <p class="btn btn-success" data-toggle="modal" data-target="#neworder">
-                New Order
-            </p>
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                </div>
+                <div class="col-md-4">
+                    <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                    <button class="btn btn-outline-success" data-toggle="modal" data-target="#neworder">
+                        New Order
+                    </button>
+                </div>
+            </div>
             <table class="table" id="search">
                 <tr>
                     <th>
@@ -80,10 +80,10 @@
                             @db.useraccounts.FirstOrDefault(p => p.id == item.insertuser).lastname
                         </td>
                         <!--<td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                        </td>-->
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>-->
                         <td>
                             @item.status
                         </td>

@@ -5,66 +5,59 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-md-1"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Resgister Staff</h3>
-            <ul class="panel-controls">
-                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
-        </div>
-        <div class="panel-body">
-
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label>Full Name</label>
-                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label>Phone No.</label>
-                            @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label>Address</label>
-                            @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <input type="submit" value="Create" class="btn btn-success" />
-                        </div>
-                    </div>
-                </div>
-            }
-
-            <div>
-                @Html.ActionLink("Back to List", "Index")
+<div class="row">
+    <div class="col-md-12">
+        <!-- START PANEL WITH CONTROL CLASSES -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="panel-title">Resgister Staff</h3>
             </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Full Name</label>
+                                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Phone No.</label>
+                                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Address</label>
+                                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="submit" value="Create" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+
+            </div>
         </div>
+        <!-- END PANEL WITH CONTROL CLASSES -->
     </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
 </div>

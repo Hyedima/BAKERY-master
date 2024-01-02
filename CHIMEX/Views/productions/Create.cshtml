@@ -5,89 +5,86 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
 }
-
-<div class="col-lg-offset-3 col-md-6">
-    <!-- START SALES & EVENTS BLOCK -->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title-box">
+<div class="row">
+    <div class="col-md-12">
+        <!-- START SALES & EVENTS BLOCK -->
+        <div class="card">
+            <div class="card-header">
                 <h3>Productions</h3>
+
             </div>
-            <ul class="panel-controls" style="margin-top: 2px;">
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="panel-body ">
+            <div class="card-body">
 
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>Product Name</label>
-                        <select class="form-control" name="stockid" required="">
-                            @foreach(var item in db.stocks.ToList())
-                                {
-                                    <option value="@item.id">@item.product.product_name</option>
-                                }
-                        </select>
-                        @Html.ValidationMessageFor(model => model.stockid, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Product Name</label>
+                                <select class="form-control" name="stockid" required="">
+                                    @foreach (var item in db.stocks.ToList())
+                                    {
+                                        if (db.productions.Where(p => p.stockid == item.id).Count() > 0)
+                                        {
 
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>Description</label>
-                        <textarea name="decription" class="form-control" rows="5"></textarea>
-                        @Html.ValidationMessageFor(model => model.decription, "", new { @class = "text-danger" })
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.id">@item.product.product_name</option>
+                                        }
+                                    }
+                                </select>
+                                @Html.ValidationMessageFor(model => model.stockid, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Description</label>
+                                <textarea name="decription" class="form-control" rows="5"></textarea>
+                                @Html.ValidationMessageFor(model => model.decription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Number of Bags</label>
+                                <select name="qty_bags" class="form-control" required="">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="12">12</option>
+                                </select>
+                                @Html.ValidationMessageFor(model => model.qty_bags, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Quantity</label>
+                                <input type="number" class="form-control" name="qty_items" required="" />
+                                @Html.ValidationMessageFor(model => model.qty_items, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="submit" value="Submit" class="btn btn-success" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>Number of Bags</label>
-                        <select name="qty_bags" class="form-control" required="">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="12">12</option>
-                        </select>
-                        @Html.ValidationMessageFor(model => model.qty_bags, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>Quantity</label>
-                        <input type="number" class="form-control" name="qty_items" required="" />
-                        @Html.ValidationMessageFor(model => model.qty_items, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <input type="submit" value="Submit" class="btn btn-success" />
-                    </div>
-                </div>
+                }
             </div>
-            }
         </div>
+        <!-- END SALES & EVENTS BLOCK -->
     </div>
-    <!-- END SALES & EVENTS BLOCK -->
 </div>
+
