@@ -4,54 +4,97 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+  
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.product_name)
-        </dt>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Are you sure you want to delete this?</h4>
+                    </center>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.product_name)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
+                @Html.HiddenFor(model => model.id, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly", Value = Guid.NewGuid() } })
+                @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
 
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.cost_price)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.cost_price)
-        </dd>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.product_name, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.product_name, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.product_name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.selling_price)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.selling_price)
-        </dd>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.cost_price, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-12">
+                                <input type="number" value="@Model.cost_price" class="form-control" name="cost_price" readonly />
+                                @Html.ValidationMessageFor(model => model.cost_price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.selling_price, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-12">
+                                <input type="number" value="@Model.selling_price" class="form-control" name="selling_price" readonly />
+                                @Html.ValidationMessageFor(model => model.selling_price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>
+                            Product Type
+                        </label>
+                        <select name="producttype" class="form-control" Readonly="readonly">
+                            <option value="FINISHED">FINISHED</option>
+                            <option value="RAW MATERIALS">RAW MATERIALS</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.producttype, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+
+                            <a href="@Url.Action("Index", "products")" class="btn btn-primary">Back to List</a>
+                        </div>
+                    </div> 
+                }
+                </div>
         </div>
-    }
+    </div>
 </div>

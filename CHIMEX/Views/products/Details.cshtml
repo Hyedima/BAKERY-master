@@ -5,78 +5,88 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-md-1"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Product Detail</h3>
-            <ul class="panel-controls">
-                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
-        </div>
-        <div class="panel-body" id="rpt">
-            <div class="form-horizontal">
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.id)
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>
-                            Product Name
-                        </label>
-                        @Html.EditorFor(model => model.product_name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.product_name, "", new { @class = "text-danger" })
-                    </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">PRODUCT DETAIL</h4>
+                    </center>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>
-                            Description
-                        </label>
-                        @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                
+                    @Html.HiddenFor(model => model.id, new { htmlAttributes = new { @class = "form-control", Readonly="readonly", Value = Guid.NewGuid() } })
+                    @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>
-                            Cost Price
-                        </label>
-                        <input type="number" value="@Model.cost_price" class="form-control" name="cost_price" />
-                        @Html.ValidationMessageFor(model => model.cost_price, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>
-                            Selling Price
-                        </label>
-                        <input type="number" value="@Model.selling_price" class="form-control" name="selling_price" />
-                        @Html.ValidationMessageFor(model => model.selling_price, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.product_name, htmlAttributes: new { @class = "control-label col-md-6"  })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.product_name, new { htmlAttributes = new { @class = "form-control", Readonly="readonly" } })
+                                    @Html.ValidationMessageFor(model => model.product_name,   "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-6" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control", Readonly="readonly" } })
+                                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cost_price, htmlAttributes: new { @class = "control-label col-md-6" })
+                                <div class="col-md-12">
+                                    <input type="number" value="@Model.cost_price" class="form-control" name="cost_price" readonly/>
+                                    @Html.ValidationMessageFor(model => model.cost_price, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.selling_price, htmlAttributes: new { @class = "control-label col-md-6" })
+                                <div class="col-md-12">
+                                    <input type="number" value="@Model.selling_price" class="form-control" name="selling_price" readonly/>
+                                    @Html.ValidationMessageFor(model => model.selling_price, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>
+                                Product Type
+                            </label>
+                            <select name="producttype" class="form-control" readonly>
+                                <option value="FINISHED" >FINISHED</option>
+                                <option value="RAW MATERIALS">RAW MATERIALS</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.producttype, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                <br />
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                             <a href="@Url.Action("Index", "products")" class="btn btn-primary">Back to List</a>
+                        </div>
+                    </div>
+                 
             </div>
-            <p>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-                @Html.ActionLink("Back to List", "Index")
-            </p>
-
         </div>
     </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
 </div>

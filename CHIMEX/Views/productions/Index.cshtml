@@ -5,64 +5,88 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int sn = 0;
 }
-<div class="col-lg-offset-1 col-md-12">
-    <!-- START SALES & EVENTS BLOCK -->
-    <div class="card panel-default">
-        <div class="card-heading">
-            <div class="card-title">
-                <h3>Productions</h3>
-            </div>
-        </div>
-        <div class="card-body ">
-            <div class="row">
-                <div class="col-md-8">
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
-                </div>
-                <div class="col-md-4">
-                    <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
-                    <a href="@Url.Action("Create","Productions")" class="btn btn-outline-success">Add New</a>
-                </div>
-            </div>
-            <table class="table table-striped" id="search">
-                <thead>
-                    <tr>
-                        <th>SN</th>
-                        <th>Stock</th>
-                        <th>Bags</th>
-                        <th>Qty</th>
-                        <th>Date</th>
-                        <th>User</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.ToList().OrderByDescending(p => p.insertdate))
-                    {
-                        sn++;
-                        <tr>
-                            <td>
-                                @sn
-                            </td>
-                            <td>
-                                @item.stock.product.product_name
-                            </td>
-                            <td>
-                                @item.qty_bags
-                            </td>
-                            <td>
-                                @item.qty_items
-                            </td>
-                            <td>
-                                @item.useraccount.firstname @item.useraccount.lastname
-                            </td>
-                            <td>
-                                @item.insertdate
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- END SALES & EVENTS BLOCK -->
-</div>
 
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Productions</h4>
+                    </center>
+                </div>
+                <br />
+                <br />
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                            </div>
+                            <div class="col-md-4">
+                                <button href="#" class="btn btn-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                <a href="@Url.Action("Create","Productions")" class="btn btn-success">Add New</a>
+                            </div>
+                        </div>
+                        <div class="panel-body" id="rpt">
+                            <table class="table table-striped" id="search">
+                                <thead>
+                                    <tr>
+                                        <th data-priority="1">
+                                            SN
+                                        </th>
+                                        <th data-priority="2">
+                                            Stock
+                                        </th>
+                                        <th data-priority="3">
+                                            Bags
+                                        </th>
+                                        <th data-priority="4">
+                                            Qty
+                                        </th>
+                                        <th data-priority="5">
+                                            Date
+                                        </th>
+                                        <th data-priority="6">
+                                            User
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model.ToList().OrderByDescending(p => p.insertdate))
+                                    {
+                                        sn++;
+                                        <tr>
+                                            <td>
+                                                @sn
+                                            </td>
+                                            <td>
+                                                @item.stock.product.product_name
+                                            </td>
+                                            <td>
+                                                @item.qty_bags
+                                            </td>
+                                            <td>
+                                                @item.qty_items
+                                            </td>
+                                            <td>
+                                                @item.useraccount.firstname @item.useraccount.lastname
+                                            </td>
+                                            <td>
+                                                @item.insertdate
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+</div> 

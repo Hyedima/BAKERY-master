@@ -6,95 +6,117 @@
 }
 
 
-
 <div class="row">
-    <div class="col-md-12">
-        <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h3 class="panel-title">Registered Users</h3>
-            </div>
             <div class="card-body">
-                <p>
-                    @Html.ActionLink("Create New", "Create")
-                </p>
-                <table class="table">
-                    <tr>
-                        <th>
-                            First Name
-                        </th>
-                        <th>
-                            Last Name
-                        </th>
-                        <th>
-                            Other Names
-                        </th>
-                        <th>
-                            Phone
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Role
-                        </th>
-                        <th>
-                            Is Active
-                        </th>
-                        <th>
-                            Address
-                        </th>
-                        <th>
-                            Date of Birth
-                        </th>
-                        <th>
-                            Action
-                        </th>
-                    </tr>
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Registered Users</h4>
+                    </center>
+                </div> 
+                <br />
+                <br />
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                            </div>
+                            <div class="col-md-4">
+                                <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                <a href="@Url.Action("Create", "useraccounts")" class="btn btn-success">Create Product</a>
+                            </div> 
+                        </div>
+                        <div class="panel-body" id="rpt">
+                            <table class="table table-striped" id="search">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            First Name
+                                        </th>
+                                        <th>
+                                            Last Name
+                                        </th>
+                                        <th>
+                                            Other Names
+                                        </th>
+                                        <th>
+                                            Phone
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Role
+                                        </th>
+                                        <th>
+                                            Is Active
+                                        </th>
+                                        <th>
+                                            Address
+                                        </th>
+                                        <th>
+                                            Date of Birth
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.firstname)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.lastname)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.othernames)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.phone)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.usertype)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.isactive)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.dob)
-                            </td>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.firstname)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.lastname)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.othernames)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.phone)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.email)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.usertype)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.isactive)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.address)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.dob)
+                                            </td> 
+                                            <td>
+                                                <a href="@Url.Action("Edit", "useraccounts", new { id = item.id })">
+                                                    <i class="fa fa-edit btn btn-info btn-sm"></i>
+                                                </a> |
+                                                <a href="@Url.Action("Details", "useraccounts", new { id = item.id })" class="=btn btn-success btn-sm">
+                                                    <i class="fa fa-info"></i>
+                                                </a> |
+                                                <a href="@Url.Action("Delete", "useraccounts", new { id = item.id })" class="=btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>  
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
 
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-
+                        </div>
+                    </div>
+                    <!-- END PANEL WITH CONTROL CLASSES -->
+                </div>
             </div>
         </div>
-        <!-- END PANEL WITH CONTROL CLASSES -->
     </div>
 </div>

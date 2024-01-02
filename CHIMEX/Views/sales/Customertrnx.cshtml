@@ -12,117 +12,131 @@
     decimal ttlbal = 0;
 }
 <div class="row">
-    <div class="col-md-12">
-        <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h3 class="panel-title">Cutomers Transactions</h3>
-            </div>
-            <form action="@Url.Action("Customertrnx", "Sales")" method="post">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>
-                            Start Date
-                        </label>
-                        <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
-                    </div>
-                    <div class="col-md-3">
-                        <label>
-                            End Date
-                        </label>
-                        <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
-                    </div>
-                    <div class="col-md-3">
-                        <label>
-                            Customer
-                        </label>
-                        <select class="form-control" name="customerid" required="">
-                            <option value="ALL">All Customers</option>
-                            @foreach (var item in db.customers.ToList())
-                            {
-                                <option value="@item.id">@item.customer_name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <br />
-                        <button class="btn btn-outline-success"><span class="icon glyphicon-filter"></span> Filter</button>
-                        <button href="#" class="btn btn-outline-warning" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">
+                            Cutomers Transactions
+                        </h4>
+                    </center>
+                </div>
+                <br />
+                <br />
+
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <form action="@Url.Action("Customertrnx", "Sales")" method="post">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>
+                                        Start Date
+                                    </label>
+                                    <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>
+                                        End Date
+                                    </label>
+                                    <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>
+                                        Customer
+                                    </label>
+                                    <select class="form-control" name="customerid" required="">
+                                        <option value="ALL">All Customers</option>
+                                        @foreach (var item in db.customers.ToList())
+                                        {
+                                            <option value="@item.id">@item.customer_name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+                                    <button href="#" class="btn btn-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                </div> 
+                            </div>
+                        </form>
+
+                        <hr />
+                        <div class="panel-body" id="rpt">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" colspan="2">
+
+                                            <h4>
+                                                GOBBLES BAKERY
+                                            </h4>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <h4>
+                                                CUSTOMER TRANSACTIONS
+                                            </h4>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Printed by: @user.firstname @user.lastname @user.othernames
+                                        </th>
+                                        <th>
+                                            Printed As at: @DateTime.Now
+                                        </th>
+                                    </tr>
+                            </table>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th data-priority="1">
+                                            SN
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th data-priority="2">
+                                            Customer
+                                        </th>
+                                        <th data-priority="3">
+                                            Tranaction Type
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        sn++;
+                                        <tr>
+                                            <td>
+                                                @sn
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("cancelSales/"+item.id,"Sales")">
+                                                    @Html.DisplayFor(modelItem => item.trnx_date)
+                                                </a>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.customer.customer_name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.paymenttype)
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </form>
-            <hr />
-            <div class="card-body" id="rpt">
-                <table class="table">
-                    <tr>
-                        <th class="text-center" colspan="2">
-
-                            <h4>
-                                GOBBLES BAKERY
-                            </h4>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">
-                            <h4>
-                                CUSTOMER TRANSACTIONS
-                            </h4>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            Printed by: @user.firstname @user.lastname @user.othernames
-                        </th>
-                        <th>
-                            Printed As at: @DateTime.Now
-                        </th>
-                    </tr>
-                </table>
-
-                <table class="table">
-                    <tr>
-                        <th>
-                            SN
-                        </th>
-                        <th>
-                            Date
-                        </th>
-                        <th>
-                            Customer
-                        </th>
-                        <th>
-                            Tranaction Type
-                        </th>
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        sn++;
-                        <tr>
-                            <td>
-                                @sn
-                            </td>
-                            <td>
-                                <a href="@Url.Action("cancelSales/"+item.id,"Sales")">
-                                    @Html.DisplayFor(modelItem => item.trnx_date)
-                                </a>
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.customer.customer_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.paymenttype)
-                            </td>
-
-                        </tr>
-
-                    }
-
-                </table>
             </div>
         </div>
-        <!-- END PANEL WITH CONTROL CLASSES -->
+        <!-- end col -->
     </div>
-</div>
-
-
+    <!-- end row -->
+</div> 

@@ -3,49 +3,56 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    int sn = 0;
 }
 
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                 
-                <div class="col-md-12">
-                    <!-- START PANEL WITH CONTROL CLASSES -->
-                    <div class="panel panel-warning">
-                        <h3 class="panel-title">Products</h3>
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Products</h4>
+                    </center>
+                </div>
+                <br />
+                <br />
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
                         <div class="row">
                             <div class="col-md-8">
                                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
                             </div>
                             <div class="col-md-4">
-                                <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
-                                <a href="@Url.Action("Create")" class="btn btn-outline-success pull-right"><span class="fa fa-plus"></span>Add New</a>
-                            </div>
+                                <button href="#" class="btn btn-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                <a href="@Url.Action("Create", "products")" class="btn btn-success">Create Product</a>
+                            </div>                            
                         </div>
                         <div class="panel-body" id="rpt">
-                            <table id="search"
-                                   class="table table-bordered dt-responsive nowrap"
-                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                @*<table class="table table-striped" id="search">*@
+                            <table class="table table-striped" id="search">
+                                <thead>
                                     <tr>
-                                        <th>
+                                        <th data-priority="1">
                                             Product Name
                                         </th>
-                                        <th>
+                                        <th data-priority="2">
                                             Description
                                         </th>
-                                        <th>
+                                        <th data-priority="3">
                                             Cost price
                                         </th>
-                                        <th>
+                                        <th data-priority="4">
                                             Selling Price
                                         </th>
                                         <th>Actions</th>
                                     </tr>
+                                </thead>
 
+                                <tbody>
                                     @foreach (var item in Model.OrderBy(p => p.producttype))
                                     {
+                                        sn++;
                                         <tr>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.product_name)
@@ -60,77 +67,26 @@
                                                 @Html.DisplayFor(modelItem => item.selling_price)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                                <a href="@Url.Action("Edit", "Products", new { id = item.id })">
+                                                    <i class="fa fa-edit btn btn-info btn-sm">Edit</i>
+                                                </a> |
+                                                <a href="@Url.Action("Details", "Products", new { id = item.id })">
+                                                    <i class="btn btn-warning btn-sm">Details</i>
+                                                </a> |
+                                                <a href="@Url.Action("Delete", "Products", new { id = item.id })">
+                                                    <i class="btn btn-danger btn-sm">Delete</i>
+                                                </a>
                                             </td>
                                         </tr>
                                     }
-
-                                </table>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                        <!-- END PANEL WITH CONTROL CLASSES -->
-                    </div>
+                </div>
             </div>
         </div>
+        <!-- end col -->
     </div>
-</div>
-    <script>
-        function myFunction() {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("search");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        #myInput {
-            background-image: url('/css/searchicon.png'); /* Add a search icon to input */
-            background-position: 10px 12px; /* Position the search icon */
-            background-repeat: no-repeat; /* Do not repeat the icon image */
-            width: 100%; /* Full-width */
-            font-size: 16px; /* Increase font-size */
-            padding: 12px 20px 12px 40px; /* Add some padding */
-            border: 1px solid #ddd; /* Add a grey border */
-            margin-bottom: 12px; /* Add some space below the input */
-        }
-
-        #search {
-            border-collapse: collapse; /* Collapse borders */
-            width: 100%; /* Full-width */
-            border: 1px solid #ddd; /* Add a grey border */
-            font-size: 18px; /* Increase font-size */
-        }
-
-            #search th, #search td {
-                text-align: left; /* Left-align text */
-                padding: 12px; /* Add padding */
-            }
-
-            #search tr {
-                /* Add a bottom border to all table rows */
-                border-bottom: 1px solid #ddd;
-            }
-
-                #search tr.header, #myTable tr:hover {
-                    /* Add a grey background color to the table header and on hover */
-                    background-color: #f1f1f1;
-                }
-    </style>
+    <!-- end row -->
+</div> 

@@ -4,75 +4,91 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="row">
-    <div class="col-md-12">
-        <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h3 class="panel-title">Expensis</h3>
-            </div>
-            <div class="card-body" id="rpt">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Expensis</h4>
+                    </center>
+                </div>
+
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.EditorFor(model => model.expensistype, new { htmlAttributes = new { @class = "form-control", Value = "OTHERS" } })
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <label>
-                                    Title
-                                </label>
-                                @Html.EditorFor(model => model.head, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.head, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <label>
-                                    Description
-                                </label>
-                                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <label>
-                                    Amount (N)
-                                </label>
-                                @Html.EditorFor(model => model.amount, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <label>Payment Type</label>
-                                <select class="form-control" required="" name="paymenttype">
-                                    <option value="CASH">CASH</option>
-                                    <option value="CHEQUE">CHEQUE</option>
-                                    <option value="TRANSFER">TRANSFER</option>
-                                    <option value="POS">POS</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <input type="submit" value="Create" class="btn btn-outline-success" />
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.expensistype, new { htmlAttributes = new { @class = "form-control", Value = "OTHERS" } })
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Title
+                                </label>
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.head, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.head, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-5" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.amount, htmlAttributes: new { @class = "control-label col-md-5" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.paymenttype, htmlAttributes: new { @class = "control-label col-md-5" })
+                                <div class="col-md-12">
+                                    <select class="form-control" required="" name="paymenttype">
+                                        <option value="CASH">CASH</option>
+                                        <option value="CHEQUE">CHEQUE</option>
+                                        <option value="TRANSFER">TRANSFER</option>
+                                        <option value="POS">POS</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <input type="submit" value="Create" class="btn btn-success" />
+
+                        </div>
+                    </div>
+
                 }
+
             </div>
         </div>
-        <!-- END PANEL WITH CONTROL CLASSES -->
     </div>
 </div>
-
-
-
 

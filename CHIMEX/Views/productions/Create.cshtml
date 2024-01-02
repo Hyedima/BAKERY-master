@@ -5,20 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
 }
-<div class="row">
-    <div class="col-md-12">
-        <!-- START SALES & EVENTS BLOCK -->
-        <div class="card">
-            <div class="card-header">
-                <h3>Productions</h3>
 
-            </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
             <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">CREATE PRODUCTION</h4>
+                    </center>
+                </div>
 
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-
                     <div class="form-horizontal">
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -29,14 +29,7 @@
                                 <select class="form-control" name="stockid" required="">
                                     @foreach (var item in db.stocks.ToList())
                                     {
-                                        if (db.productions.Where(p => p.stockid == item.id).Count() > 0)
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            <option value="@item.id">@item.product.product_name</option>
-                                        }
+                                        <option value="@item.id">@item.product.product_name</option>
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.stockid, "", new { @class = "text-danger" })
@@ -75,16 +68,22 @@
                                 @Html.ValidationMessageFor(model => model.qty_items, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <input type="submit" value="Submit" class="btn btn-success" />
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <input type="submit" value="Create" class="btn btn-success" />
+
+                                <a href="@Url.Action("Index", "productions")" class="btn btn-primary">Back to List</a>
                             </div>
                         </div>
+
+
+
                     </div>
                 }
+
             </div>
         </div>
-        <!-- END SALES & EVENTS BLOCK -->
     </div>
 </div>
-

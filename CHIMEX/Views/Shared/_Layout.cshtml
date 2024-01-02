@@ -38,6 +38,10 @@
     <link href="~/Content/web/assets/libs/admin-resources/rwd-table/rwd-table.min.css" rel="stylesheet" type="text/css" />
 
 
+    <!-- Lightbox css -->
+    <link href="~/Content/web/assets/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+
+
     <!-- Responsive datatable examples -->
     <link href="~/Content/web/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
           type="text/css" />
@@ -46,6 +50,24 @@
     <link href="~/Content/web/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!----------------icon wahala------------------>
+    <!-- From Report layout in the shared folder-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script>
+        function getExcel(id) {
+            var data = document.getElementById(id);
+            var excelFile = XLSX.utils.table_to_book(data, { sheet: "sheet1" });
+            XLSX.write(excelFile, { bookType: 'xlsx', bookSST: true, type: 'base64' });
+            XLSX.writeFile(excelFile, 'ExportedFile:HTMLTableToExcel' + ".xlsx");
+        }
+    </script>-->
+    <!-- From Report layout in the shared folder-->
+    <!-- Bootstrap core JavaScript-->
+    <!--<script src="~/Content/reports/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+    <!----------------icon wahala------------------>
 
 
 </head>
@@ -91,10 +113,10 @@
                             </div>
 
                             <div class="dropdown d-none d-sm-inline-block">
-                                @*<button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        <img class="" src="~/Content/web/assets/images/flags/us.jpg" alt="Header Language" height="16">
-                                    </button>*@
+                                <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    <img class="" src="~/Content/web/assets/images/flags/us.jpg" alt="Header Language" height="16">
+                                </button>
                                 <div class="dropdown-menu dropdown-menu-end">
 
                                     <!-- item-->
@@ -130,12 +152,8 @@
                                         id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                     <i class="mdi mdi-bell-outline"></i>
-                                    <span class="badge rounded-pill bg-danger ">
-                                        @*@db.notifications.Where(p => p.receiver == email && p.isread == "False").Count()*@
-                                    </span>
-
+                                    <span class="badge rounded-pill bg-danger ">3</span>
                                 </button>
-
                                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                                      aria-labelledby="page-header-notifications-dropdown">
                                     <div class="p-3">
@@ -149,70 +167,65 @@
                                         </div>
                                     </div>
                                     <div data-simplebar style="max-height: 230px;">
-
-                                        @*@foreach (var item in db.notifications.Where(p => p.receiver == email && p.isread == "False").ToList())
-                                            {
-                                                <a href="@Url.Action("Notification","Notifications", new {id = item.id})" class="text-reset notification-item">
-                                                    <div class="d-flex align-items-start">
-                                                        <div class="avatar-xs me-3">
-                                                            <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                                                <i class="bx bx-cart"></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <h6 class="mt-0 mb-1">@item.title</h6>
-                                                            <div class="font-size-12 text-muted">
-                                                                <p class="mb-1">@item.description</p>
-                                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i>@item.insertdate</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            }*@
-
-                                        @*<a href="" class="text-reset notification-item">
-                                                <div class="d-flex align-items-start">
-                                                    <img src="~/Content/web/assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs"
-                                                         alt="user-pic">
-                                                    <div class="flex-1">
-                                                        <h6 class="mt-0 mb-1">James Lemire</h6>
-                                                        <div class="font-size-12 text-muted">
-                                                            <p class="mb-1">It will seem like simplified English.</p>
-                                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
-                                                        </div>
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="d-flex align-items-start">
+                                                <div class="avatar-xs me-3">
+                                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
+                                                        <i class="bx bx-cart"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <h6 class="mt-0 mb-1">Your order is placed</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-1">If several languages coalesce the grammar</p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
                                                     </div>
                                                 </div>
-                                            </a>
-                                            <a href="" class="text-reset notification-item">
-                                                <div class="d-flex align-items-start">
-                                                    <div class="avatar-xs me-3">
-                                                        <span class="avatar-title bg-success rounded-circle font-size-16">
-                                                            <i class="bx bx-badge-check"></i>
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <h6 class="mt-0 mb-1">Your item is shipped</h6>
-                                                        <div class="font-size-12 text-muted">
-                                                            <p class="mb-1">If several languages coalesce the grammar</p>
-                                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
-                                                        </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="d-flex align-items-start">
+                                                <img src="~/Content/web/assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs"
+                                                     alt="user-pic">
+                                                <div class="flex-1">
+                                                    <h6 class="mt-0 mb-1">James Lemire</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-1">It will seem like simplified English.</p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </div>
+                                        </a>
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="d-flex align-items-start">
+                                                <div class="avatar-xs me-3">
+                                                    <span class="avatar-title bg-success rounded-circle font-size-16">
+                                                        <i class="bx bx-badge-check"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <h6 class="mt-0 mb-1">Your item is shipped</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-1">If several languages coalesce the grammar</p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
 
-                                            <a href="" class="text-reset notification-item">
-                                                <div class="d-flex align-items-start">
-                                                    <img src="~/Content/web/assets/images/users/avatar-4.jpg" class="me-3 rounded-circle avatar-xs"
-                                                         alt="user-pic">
-                                                    <div class="flex-1">
-                                                        <h6 class="mt-0 mb-1">Salena Layfield</h6>
-                                                        <div class="font-size-12 text-muted">
-                                                            <p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
-                                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
-                                                        </div>
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="d-flex align-items-start">
+                                                <img src="~/Content/web/assets/images/users/avatar-4.jpg" class="me-3 rounded-circle avatar-xs"
+                                                     alt="user-pic">
+                                                <div class="flex-1">
+                                                    <h6 class="mt-0 mb-1">Salena Layfield</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
                                                     </div>
                                                 </div>
-                                            </a>*@
+                                            </div>
+                                        </a>
                                     </div>
                                     <div class="p-2 border-top d-grid">
                                         <a class="btn btn-sm btn-link font-size-14 " href="javascript:void(0)">
@@ -235,6 +248,10 @@
                                     <a class="dropdown-item" href="#">
                                         <i class="bx bx-user font-size-16 align-middle me-1"></i>
                                         Profile
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-wallet font-size-16 align-middle me-1"></i> My
+                                        Wallet
                                     </a>
                                     <a class="dropdown-item d-block" href="#">
                                         <span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> Settings
@@ -294,11 +311,11 @@
                             </form>
 
                             <div class="dropdown dropdown-mega d-none d-lg-inline-block ms-2">
-                                @*<button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
-                                            aria-haspopup="false" aria-expanded="false">
-                                        Mega Menu
-                                        <i class="mdi mdi-chevron-down"></i>
-                                    </button>*@
+                                <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
+                                        aria-haspopup="false" aria-expanded="false">
+                                    Mega Menu
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </button>
                                 <div class="dropdown-menu dropdown-megamenu">
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -491,9 +508,19 @@
                                             <div class="customize-input">
                                                 <h2 class="btn btn-outline-light btn-sm">
                                                     <strong>
-                                                        Welcome Gobbles Bakery Dashboard
+                                                        Current Session:
                                                     </strong>
+                                                    <span class="">
+                                                        @* @cur.schoolsession.name*@
+                                                    </span>
+                                                    <strong style="padding-left: 90px;">
 
+                                                        Current Term:
+                                                    </strong>
+                                                    <span class="">
+                                                        @*@cur.schoolterm.name
+                                                            ( @cur.schoolterm.description)*@
+                                                    </span>
                                                 </h2>
                                             </div>
                                         </li>
@@ -502,7 +529,7 @@
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item active"></li>
+                                        <li class="breadcrumb-item active">Welcome to PastQ Dashboard</li>
                                     </ol>
                                 </div>
 
@@ -539,6 +566,8 @@
 
                     </div>
 
+
+
                     @* Printing Div *@
                     <script language="javascript" type="text/javascript">
                         function printDiv(divName) {
@@ -562,7 +591,7 @@
 
                             // Loop through all table rows, and hide those who don't match the search query
                             for (i = 0; i < tr.length; i++) {
-                                td = tr[i].getElementsByTagName("td")[1];
+                                td = tr[i].getElementsByTagName("td")[0];
                                 if (td) {
                                     txtValue = td.textContent || td.innerText;
                                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -757,6 +786,12 @@
     <!-- Init js -->
     <script src="~/Content/web/assets/js/pages/table-responsive.init.js"></script>
 
+    <!-- Magnific Popup-->
+    <script src="~/Content/web/assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Tour init js-->
+    <script src="~/Content/web/assets/js/pages/lightbox.init.js"></script>
+
 
     <!-- App js -->
     <script src="~/Content/web/assets/js/app.js"></script>
@@ -794,7 +829,7 @@
 
             // Loop through all table rows, and hide those who don't match the search query
             for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
+                td = tr[i].getElementsByTagName("td")[0];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {

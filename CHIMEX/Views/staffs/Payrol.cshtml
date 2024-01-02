@@ -9,191 +9,207 @@
     decimal totalDeductions = 0;
 
 }
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">
+                            Staff Salaries
+                        </h4>
+                    </center>
+                </div>
+                <br />
+                <br />
 
 
-
-<div class="col-md-1"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="panel-title">Staff Salaries</h3>
-        </div>
-        <div class="card-body" id="rpt">
-            <button href="#" class="btn btn-outline-warning" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
-            <a href="#" data-toggle="modal" data-target="#salary" class="btn btn-outline-success">Salary</a>
-            <a href="#" data-toggle="modal" data-target="#bonus" class="btn btn-outline-success">Bonus</a>
-            <a href="#" data-toggle="modal" data-target="#fines" class="btn btn-outline-success">Deduction</a>
-            <center>
-                <h3>Name: @Model.name  Phone: @Model.phone Address: @Model.address</h3>
-            </center>
-            <table class="table">
-                <tr>
-                    <th colspan="2">
-                        SALARIES
-                    </th>
-                </tr>
-                @foreach (var item in db.Salaries.Where(p => p.staffid == Model.id).ToList())
-                {
-                    totalSalaries += Convert.ToDecimal(item.salary1);
-                    <tr>
-                        <td>
-                            @item.decription
-                        </td>
-                        <td>
-                            @item.salary1
-                        </td>
-                    </tr>
-                }
-                @foreach (var item in db.bonus.Where(p => p.staffid == Model.id).ToList())
-                {
-                    totalBonus += Convert.ToDecimal(item.walfare);
-                    <tr>
-                        <td>
-                            @item.decription
-                        </td>
-                        <td>
-                            @item.walfare
-                        </td>
-                    </tr>
-                }
-                <tr>
-                    <td>
-                        TOTAL
-                    </td>
-                    <td>
-                        @{
-                            decimal tt = totalBonus + totalSalaries;
+                
+                <br />
+                 
+                <div class="panel-body" id="rpt">
+                    <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                    <a href="#" data-toggle="modal" data-target="#salary" class="btn btn-success btn-sm">Salary</a>
+                    <a href="#" data-toggle="modal" data-target="#bonus" class="btn btn-success btn-sm">Bonus</a>
+                    <a href="#" data-toggle="modal" data-target="#fines" class="btn btn-success btn-sm">Deduction</a>
+                    <br />   <br />
+                    <div class="card-header py-3">
+                        <center>
+                            <h4 class="m-0 font-weight-bold text-primary">
+                                Name: @Model.name  Phone: @Model.phone Address: @Model.address
+                            </h4>
+                        </center>
+                    </div>
+                    <table class="table table-striped" id="search">
+                        <tr>
+                            <th colspan="2">
+                                SALARIES
+                            </th>
+                        </tr>
+                        @foreach (var item in db.Salaries.Where(p => p.staffid == Model.id).ToList())
+                        {
+                            totalSalaries += Convert.ToDecimal(item.salary1);
+                            <tr>
+                                <td>
+                                    @item.decription
+                                </td>
+                                <td>
+                                    @item.salary1
+                                </td>
+                            </tr>
                         }
-                        @tt
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        DEDUCTIONS
-                    </th>
-                </tr>
-                @foreach (var item in db.deductions.Where(p => p.staffid == Model.id).ToList())
-                {
-                    totalDeductions += Convert.ToDecimal(item.item);
-                    <tr>
-                        <td>
-                            @item.decription
-                        </td>
-                        <td>
-                            @item.item
-                        </td>
-                    </tr>
-                }
-                <tr>
-                    <td>
-                        TOTAL
-                    </td>
-                    <td>
-                        @totalDeductions
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        NET SALARY
-                    </td>
-                    <td>
-                        @{
-                            decimal net = tt - totalDeductions;
+                        @foreach (var item in db.bonus.Where(p => p.staffid == Model.id).ToList())
+                        {
+                            totalBonus += Convert.ToDecimal(item.walfare);
+                            <tr>
+                                <td>
+                                    @item.decription
+                                </td>
+                                <td>
+                                    @item.walfare
+                                </td>
+                            </tr>
                         }
-                        @net
-                    </td>
-                </tr>
+                        <tr>
+                            <td>
+                                TOTAL
+                            </td>
+                            <td>
+                                @{
+                                    decimal tt = totalBonus + totalSalaries;
+                                }
+                                @tt
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                DEDUCTIONS
+                            </th>
+                        </tr>
+                        @foreach (var item in db.deductions.Where(p => p.staffid == Model.id).ToList())
+                        {
+                            totalDeductions += Convert.ToDecimal(item.item);
+                            <tr>
+                                <td>
+                                    @item.decription
+                                </td>
+                                <td>
+                                    @item.item
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>
+                                TOTAL
+                            </td>
+                            <td>
+                                @totalDeductions
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                NET SALARY
+                            </td>
+                            <td>
+                                @{
+                                    decimal net = tt - totalDeductions;
+                                }
+                                @net
+                            </td>
+                        </tr>
 
-            </table>
-        </div>
-    </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
-</div>
-
-
-<!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newstock">Add product to Stock</button>-->
-<!-- Modal -->
-<div id="salary" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Basic Salary</h4>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="@Url.Action("salary","staffs")">
-                    <input type="hidden" class="form-control" name="id"  value="@Model.id" />
-
-                    <label>Basic Salary(N)</label>
-                    <input type="text" class="form-control" name="amount" value="0" />
-                    <label>Description</label>
-                    <input type="text" class="form-control" name="description" value="Basic Salary" />
-                    <button class="btn btn-sm btn-success">post</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newstock">Add product to Stock</button>-->
-<!-- Modal -->
-<div id="bonus" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Bonuses</h4>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="@Url.Action("bonus","staffs")">
-                    <input type="hidden" class="form-control" name="id" value="@Model.id" />
-                    <label>Bonus Amount(N)</label>
-                    <input type="text" class="form-control" name="amount" value="0" />
-                    <label>Description</label>
-                    <input type="text" class="form-control" name="description" value="Bonus" />
-                    <button class="btn btn-sm btn-success">post</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </table>
+                </div>
+                    </div>
+                    <!-- END PANEL WITH CONTROL CLASSES -->
+                </div>
             </div>
         </div>
+        <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newstock">Add product to Stock</button>-->
+        <!-- Modal -->
+        <div id="salary" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Basic Salary</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="@Url.Action("salary","staffs")">
+                            <input type="hidden" class="form-control" name="id" value="@Model.id" />
 
-    </div>
-</div>
+                            <label>Basic Salary(N)</label>
+                            <input type="text" class="form-control" name="amount" value="0" />
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="description" value="Basic Salary" />
+                            <button class="btn btn-sm btn-success">post</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
 
-
-<!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newstock">Add product to Stock</button>-->
-<!-- Modal -->
-<div id="fines" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Fines</h4>
             </div>
-            <div class="modal-body">
-                <form method="post" action="@Url.Action("fines","staffs")">
-                    <input type="hidden" class="form-control" name="id" value="@Model.id" />
+        </div>
 
-                    <label>Fine Amount(N)</label>
-                    <input type="text" class="form-control" name="amount" value="0" />
-                    <label>Description</label>
-                    <input type="text" class="form-control" name="description" value="Fines" />
-                    <button class="btn btn-sm btn-success">post</button>
-                </form>
+
+        <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newstock">Add product to Stock</button>-->
+        <!-- Modal -->
+        <div id="bonus" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Bonuses</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="@Url.Action("bonus","staffs")">
+                            <input type="hidden" class="form-control" name="id" value="@Model.id" />
+                            <label>Bonus Amount(N)</label>
+                            <input type="text" class="form-control" name="amount" value="0" />
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="description" value="Bonus" />
+                            <button class="btn btn-sm btn-success">post</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+
+        <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newstock">Add product to Stock</button>-->
+        <!-- Modal -->
+        <div id="fines" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Fines</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="@Url.Action("fines","staffs")">
+                            <input type="hidden" class="form-control" name="id" value="@Model.id" />
+
+                            <label>Fine Amount(N)</label>
+                            <input type="text" class="form-control" name="amount" value="0" />
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="description" value="Fines" />
+                            <button class="btn btn-sm btn-success">post</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
             </div>
         </div>
 

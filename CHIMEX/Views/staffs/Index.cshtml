@@ -5,64 +5,89 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
-    <div class="col-md-12">
-        <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h3 class="panel-title">
-                    Staff
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Staffs</h4>
+                    </center>
+                </div>
+                <br />
+                <br />
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                            </div>
+                            <div class="col-md-4">
+                                <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
 
-                </h3>
-            </div>
-            <div class="panel-body">
+                                <a href="@Url.Action("Create", "staffs")" class="btn btn-success">Create Staffs</a>
+                            </div> 
+                        </div>
+                        <div class="panel-body" id="rpt">
+                            <table class="table table-striped" id="search">
+                                <thead>
+                                    <tr>
+                                        <th data-priority="1">
+                                            Name
+                                        </th>
+                                        <th data-priority="2">
+                                            Phone No.
+                                        </th>
+                                        <th data-priority="3">
+                                            Address
+                                        </th>
+                                        <th data-priority="4">
+                                            Reg. Date
+                                        </th>
+                                        <th data-priority="5">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                <button href="#" class="btn btn-outline-warning" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
-                <a href="@Url.Action("Create","staffs")" class="btn btn-outline-success"><span class="fa fa-user"></span>Add New Staff</a>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.phone)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.address)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.insertdate)
+                                            </td>
 
-                <table class="table">
-                    <tr>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Phone No.
-                        </th>
-                        <th>
-                            Address
-                        </th>
-                        <th>
-                            Reg. Date
-                        </th>
-                        <th></th>
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.phone)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.insertdate)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
-                                @Html.ActionLink("Salaries", "Payrol", new { id = item.id })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
+                                            <td>
+                                                <a href="@Url.Action("Edit", "staffs", new { id = item.id })">
+                                                    <i class="fa fa-edit btn btn-info btn-sm"></i>
+                                                </a> |
+                                                <a href="@Url.Action("Details", "staffs", new { id = item.id })" class="=btn btn-success btn-sm">
+                                                    <i class="fa fa-info"></i>
+                                                </a> |
+                                                <a href="@Url.Action("Delete", "staffs", new { id = item.id })" class="=btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash"></i>
+                                                </a> |
+                                                <a href="@Url.Action("Payrol", "staffs", new { id = item.id })" class="=btn btn-primary btn-sm">
+                                                    <i class="fa fa-money-bill">Salaries</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- END PANEL WITH CONTROL CLASSES -->
     </div>
 </div>
