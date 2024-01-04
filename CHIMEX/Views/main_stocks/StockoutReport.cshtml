@@ -8,149 +8,160 @@
     string userid = Session["userid"].ToString();
     var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
 }
-<div class="col-md-1"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Sales Report</h3>
-            <ul class="panel-controls">
-                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
-        </div>
-        <form action="@Url.Action("StockoutReport", "main_stocks")" method="post">
-            <div class="col-md-3">
-                <label>
-                    Start Date
-                </label>
-                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
-            </div>
-            <div class="col-md-3">
-                <label>
-                    End Date
-                </label>
-                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
-            </div>
-            <div class="col-md-3">
-                <label>
-                    Cashier
-                </label>
-                <select class="form-control" name="userid" required="">
-                    <option value="ALL">ALL Users</option>
-                    @foreach (var item in db.useraccounts.ToList())
-                    {
-                        <option value="@item.id">@item.firstname @item.lastname @item.othernames</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-2">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Sales Report</h4>
+                    </center>
+                </div>
                 <br />
-                <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
-            </div>
-            <div class="col-md-12">
-                <hr />
-            </div>
-        </form>
-        <hr />
-        <div class="panel-body" id="rpt">
-            <table class="table">
-                <tr>
-                    <th class="text-center" colspan="2">
-                        <h4>
-                            GOBBLES BAKERY
-                        </h4>
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <h4>
-                            STOCK OUT REPORT
-                        </h4>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        Printed by: @user.firstname @user.lastname @user.othernames
-                    </th>
-                    <th>
-                        Printed As at: @DateTime.Now
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        FROM  @Session["startdate"] TO @Convert.ToDateTime(Session["enddate"]).AddDays(-1)
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </table>
-            <table class="table">
-                <tr>
-                    <th>
-                        SN
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th>
-                        User
-                    </th>
-                    <th>
-                        Product
-                    </th>
-                    <th>
-                        Qty Given Out
-                    </th>
-                </tr>
+                <br />
 
-                @foreach (var item in Model.OrderBy(p => p.update_date))
-                {
-                    sn++;
-                    <tr>
-                        <td>
-                            @sn
-                        </td>
-                        <td>
-                            @item.update_date
-                        </td>
-                        <td>
-                            @item.useraccount.firstname
-                            @item.useraccount.lastname
-                            @item.useraccount.othernames
-                        </td>
-                        <td>
-                            @item.main_stocks.product.product_name
-                        </td>
-                        <td>
-                            @item.qty
-                        </td>
-                    </tr>
-                }
-                <tr>
-                    <th>
-                        Transaction Summary by Product Quantity
-                    </th>
-                </tr>
-                @foreach (var row in Model.GroupBy(p => p.product_id))
-                {
-                    var item = row.FirstOrDefault();
-                    var totalQty = row.Sum(p => p.qty);
-                    <tr>
-                        <td>
-                            @item.main_stocks.product.product_name
-                        </td>
-                        <td>
-                            @totalQty
-                        </td>
-                    </tr>
-                }
-            </table>
 
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+
+                        <form action="@Url.Action("StockoutReport", "main_stocks")" method="post">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>
+                                        Start Date
+                                    </label>
+                                    <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>
+                                        End Date
+                                    </label>
+                                    <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>
+                                        Cashier
+                                    </label>
+                                    <select class="form-control" name="userid" required="">
+                                        <option value="ALL">ALL Users</option>
+                                        @foreach (var item in db.useraccounts.ToList())
+                                        {
+                                            <option value="@item.id">@item.firstname @item.lastname @item.othernames</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <br />
+                                    <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+                                    <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr />
+                                </div>
+                            </div>
+                        </form>
+                        <hr />
+
+
+                        <div class="panel-body" id="rpt">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th class="text-center" colspan="2">
+                                        <h4>
+                                            GOBBLES BAKERY
+                                        </h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">
+                                        <h4>
+                                            STOCK OUT REPORT
+                                        </h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Printed by: @user.firstname @user.lastname @user.othernames
+                                    </th>
+                                    <th>
+                                        Printed As at: @DateTime.Now
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        FROM  @Session["startdate"] TO @Convert.ToDateTime(Session["enddate"]).AddDays(-1)
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>
+                                        SN
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        User
+                                    </th>
+                                    <th>
+                                        Product
+                                    </th>
+                                    <th>
+                                        Qty Given Out
+                                    </th>
+                                </tr>
+
+                                @foreach (var item in Model.OrderBy(p => p.update_date))
+                                {
+                                    sn++;
+                                    <tr>
+                                        <td>
+                                            @sn
+                                        </td>
+                                        <td>
+                                            @item.update_date
+                                        </td>
+                                        <td>
+                                            @item.useraccount.firstname
+                                            @item.useraccount.lastname
+                                            @item.useraccount.othernames
+                                        </td>
+                                        <td>
+                                            @item.main_stocks.product.product_name
+                                        </td>
+                                        <td>
+                                            @item.qty
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <th>
+                                        Transaction Summary by Product Quantity
+                                    </th>
+                                </tr>
+                                @foreach (var row in Model.GroupBy(p => p.product_id))
+                                {
+                                    var item = row.FirstOrDefault();
+                                    var totalQty = row.Sum(p => p.qty);
+                                    <tr>
+                                        <td>
+                                            @item.main_stocks.product.product_name
+                                        </td>
+                                        <td>
+                                            @totalQty
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
-</div>
+</div> 

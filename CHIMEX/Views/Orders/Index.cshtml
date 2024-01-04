@@ -5,204 +5,226 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
 }
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Orders</h4>
+                    </center>
+                </div>
+                <br />
+                <br />
+                 
+                        <div class="table-rep-plugin">
+                            <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                        <button class="btn btn-outline-success" data-toggle="modal" data-target="#neworder">
+                                            New Order
+                                        </button>
+                                    </div>
+                                </div>
 
-<div class="col-md-1"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Orders</h3>
 
+                                <div class="panel-body" id="rpt">
+                                    <table class="table table-striped" id="search">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Customer Name
+                                                </th>
+                                                <th>
+                                                    Order Date
+                                                </th>
+                                                <th>
+                                                    Delivery Date
+                                                </th>
+                                                <th>
+                                                    Time
+                                                </th>
+                                                <th>
+                                                    User
+                                                </th>
+                                                <th>
+                                                    Status
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.OrderByDescending(p => p.insertdate))
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @if (item.status == "SUPPLIED")
+                                                        {
+                                                            <a href="@Url.Action("Receipt/"+item.id+"_Order","Orders")">
+                                                                @db.customers.FirstOrDefault(p => p.id == item.customerid).customer_name
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="@Url.Action("OrderItems/"+item.id,"Orders")">
+                                                                @db.customers.FirstOrDefault(p => p.id == item.customerid).customer_name
+                                                            </a>
+                                                        }
+
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.insertdate)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.orderdate)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ordertime)
+                                                    </td>
+                                                    <td>
+                                                        @db.useraccounts.FirstOrDefault(p => p.id == item.insertuser).firstname
+                                                        @db.useraccounts.FirstOrDefault(p => p.id == item.insertuser).lastname
+                                                    </td>
+                                                    <!--<td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                </td>-->
+
+
+<td>
+
+                                                    <td>
+                                                        @item.status
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- END PANEL WITH CONTROL CLASSES -->
+                        </div>
+
+                        <!-- New Ordedr Modal -->
+                        <div id="neworder" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">New Orders</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <hr />
+                                        <form action="@Url.Action("Create","Orders")" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <label>
+                                                Customer Name
+                                            </label>
+                                            <select class="form-control" name="customerid" required="">
+                                                @foreach (var item in db.customers.ToList())
+                                                {
+                                                    <option value="@item.id">@item.customer_name</option>
+                                                }
+                                            </select>
+                                            <label>
+                                                Pickup Date
+                                            </label>
+                                            <input type="date" name="orderdate" required class="form-control" />
+                                            <label>
+                                                Pickup Time
+                                            </label>
+                                            <select name="ordertime" class="form-control" required="">
+                                                <option value="Morning">Morning</option>
+                                                <option value="Afternoon">Afternoon</option>
+                                                <option value="Evening">Evenining</option>
+                                            </select>
+                                            <label>
+                                                Description
+                                            </label>
+                                            <input type="text" class="form-control" name="notes" />
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-success btn-sm">Submit</button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
         </div>
-        <div class="panel-body" id="rpt">
-            <div class="row">
-                <div class="col-md-8">
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
-                </div>
-                <div class="col-md-4">
-                    <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
-                    <button class="btn btn-outline-success" data-toggle="modal" data-target="#neworder">
-                        New Order
-                    </button>
-                </div>
-            </div>
-            <table class="table" id="search">
-                <tr>
-                    <th>
-                        Customer Name
-                    </th>
-                    <th>
-                        Order Date
-                    </th>
-                    <th>
-                        Delivery Date
-                    </th>
-                    <th>
-                        Time
-                    </th>
-                    <th>
-                        User
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                </tr>
-
-                @foreach (var item in Model.OrderByDescending(p => p.insertdate))
-                {
-                    <tr>
-                        <td>
-                            @if (item.status == "SUPPLIED")
-                            {
-                                <a href="@Url.Action("Receipt/"+item.id+"_Order","Orders")">
-                                    @db.customers.FirstOrDefault(p => p.id == item.customerid).customer_name
-                                </a>
-                            }
-                            else
-                            {
-                                <a href="@Url.Action("OrderItems/"+item.id,"Orders")">
-                                    @db.customers.FirstOrDefault(p => p.id == item.customerid).customer_name
-                                </a>
-                            }
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.insertdate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.orderdate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ordertime)
-                        </td>
-                        <td>
-                            @db.useraccounts.FirstOrDefault(p => p.id == item.insertuser).firstname
-                            @db.useraccounts.FirstOrDefault(p => p.id == item.insertuser).lastname
-                        </td>
-                        <!--<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                </td>-->
-                        <td>
-                            @item.status
-                        </td>
-                    </tr>
-                }
-
-            </table>
         </div>
     </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
-</div>
 
-<!-- New Ordedr Modal -->
-<div id="neworder" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">New Orders</h4>
-            </div>
-            <div class="modal-body">
-                <hr />
-                <form action="@Url.Action("Create","Orders")" method="post">
-                    @Html.AntiForgeryToken()
-                    <label>
-                        Customer Name
-                    </label>
-                    <select class="form-control" name="customerid" required="">
-                        @foreach(var item in db.customers.ToList())
-                        {
-                            <option value="@item.id">@item.customer_name</option>
-                        }
-                    </select>
-                    <label>
-                        Pickup Date
-                    </label>
-                    <input type="date" name="orderdate" required class="form-control" />
-                    <label>
-                        Pickup Time
-                    </label>
-                    <select name="ordertime" class="form-control" required="">
-                        <option value="Morning">Morning</option>
-                        <option value="Afternoon">Afternoon</option>
-                        <option value="Evening">Evenining</option>
-                    </select>
-                    <label>
-                        Description
-                    </label>
-                    <input type="text" class="form-control" name="notes" />
-                    <button class="btn btn-success btn-sm">Submit</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
+    <script>
+        function myFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("search");
+            tr = table.getElementsByTagName("tr");
 
-    </div>
-</div>
-
-
-<script>
-    function myFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("search");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }
             }
         }
-    }
-</script>
+    </script>
 
-<style>
-    #myInput {
-        background-image: url('/css/searchicon.png'); /* Add a search icon to input */
-        background-position: 10px 12px; /* Position the search icon */
-        background-repeat: no-repeat; /* Do not repeat the icon image */
-        width: 100%; /* Full-width */
-        font-size: 16px; /* Increase font-size */
-        padding: 12px 20px 12px 40px; /* Add some padding */
-        border: 1px solid #ddd; /* Add a grey border */
-        margin-bottom: 12px; /* Add some space below the input */
-    }
-
-    #search {
-        border-collapse: collapse; /* Collapse borders */
-        width: 100%; /* Full-width */
-        border: 1px solid #ddd; /* Add a grey border */
-        font-size: 18px; /* Increase font-size */
-    }
-
-        #search th, #search td {
-            text-align: left; /* Left-align text */
-            padding: 12px; /* Add padding */
+    <style>
+        #myInput {
+            background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+            background-position: 10px 12px; /* Position the search icon */
+            background-repeat: no-repeat; /* Do not repeat the icon image */
+            width: 100%; /* Full-width */
+            font-size: 16px; /* Increase font-size */
+            padding: 12px 20px 12px 40px; /* Add some padding */
+            border: 1px solid #ddd; /* Add a grey border */
+            margin-bottom: 12px; /* Add some space below the input */
         }
 
-        #search tr {
-            /* Add a bottom border to all table rows */
-            border-bottom: 1px solid #ddd;
+        #search {
+            border-collapse: collapse; /* Collapse borders */
+            width: 100%; /* Full-width */
+            border: 1px solid #ddd; /* Add a grey border */
+            font-size: 18px; /* Increase font-size */
         }
 
-            #search tr.header, #myTable tr:hover {
-                /* Add a grey background color to the table header and on hover */
-                background-color: #f1f1f1;
+            #search th, #search td {
+                text-align: left; /* Left-align text */
+                padding: 12px; /* Add padding */
             }
-</style>
+
+            #search tr {
+                /* Add a bottom border to all table rows */
+                border-bottom: 1px solid #ddd;
+            }
+
+                #search tr.header, #myTable tr:hover {
+                    /* Add a grey background color to the table header and on hover */
+                    background-color: #f1f1f1;
+                }
+    </style>
 
 
