@@ -13,204 +13,252 @@
     decimal totalPOS = 0;
     decimal totalCHEQUE = 0;
 }
+
+
 <div class="row">
-    <div class="col-md-12">
-        <!-- START PANEL WITH CONTROL CLASSES -->
-        <div class="card panel-warning">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="panel-title">Sales Report</h3>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Sales Report</h4>
+                    </center>
+                </div>
+                <br />
+                <br />
+
+
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+
                         <form action="@Url.Action("SalesReport", "Sales")" method="post">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <hr />
-                                </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label>
                                         Start Date
                                     </label>
                                     <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label>
                                         End Date
                                     </label>
                                     <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
                                     <input type="hidden" class="form-control" value="@Session["userid"]" name="userid" />
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <br />
-                                    <button class="btn btn-outline-success btn-sm "><span class="icon glyphicon-filter"></span> Filter</button>
-                                    <button href="#" class="btn btn-sm btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                    <button class="btn btn-success btn-sm "><span class="icon glyphicon-filter"></span> Filter</button>
+                                    <button href="#" class="btn btn-sm btn-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr />
                                 </div>
                             </div>
                         </form>
+                        <hr />
+
+
+
+                        <!--<div class="row">
+                        <div class="col-md-12">-->
+                        <!-- START PANEL WITH CONTROL CLASSES -->
+                        <!--<div class="card panel-warning">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="panel-title">Sales Report</h3>
+                                    <form action="@Url.Action("SalesReport", "Sales")" method="post">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <hr />
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label>
+                                                    Start Date
+                                                </label>
+                                                <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label>
+                                                    End Date
+                                                </label>
+                                                <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+                                                <input type="hidden" class="form-control" value="@Session["userid"]" name="userid" />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br />
+                                                <button class="btn btn-outline-success btn-sm "><span class="icon glyphicon-filter"></span> Filter</button>
+                                                <button href="#" class="btn btn-sm btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="panel-body" id="rpt">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th class="text-center" colspan="2">
+                                        <h4>
+                                            GOBBLES BAKERY
+                                        </h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">
+                                        <h4>
+                                            SALES REPORT
+                                        </h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Printed by: @user.firstname @user.lastname @user.othernames
+                                    </th>
+                                    <th>
+                                        Printed As at: @DateTime.Now
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        FROM  @Session["startdate"] TO @Convert.ToDateTime(Session["enddate"]).AddDays(-1)
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>
+                                        SN
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Cashier
+                                    </th>
+                                    <th>
+                                        Product
+                                    </th>
+                                    <th>
+                                        Qty Sold
+                                    </th>
+                                    <th class="text-right">
+                                        Unit Price ( &#8358 )
+                                    </th>
+                                    <th class="text-right">
+                                        Amount ( &#8358 )
+                                    </th>
+                                    <th>
+                                        Transaction Type
+                                    </th>
+                                </tr>
+
+                                @foreach (var item in Model.OrderBy(p => p.date_sold))
+                                {
+                                    sn++;
+                                    total += Convert.ToDecimal(item.total_amount);
+
+                                    if (item.transaction.paymenttype == "CASH")
+                                    {
+                                        totalCASH += Convert.ToDecimal(item.total_amount);
+                                    }
+                                    if (item.transaction.paymenttype == "POS")
+                                    {
+                                        totalPOS += Convert.ToDecimal(item.total_amount);
+                                    }
+                                    if (item.transaction.paymenttype == "TRANSFER")
+                                    {
+                                        totalTransfer += Convert.ToDecimal(item.total_amount);
+                                    }
+                                    if (item.transaction.paymenttype == "CHEQUE")
+                                    {
+                                        totalCHEQUE += Convert.ToDecimal(item.total_amount);
+                                    }
+                                    <tr>
+                                        <td>
+                                            @sn
+                                        </td>
+                                        <td>
+                                            @item.date_sold
+                                        </td>
+                                        <td>
+                                            @item.useraccount.firstname
+                                            @item.useraccount.lastname
+                                            @item.useraccount.othernames
+                                        </td>
+                                        <td>
+                                            @item.product_name
+                                        </td>
+                                        <td>
+                                            @item.qty
+                                        </td>
+                                        <td class="text-right">
+                                            @String.Format("{0:#,#.00}", item.unitprice)
+                                        </td>
+                                        <td class="text-right">
+                                            @String.Format("{0:#,#.00}", item.total_amount)
+                                        </td>
+                                        <td>
+                                            @item.transaction.paymenttype
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="8">
+                                        <b>
+                                            Transaction Summary By Payament Type
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        CASH: @String.Format("{0:#,#.00}", totalCASH)
+                                    </td>
+                                    <td colspan="2">
+                                        TRANSFER: @String.Format("{0:#,#.00}", totalTransfer)
+                                    </td>
+                                    <td colspan="2">
+                                        POS: @String.Format("{0:#,#.00}", totalPOS)
+                                    </td>
+                                    <td colspan="2">
+                                        CHEQUE: @String.Format("{0:#,#.00}", totalCHEQUE)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="7" class="text-center">
+                                        TOTAL Amount (N)
+                                    </th>
+                                    <th class="text-right">
+                                        @String.Format("{0:#,#.00}", total)
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Transaction Summary by Product Quantity
+                                    </th>
+                                </tr>
+                                @foreach (var row in Model.GroupBy(p => p.stock_id))
+                                {
+                                    var item = row.FirstOrDefault();
+                                    var totalQty = row.Sum(p => p.qty);
+                                    <tr>
+                                        <td>
+                                            @item.product_name
+                                        </td>
+                                        <td>
+                                            @totalQty
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="panel-body" id="rpt">
-                <table class="table">
-                    <tr>
-                        <th class="text-center" colspan="2">
-                            <h4>
-                                GOBBLES BAKERY
-                            </h4>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">
-                            <h4>
-                                SALES REPORT
-                            </h4>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            Printed by: @user.firstname @user.lastname @user.othernames
-                        </th>
-                        <th>
-                            Printed As at: @DateTime.Now
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            FROM  @Session["startdate"] TO @Convert.ToDateTime(Session["enddate"]).AddDays(-1)
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </table>
-                <table class="table">
-                    <tr>
-                        <th>
-                            SN
-                        </th>
-                        <th>
-                            Date
-                        </th>
-                        <th>
-                            Cashier
-                        </th>
-                        <th>
-                            Product
-                        </th>
-                        <th>
-                            Qty Sold
-                        </th>
-                        <th class="text-right">
-                            Unit Price ( &#8358 )
-                        </th>
-                        <th class="text-right">
-                            Amount ( &#8358 )
-                        </th>
-                        <th>
-                            Transaction Type
-                        </th>
-                    </tr>
-
-                    @foreach (var item in Model.OrderBy(p => p.date_sold))
-                    {
-                        sn++;
-                        total += Convert.ToDecimal(item.total_amount);
-
-                        if (item.transaction.paymenttype == "CASH")
-                        {
-                            totalCASH += Convert.ToDecimal(item.total_amount);
-                        }
-                        if (item.transaction.paymenttype == "POS")
-                        {
-                            totalPOS += Convert.ToDecimal(item.total_amount);
-                        }
-                        if (item.transaction.paymenttype == "TRANSFER")
-                        {
-                            totalTransfer += Convert.ToDecimal(item.total_amount);
-                        }
-                        if (item.transaction.paymenttype == "CHEQUE")
-                        {
-                            totalCHEQUE += Convert.ToDecimal(item.total_amount);
-                        }
-                        <tr>
-                            <td>
-                                @sn
-                            </td>
-                            <td>
-                                @item.date_sold
-                            </td>
-                            <td>
-                                @item.useraccount.firstname
-                                @item.useraccount.lastname
-                                @item.useraccount.othernames
-                            </td>
-                            <td>
-                                @item.product_name
-                            </td>
-                            <td>
-                                @item.qty
-                            </td>
-                            <td class="text-right">
-                                @String.Format("{0:#,#.00}", item.unitprice)
-                            </td>
-                            <td class="text-right">
-                                @String.Format("{0:#,#.00}", item.total_amount)
-                            </td>
-                            <td>
-                                @item.transaction.paymenttype
-                            </td>
-                        </tr>
-                    }
-                    <tr>
-                        <td colspan="8">
-                            <b>
-                                Transaction Summary By Payament Type
-                            </b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            CASH: @String.Format("{0:#,#.00}", totalCASH)
-                        </td>
-                        <td colspan="2">
-                            TRANSFER: @String.Format("{0:#,#.00}", totalTransfer)
-                        </td>
-                        <td colspan="2">
-                            POS: @String.Format("{0:#,#.00}", totalPOS)
-                        </td>
-                        <td colspan="2">
-                            CHEQUE: @String.Format("{0:#,#.00}", totalCHEQUE)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th colspan="7" class="text-center">
-                            TOTAL Amount (N)
-                        </th>
-                        <th class="text-right">
-                            @String.Format("{0:#,#.00}", total)
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            Transaction Summary by Product Quantity
-                        </th>
-                    </tr>
-                    @foreach (var row in Model.GroupBy(p => p.stock_id))
-                    {
-                        var item = row.FirstOrDefault();
-                        var totalQty = row.Sum(p => p.qty);
-                        <tr>
-                            <td>
-                                @item.product_name
-                            </td>
-                            <td>
-                                @totalQty
-                            </td>
-                        </tr>
-                    }
-                </table>
-
-            </div>
         </div>
-        <!-- END PANEL WITH CONTROL CLASSES -->
     </div>
-</div>
+</div> 
