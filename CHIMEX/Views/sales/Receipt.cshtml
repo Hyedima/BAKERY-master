@@ -7,222 +7,228 @@
     decimal TotalAmount = 0;
 }
 
-<div class="row"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Receipt</h3>
-        </div>
-        <div class="panel-body">
-            <div class="col-lg-6 col-lg-offset-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <div id="PrintPage" style="margin: 0px; padding: opx; padding-bottom:0px;">
-                                <h3 class="text-center">GOBBLES BAKERY</h3>
-                                <h5 class="text-center">
-                                    
-                                </h5>
-                                <p class="text-center">
-                                    NO. 37, Bourmediene Road, Narayi High Cost Junction Kaduna.
-                                </p>
-                                <p class="text-center">
-                                    08154546234, 09032155947
-                                </p>
-                                <h3 class="text-center ">*****Transaction Receipt*****</h3>
-                                <h3 class="text-center">@Model.paymenttype</h3>
-                                <h4 class="text-center">---------------------------</h4>
-                                <table class="table" style="margin: 0px; padding: opx; padding-bottom:0px;">
-                                    <tr>
-                                        <td colspan="2">
-                                            <label>
-                                                Transaction ID:
-                                            </label>
-                                        </td>
-                                        <td colspan="2">
-                                            <label>
-                                                @Model.id
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <label>
-                                                Date:
-                                            </label>
-                                        </td>
-                                        <td colspan="2">
-                                            <label>
-                                                @DateTime.Now
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <label>Customer:</label>
-                                        </td>
-                                        <td colspan="2">
-                                            @Model.customer.customer_name
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <label>
-                                                Sold by:
-                                            </label>
-                                        </td>
-                                        <td colspan="2">
-                                            <label>
-                                                 @Model.useraccount.firstname @Model.useraccount.lastname @Model.useraccount.othernames
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr class="success">
-                                        <th>
-                                            Item
-                                        </th>
-                                        <th>
-                                            Unit Price
-                                        </th>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Amount (&#8358)
-                                        </th>
-                                        <th></th>
-                                    </tr>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Receipt</h4>
+                    </center>
+                </div>
+                <br />
+                <br />
 
-                                    @foreach (var item in db.sales.Where(p => p.transaction_id == Model.id))
-                                    {
-                                        TotalAmount += Convert.ToDecimal(item.total_amount);
-
-                                        <tr class="">
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.product.product_name)
-                                            </td>
-                                            <td>
-                                                @String.Format("{0:#,#.00}", item.unitprice)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.qty)
-                                            </td>
-                                            @*<td>
-                                                @Html.DisplayFor(modelItem => item.UnitPrice)
-                                            </td>*@
-                                            <td>
-                                                @String.Format("{0:#,#.00}", item.total_amount)
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                    }
-                                    <tr>
-                                        <td colspan="3">
-                                            <h3>Amount</h3>
-                                        </td>
-                                        <td>
-                                            <h3 class="text-bold">
-                                                @String.Format("{0:#,#.00}", TotalAmount)
-                                            </h3>
-                                        </td>
-                                    </tr>
-                                    @*<tr>
-                                        <th colspan="4" class="text-center">
-                                            AMOUNT PAID
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="3">
-                                            Payment Date
-                                        </th>
-                                        <th>
-                                            Payment Type
-                                        </th>
-                                        <th>
-                                            Amount
-                                        </th>
-                                    </tr>
-                                    @{
-                                        var totalpay = 0;
-                                    }
-                                    @foreach (var item in db.customer_ledger.Where(p=>p.customerid == Model.customerid  && p.transactionid == Model.id))
-                                    {
-                                        totalpay += Convert.ToInt32(item.credit);
-                                        <tr>
-                                            <td colspan="3">
-                                                @item.insertdate
-                                            </td>
-                                            <td>
-                                                @item.paymenttype
-                                            </td>
-                                            <td>
-                                                @String.Format("{0:#,#.00}", item.credit)
-                                            </td>
-                                        </tr>
-                                    }
-                                    <tr>
-                                        <th colspan="4">
-                                            Total Amount Paid
-                                        </th>
-                                        <th>
-                                            @String.Format("{0:#,#.00}", totalpay)
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4">
-                                            BALANCE
-                                        </th>
-                                        <th>
-                                            @{
-                                                var bal = TotalAmount - totalpay;
-                                            }
-                                            @String.Format("{0:#,#.00}", bal)
-                                        </th>
-                                    </tr>*@
-                                </table>
+                <div class="panel-body">
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
                             </div>
-                         
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <div id="PrintPage" style="margin: 0px; padding: opx; padding-bottom:0px;">
+                                        <h3 class="text-center">GOBBLES BAKERY</h3>
+                                        <h5 class="text-center">
+                                        </h5>
+                                        <p class="text-center">
+                                            NO. 37, Bourmediene Road, Narayi High Cost Junction Kaduna.
+                                        </p>
+                                        <p class="text-center">
+                                            08154546234, 09032155947
+                                        </p>
+                                        <h3 class="text-center ">*****Transaction Receipt*****</h3>
+                                        <h3 class="text-center">@Model.paymenttype</h3>
+                                        <h4 class="text-center">---------------------------</h4>
+                                        <table class="table" style="margin: 0px; padding: opx; padding-bottom:0px;">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <label>
+                                                        Transaction ID:
+                                                    </label>
+                                                </td>
+                                                <td colspan="2">
+                                                    <label>
+                                                        @Model.id
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <label>
+                                                        Date:
+                                                    </label>
+                                                </td>
+                                                <td colspan="2">
+                                                    <label>
+                                                        @DateTime.Now
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <label>Customer:</label>
+                                                </td>
+                                                <td colspan="2">
+                                                    @Model.customer.customer_name
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <label>
+                                                        Sold by:
+                                                    </label>
+                                                </td>
+                                                <td colspan="2">
+                                                    <label>
+                                                        @Model.useraccount.firstname @Model.useraccount.lastname @Model.useraccount.othernames
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr class="success">
+                                                <th>
+                                                    Item
+                                                </th>
+                                                <th>
+                                                    Unit Price
+                                                </th>
+                                                <th>
+                                                    Quantity
+                                                </th>
+                                                <th>
+                                                    Amount (&#8358)
+                                                </th>
+                                                <th></th>
+                                            </tr>
+
+                                            @foreach (var item in db.sales.Where(p => p.transaction_id == Model.id))
+                                            {
+                                                TotalAmount += Convert.ToDecimal(item.total_amount);
+
+                                                <tr class="">
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.product.product_name)
+                                                    </td>
+                                                    <td>
+                                                        @String.Format("{0:#,#.00}", item.unitprice)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.qty)
+                                                    </td>
+                                                    @*<td>
+                                                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                                                        </td>*@
+                                                    <td>
+                                                        @String.Format("{0:#,#.00}", item.total_amount)
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td colspan="3">
+                                                    <h3>Amount</h3>
+                                                </td>
+                                                <td>
+                                                    <h3 class="text-bold">
+                                                        @String.Format("{0:#,#.00}", TotalAmount)
+                                                    </h3>
+                                                </td>
+                                            </tr>
+                                            @*<tr>
+                                                    <th colspan="4" class="text-center">
+                                                        AMOUNT PAID
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="3">
+                                                        Payment Date
+                                                    </th>
+                                                    <th>
+                                                        Payment Type
+                                                    </th>
+                                                    <th>
+                                                        Amount
+                                                    </th>
+                                                </tr>
+                                                @{
+                                                    var totalpay = 0;
+                                                }
+                                                @foreach (var item in db.customer_ledger.Where(p=>p.customerid == Model.customerid  && p.transactionid == Model.id))
+                                                {
+                                                    totalpay += Convert.ToInt32(item.credit);
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            @item.insertdate
+                                                        </td>
+                                                        <td>
+                                                            @item.paymenttype
+                                                        </td>
+                                                        <td>
+                                                            @String.Format("{0:#,#.00}", item.credit)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <th colspan="4">
+                                                        Total Amount Paid
+                                                    </th>
+                                                    <th>
+                                                        @String.Format("{0:#,#.00}", totalpay)
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4">
+                                                        BALANCE
+                                                    </th>
+                                                    <th>
+                                                        @{
+                                                            var bal = TotalAmount - totalpay;
+                                                        }
+                                                        @String.Format("{0:#,#.00}", bal)
+                                                    </th>
+                                                </tr>*@
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel">
-                    <div class="panel-body">
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <center>
-                            <script>
+                    <div class="col-md-3">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <center>
+                                    <script>
                         //Save Complains
                         $(function () {
                             $("#btnPost").click('submit', function (e) {
                                         @*$(location).attr("href", "@Url.Action("Sale","Sales")");*@
                                     })
                         })
-                            </script>
-                            <hr />
-                            <div class="col-md-12">
-                                <button class="btn btn-success btn-line" onclick="javascript:printDiv('PrintPage');">
-                                    <i class="icon icon-print"></i>
-                                    Print
-                                </button>
+                                    </script>
+                                    <hr />
+                                    <div class="col-md-12">
+                                        <button class="btn btn-success btn-line" onclick="javascript:printDiv('PrintPage');">
+                                            <i class="icon icon-print"></i>
+                                            Print
+                                        </button>
+                                    </div>
+                                </center>
                             </div>
-                        </center>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- END PANEL WITH CONTROL CLASSES -->
         </div>
-    </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
-</div>
 
+    </div>
+</div>

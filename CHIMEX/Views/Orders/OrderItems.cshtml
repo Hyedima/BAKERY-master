@@ -9,278 +9,284 @@
     var order = db.Orders.FirstOrDefault(p => p.id == order_id);
     string customerid = order.customerid;
 }
-
-<div class="col-md-12">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Order Dashboard</h3>
-            <ul class="panel-controls">
-                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
-        </div>
-        <div class="panel-body" id="rpt">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table">
-                           @{
-                                //var customerid = Session["customerid"].ToString();
-                                var Cust = db.customers.FirstOrDefault(p => p.id == customerid);
-                           }
-                            <tr>
-                                <th>
-                                    Customer:
-                                </th>
-                                <th>
-                                    @Cust.customer_name
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Email:
-                                </th>
-                                <th>
-                                    @Cust.email
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Phone:
-                                </th>
-                                <th>
-                                    @Cust.phone
-                                </th>
-                            </tr>
-                       
-                    </table>
-                    <hr />
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Order Dashboard</h4>
+                    </center>
                 </div>
-                <div class="col-md-6">
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
-                    <table class="table" id="search">
-                        <thead>
-                            <tr>
-                                <th colspan="6">
-                                    Product in Stock
-                                </th>
-                            </tr>
-                            <tr>
-                                <!--<th>SN</th>-->
-                                <th>Product</th>
-                                <th>Qty</th>
-                                <th>Unit Price</th>
-                                <th>Unit Price</th>
-                                <th>Qty to Sell</th>
+                <br />
+                <br />
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in db.stocks.ToList())
-                            {
-                                sn++;
+                <div class="panel-body" id="rpt">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                @{
+                                    //var customerid = Session["customerid"].ToString();
+                                    var Cust = db.customers.FirstOrDefault(p => p.id == customerid);
+                                }
                                 <tr>
-                                    <!--<td>
-                                        @sn
-                                    </td>-->
-                                    <td>
-                                        @item.product.product_name
-                                    </td>
-                                    <td>
-                                        @item.qty
-                                    </td>
-                                    <td>
-                                        @item.product.selling_price
-                                    </td>
-                                    <form action="@Url.Action("Addcart","Orders")" method="post">
-                                        <input type="hidden" value="@item.id" name="stockid" />
-                                        <input type="hidden" value="@item.product_id" name="productid" />
-                                        <input type="hidden" value="@item" name="order_id" />
-                                        <input type="hidden" value="@Session["userid"]" name="userid" />
-                                        <input type="hidden" value="@order_id" name="orderid" />
-                                        <td>
-                                            <div class="col-md-8">
-                                                <input type="number" required="" value="@item.product.selling_price" class="form-control" name="unitprice" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-md-8">
-                                                <input type="number" required="" class="form-control" name="qty" />
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn btn-success btn-sm"><span class="fa glyphicon-plus"></span></button>
-                                            </div>
-                                        </td>
-                                    </form>
+                                    <th>
+                                        Customer:
+                                    </th>
+                                    <th>
+                                        @Cust.customer_name
+                                    </th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <table class="table" id="mytable">
-                        <tr>
-                            <th colspan="6">
-                                Product on Cart
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>SN</th>
-                            <th>Product</th>
-                            <th>Qty</th>
-                            <th>Unit Price</th>
-                            <th>Amount</th>
-                            <th></th>
-                        </tr>
-                        @{
-                            decimal total = 0;
-                            int csn = 0;
-                        }
-                        @foreach (var item in db.order_cart.Where(p => p.order_id == order_id))
-                        {
-                            csn++;
-                            <tr>
-                                <td>
-                                    @csn
-                                </td>
-                                <td>
-                                    @item.product.product_name
-                                </td>
-                                <td>
-                                    @item.qty
-                                </td>
-                                <td>
-                                    @item.unitprice
-                                </td>
-                                <td>
-                                    @{
-                                        var amt = item.qty * item.unitprice;
-                                        total += Convert.ToDecimal(amt);
+                                <tr>
+                                    <th>
+                                        Email:
+                                    </th>
+                                    <th>
+                                        @Cust.email
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Phone:
+                                    </th>
+                                    <th>
+                                        @Cust.phone
+                                    </th>
+                                </tr>
+
+                            </table>
+                            <hr />
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                            <table class="table table-striped" id="search">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6">
+                                            Product in Stock
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <!--<th>SN</th>-->
+                                        <th>Product</th>
+                                        <th>Qty</th>
+                                        <th>Unit Price</th>
+                                        <th>Unit Price</th>
+                                        <th>Qty to Sell</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in db.stocks.ToList())
+                                    {
+                                        sn++;
+                                        <tr>
+                                            <!--<td>
+                        @sn
+                    </td>-->
+                                            <td>
+                                                @item.product.product_name
+                                            </td>
+                                            <td>
+                                                @item.qty
+                                            </td>
+                                            <td>
+                                                @item.product.selling_price
+                                            </td>
+                                            <form action="@Url.Action("Addcart","Orders")" method="post">
+                                                <input type="hidden" value="@item.id" name="stockid" />
+                                                <input type="hidden" value="@item.product_id" name="productid" />
+                                                <input type="hidden" value="@item" name="order_id" />
+                                                <input type="hidden" value="@Session["userid"]" name="userid" />
+                                                <input type="hidden" value="@order_id" name="orderid" />
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <input type="number" required="" value="@item.product.selling_price" class="form-control" name="unitprice" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <input type="number" required="" class="form-control" name="qty" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn btn-success btn-sm">+</button>
+                                                    </div>
+                                                    </div>
+                                            </td>
+                                            </form>
+                                        </tr>
                                     }
-                                    @String.Format("{0:#,#.00}", amt)
-                                </td>
-                                <td>
-                                    <form action="@Url.Action("DeleteCart","Orders")" method="post">
-                                        <input type="hidden" name="id" value="@item.id" />
-                                        <input type="hidden" name="orderid" value="@item.order_id" />
-                                        <button class="btn btn-danger btn-sm"> X </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        }
-                        <tr>
-                            <th colspan="4">
-                                TOTAL AMOUNT(N)
-                            </th>
-                            <th>
-                                @String.Format("{0:#,#.00}", total)
-                            </th>
-                        </tr>
-                        <tr>
-                            <td colspan="4"></td>
-                            <td>
-                                @if (order.status == "Posted")
-                                {
-                                    <form method="post" action="@Url.Action("SaleSaveTransaction", "Orders")">
-                                        <input type="hidden" class="form-control" name="userid" value="@Session["userid"].ToString()" />
-                                        <input type="hidden" class="form-control" name="totalamount" value="@total" />
-                                        <input type="hidden" class="form-control" name="order_id" value="@order_id" />
-                                        <input type="hidden" name="customer" class="form-control" value="@customerid" readonly="readonly" />
-                                        <input type="hidden" name="transactiontype" value="ORDER" id="" />
-                                        <label>Payment Type</label>
-                                        <select class="form-control" required="" name="paymenttype">
-                                            <option value="CASH">CASH</option>
-                                            <option value="CHEQUE">CHEQUE</option>
-                                            <option value="TRANSFER">TRANSFER</option>
-                                            <option value="POS">POS</option>
-                                        </select>
-                                        <label>Amount(N) Paid</label>
-                                        <input type="text" name="amountpaid" class="form-control" value="@total" />
-                                        <!--<label>Description</label>-->
-                                        <input type="hidden" name="description" class="form-control" value="Order" />
-                                        <hr />
-                                        <!--<small class="text-warning">If customer is not among the list click the New customer link</small>
-            <br />
-            <a href="#" data-toggle="modal" data-target="#newcustomer" class="btn btn-facebook">New Customer</a>
-            -->
-                                        <button class="btn btn-success btn-line pull-right" id="">
-                                            <i class="glyphicon glyphicon-upload"></i>
-                                            Supply
-                                        </button>
-                                    </form>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table" id="mytable">
+                                <tr>
+                                    <th colspan="6">
+                                        Product on Cart
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Product</th>
+                                    <th>Qty</th>
+                                    <th>Unit Price</th>
+                                    <th>Amount</th>
+                                    <th></th>
+                                </tr>
+                                @{
+                                    decimal total = 0;
+                                    int csn = 0;
                                 }
-                                else
+                                @foreach (var item in db.order_cart.Where(p => p.order_id == order_id))
                                 {
-                                    <form method="post" action="@Url.Action("PostOrder/"+order_id,"Orders")">
-                                        <input type="hidden" name="id" value="@order_id" />
-                                        <button class="btn btn-success btn-line pull-right" id="">
-                                            <i class="glyphicon glyphicon-upload"></i>
-                                            Place Order
-                                        </button>
-                                    </form>
+                                    csn++;
+                                    <tr>
+                                        <td>
+                                            @csn
+                                        </td>
+                                        <td>
+                                            @item.product.product_name
+                                        </td>
+                                        <td>
+                                            @item.qty
+                                        </td>
+                                        <td>
+                                            @item.unitprice
+                                        </td>
+                                        <td>
+                                            @{
+                                                var amt = item.qty * item.unitprice;
+                                                total += Convert.ToDecimal(amt);
+                                            }
+                                            @String.Format("{0:#,#.00}", amt)
+                                        </td>
+                                        <td>
+                                            <form action="@Url.Action("DeleteCart","Orders")" method="post">
+                                                <input type="hidden" name="id" value="@item.id" />
+                                                <input type="hidden" name="orderid" value="@item.order_id" />
+                                                <button class="btn btn-danger btn-sm"> X </button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 }
-                            </td>
-                            <td></td>
-                        </tr>
-                    </table>
+                                <tr>
+                                    <th colspan="4">
+                                        TOTAL AMOUNT(N)
+                                    </th>
+                                    <th>
+                                        @String.Format("{0:#,#.00}", total)
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
+                                    <td>
+                                        @if (order.status == "Posted")
+                                        {
+                                            <form method="post" action="@Url.Action("SaleSaveTransaction", "Orders")">
+                                                <input type="hidden" class="form-control" name="userid" value="@Session["userid"].ToString()" />
+                                                <input type="hidden" class="form-control" name="totalamount" value="@total" />
+                                                <input type="hidden" class="form-control" name="order_id" value="@order_id" />
+                                                <input type="hidden" name="customer" class="form-control" value="@customerid" readonly="readonly" />
+                                                <input type="hidden" name="transactiontype" value="ORDER" id="" />
+                                                <label>Payment Type</label>
+                                                <select class="form-control" required="" name="paymenttype">
+                                                    <option value="CASH">CASH</option>
+                                                    <option value="CHEQUE">CHEQUE</option>
+                                                    <option value="TRANSFER">TRANSFER</option>
+                                                    <option value="POS">POS</option>
+                                                </select>
+                                                <label>Amount(N) Paid</label>
+                                                <input type="text" name="amountpaid" class="form-control" value="@total" />
+                                                <!--<label>Description</label>-->
+                                                <input type="hidden" name="description" class="form-control" value="Order" />
+                                                <hr />
+                                                <!--<small class="text-warning">If customer is not among the list click the New customer link</small>
+                                                <br />
+                                                <a href="#" data-toggle="modal" data-target="#newcustomer" class="btn btn-facebook">New Customer</a>
+                                                -->
+                                                <button class="btn btn-success btn-line pull-right" id="">
+                                                    <i class="glyphicon glyphicon-upload"></i>
+                                                    Supply
+                                                </button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form method="post" action="@Url.Action("PostOrder/"+order_id,"Orders")">
+                                                <input type="hidden" name="id" value="@order_id" />
+                                                <button class="btn btn-success btn-line pull-right" id="">
+                                                    <i class="glyphicon glyphicon-upload"></i>
+                                                    Place Order
+                                                </button>
+                                            </form>
+                                        }
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
-</div>
-
-
-<!-- New Customer Modal -->
-<div id="newcustomer" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Register New Customer</h4>
-            </div>
-            <div class="modal-body">
-                <hr />
-                <form action="@Url.Action("NewCustomer","Sales")" method="post">
-                    <label>
-                        Customer Name
-                    </label>
-                    <input type="text" class="form-control" name="name" />
-                    <label>
-                        Phone
-                    </label>
-                    <input type="text" name="phone" class="form-control" />
-                    <label>
-                        Email
-                    </label>
-                    <input type="email" class="form-control" name="email" />
-                    <label>
-                        Customer Type
-                    </label>
-                    <select name="customertype" class="form-control" required="">
-                        <option value="Casual Customer">Casual Customer</option>
-                        <option value="Customer">Customer</option>
-                        <option value="LAR">LAR</option>
-                    </select>
-                    <label>
-                        Address
-                    </label>
-                    <input type="text" class="form-control" name="address" />
-                    <button class="btn btn-success btn-sm">Submit</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+            <!-- END PANEL WITH CONTROL CLASSES -->
         </div>
 
+
+        <!-- New Customer Modal -->
+        <div id="newcustomer" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Register New Customer</h4>
+                    </div>
+                    <div class="modal-body">
+                        <hr />
+                        <form action="@Url.Action("NewCustomer","Sales")" method="post">
+                            <label>
+                                Customer Name
+                            </label>
+                            <input type="text" class="form-control" name="name" />
+                            <label>
+                                Phone
+                            </label>
+                            <input type="text" name="phone" class="form-control" />
+                            <label>
+                                Email
+                            </label>
+                            <input type="email" class="form-control" name="email" />
+                            <label>
+                                Customer Type
+                            </label>
+                            <select name="customertype" class="form-control" required="">
+                                <option value="Casual Customer">Casual Customer</option>
+                                <option value="Customer">Customer</option>
+                                <option value="LAR">LAR</option>
+                            </select>
+                            <label>
+                                Address
+                            </label>
+                            <input type="text" class="form-control" name="address" />
+                            <button class="btn btn-success btn-sm">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
-
 
 <script>
     function myFunction() {

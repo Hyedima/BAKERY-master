@@ -7,80 +7,99 @@
 }
 
 <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Customers</h4>
+                    </center>
+                </div>
+                <br />
+                <br />
 
-</div>
-<div class="col-md-1"></div>
-<div class="col-md-12">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="card panel-warning">
-        <div class="card-header">
-            <h3 class="panel-title">Customers</h3>
-        </div>
-        <div class="card-body" id="rpt">
-            <a href="@Url.Action("Create","Customers")" class="btn btn-success btn-sm"> Create New Customer
-            </a>
-            <hr />
-            <table class="table" id="search">
-                <thead>
-                    <tr>
-                        <th>
-                            SN
-                        </th>
-                        <th>
-                            Customer
-                        </th>
-                        <th>
-                            Phone
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Address
-                        </th>
-                        <th>
-                            Customer Type
-                        </th>
-                        <th>
-                            Date
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        sn++;
-                        <tr>
-                            <td>
-                                @sn
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.customer_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.phone)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.customertype)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.insert_date)
-                            </td>
-                            <td>
-                                | @Html.ActionLink("Edit", "Edit", new { id = item.id })|
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                            </div>
+                            <div class="col-md-4">
+                                <button href="#" class="btn btn-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
+                                <a href="@Url.Action("Create","Customers")" class="btn btn-success btn-sm">
+                                    Create New Customer
+                                </a>
+                            </div> 
+                        </div>
+                        <div class="panel-body" id="rpt">
+                            <table class="table table-striped" id="search">
+                                <thead>
+                                    <tr>
+                                        <th data-priority="1">
+                                            SN
+                                        </th>
+                                        <th data-priority="2">
+                                            Customer
+                                        </th>
+                                        <th data-priority="3">
+                                            Phone
+                                        </th>
+                                        <th data-priority="4">
+                                            Email
+                                        </th>
+                                        <th data-priority="5">
+                                            Address
+                                        </th>
+                                        <th data-priority="6">
+                                            Customer Type
+                                        </th>
+                                        <th data-priority="7">
+                                            Date
+                                        </th>
+                                        <th data-priority="8">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        sn++;
+                                        <tr>
+                                            <td>
+                                                @sn
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.customer_name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.phone)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.email)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.address)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.customertype)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.insert_date)
+                                            </td>
+                                            <td> 
+                                                <a href="@Url.Action("Edit", "Customers", new { id = item.id })">
+                                                    <i class="fa fa-edit btn btn-info btn-sm"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
 </div>

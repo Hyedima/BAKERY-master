@@ -1,40 +1,33 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Supply";
     Layout = "~/Views/Shared/_Layout.cshtml";
     CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
     decimal TotalAmount = 0;
 }
 
-<div class="col-md-1"></div>
-<div class="col-md-10">
-    <!-- START PANEL WITH CONTROL CLASSES -->
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">Supplies</h3>
-            <ul class="panel-controls">
-                @*<li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>*@
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-            </ul>
-        </div>
-        <div class="panel-body">
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <div id="PrintPage" style="margin: 0px; padding: opx; padding-bottom:0px;">
-                                <table class="table" style="margin: 0px; padding: opx; padding-bottom:0px;">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <center>
+                        <h4 class="m-0 font-weight-bold text-primary">Supplies</h4>
+                    </center>
+                </div>
+                <br />
+                <br />
+
+                <div class="card-body" id="rpt">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                            <table class="table table-striped" id="search">
+                                <thead>
                                     <tr>
-                                        <td colspan="5">
-                                            <h1>
-                                                Item In Stock
-                                            </h1>
-                                        </td>
+                                        <th colspan="6">
+                                            Item In Stock
+                                        </th>
                                     </tr>
                                     <tr class="success">
                                         <th>
@@ -51,7 +44,8 @@
                                         </th>
                                         <th></th>
                                     </tr>
-
+                                </thead>
+                                <tbody>
                                     @foreach (var item in db.main_stocks.ToList())
                                     {
                                         <tr class="">
@@ -61,95 +55,112 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.qty)
                                             </td>
+                                            @*<td>
+            <form action="@Url.Action("Supply","main_stocks")" method="post">
+                <input type="hidden" name="id" value="@item.id" />
+                <input type="hidden" name="userid" value="@Session["userid"]" />
+                <div class="col-md-8">
+                    <input type="number" required="" name="qty" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-success btn-sm">+</button>
+                </div>
+            </form>
+        </td>*@
+
+
+
+                                            <form action="@Url.Action("Supply","main_stocks")" method="post">
+                                                <input type="hidden" name="id" value="@item.id" />
+                                                <input type="hidden" name="userid" value="@Session["userid"]" />
                                             <td>
-                                                <form action="@Url.Action("Supply","main_stocks")" method="post">
-                                                    <input type="hidden" name="id" value="@item.id" />
-                                                    <input type="hidden" name="userid" value="@Session["userid"]" />
-                                                    <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-12">
                                                         <input type="number" required="" name="qty" class="form-control" />
                                                     </div>
-                                                    <div class="col-md-4">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        
                                                         <button class="btn btn-success btn-sm">+</button>
                                                     </div>
-                                                </form>
+                                                </div>
+
                                             </td>
+                                            </form>
                                         </tr>
                                     }
-                                </table>
-                            </div>
-                            <script>
+                                </tbody>
+                            </table>
+                        </div>
+                        <script>
                         //Save Complains
                         $(function () {
                             $("#btnPost").click('submit', function (e) {
                                         @*$(location).attr("href", "@Url.Action("Sale","Sales")");*@
                                     })
                         })
-                            </script>
-                            <hr />
-                            <!--<div class="col-md-12">
-                                <button class="btn btn-success btn-line pull-right" onclick="javascript:printDiv('PrintPage');">
-                                    <i class="icon icon-print"></i>
-                                    Print
-                                </button>
-                            </div>-->
+                        </script>
+                        <div class="col-md-6">
+                            <table class="table table-striped" id="mytable">
+                                <tr>
+                                    <th colspan="6">
+                                        Stock Cart
+                                    </th>
+                                </tr>
+                                <tr class="success">
+                                    <th>
+                                        Item
+                                    </th>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    @*<th>
+                                            Fulls Owing
+                                        </th>*@
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                @foreach (var item in db.main_stocks_Report_temp.ToList())
+                                {
+                                    <tr class="">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.main_stocks.product.product_name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.qty)
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-danger" href="@Url.Action("RemoveSupplyCart/"+item.id,"main_stocks")">X</a>
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="4">
+                                        <form action="@Url.Action("PostSupply","main_stocks")" method="post">
+                                            <input type="hidden" name="id" value="@Session["userid"]" />
+                                            <input type="text" name="notes" class="form-control" placeholder="Notes.." />
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-success btn-sm">Post</button>
+                                                </div>
+                                            </div>
+                                           
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="col-md-12">
-                    <table class="table">
-                        <tr>
-                            <td colspan="4">
-                                <h1>
-                                    Stock Cart
-                                </h1>
-                            </td>
-                        </tr>
-                        <tr class="success">
-                            <th>
-                                Item
-                            </th>
-                            <th>
-                                Quantity
-                            </th>
-                            @*<th>
-                                    Fulls Owing
-                                </th>*@
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        @foreach (var item in db.main_stocks_Report_temp.ToList())
-                        {
-                            <tr class="">
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.main_stocks.product.product_name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.qty)
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm btn-danger" href="@Url.Action("RemoveSupplyCart/"+item.id,"main_stocks")">X</a>
-                                </td>
-                            </tr>
-                        }
-                        <tr>
-                            <td colspan="4">
-                                <form action="@Url.Action("PostSupply","main_stocks")" method="post">
-                                    <input type="hidden" name="id" value="@Session["userid"]" />
-                                    <input type="text" name="notes" class="form-control" placeholder="Notes.." />
-                                    <button class="btn btn-success btn-sm">Post</button>
-                                </form>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-            </div>
+            <!-- END PANEL WITH CONTROL CLASSES -->
         </div>
     </div>
-    <!-- END PANEL WITH CONTROL CLASSES -->
 </div>
 
