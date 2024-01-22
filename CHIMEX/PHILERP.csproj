@@ -1918,6 +1918,7 @@
       <DependentUpon>CHIMEXModel.edmx</DependentUpon>
       <LastGenOutput>CHIMEXModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Production.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="joli\assets\.DS_Store" />
