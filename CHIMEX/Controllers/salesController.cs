@@ -604,7 +604,6 @@ namespace CHIMEX.Controllers
                 var sal = db.sales.Where(p => p.date_sold >= sdate && p.date_sold < edate && p.insert_user == userid && p.transaction.status != "Canceled");
                 return View(sal.ToList());
             }
-
         }
 
         public ActionResult CancelTransction(string id)
@@ -670,6 +669,70 @@ namespace CHIMEX.Controllers
            // }
             return RedirectToAction("cancelSales/" + tranID, "Sales");
         }
+        public ActionResult SalesReportSummary()
+        {
+            DateTime sdate = DateTime.Now.Date;
+            DateTime edate = DateTime.Now.Date.AddDays(1);
+            Session["startdate"] = sdate;
+            Session["enddate"] = edate;
+            ViewBag.sdate = sdate;
+            ViewBag.edate = edate;
+            var sal = db.sales.Where(p => p.date_sold >= sdate && p.date_sold < edate && p.transaction.status != "Canceled");
+            return View(sal.ToList());
+        }
+        [HttpPost]
+        public ActionResult SalesReportSummary(string startdate, string enddate, string userid)
+        {
+            DateTime sdate = Convert.ToDateTime(startdate).Date;
+            DateTime edate = Convert.ToDateTime(enddate).Date.AddDays(1);
+            Session["startdate"] = sdate;
+            Session["enddate"] = edate;
+            ViewBag.sdate = sdate;
+            ViewBag.edate = edate;
+            if (userid == "ALL")
+            {
+                var sal = db.sales.Where(p => p.date_sold >= sdate && p.date_sold < edate && p.transaction.status != "Canceled");
+                return View(sal.ToList());
+            }
+            else
+            {
+                var sal = db.sales.Where(p => p.date_sold >= sdate && p.date_sold < edate && p.insert_user == userid && p.transaction.status != "Canceled");
+                return View(sal.ToList());
+            }
+        }
+
+        public ActionResult SalesReportSummaryCustomer()
+        {
+            DateTime sdate = DateTime.Now.Date;
+            DateTime edate = DateTime.Now.Date.AddDays(1);
+            Session["startdate"] = sdate;
+            Session["enddate"] = edate;
+            ViewBag.sdate = sdate;
+            ViewBag.edate = edate;
+            var sal = db.sales.Where(p => p.date_sold >= sdate && p.date_sold < edate && p.transaction.status != "Canceled");
+            return View(sal.ToList());
+        }
+        [HttpPost]
+        public ActionResult SalesReportSummaryCustomer(string startdate, string enddate, string userid)
+        {
+            DateTime sdate = Convert.ToDateTime(startdate).Date;
+            DateTime edate = Convert.ToDateTime(enddate).Date.AddDays(1);
+            Session["startdate"] = sdate;
+            Session["enddate"] = edate;
+            ViewBag.sdate = sdate;
+            ViewBag.edate = edate;
+            if (userid == "ALL")
+            {
+                var sal = db.sales.Where(p => p.date_sold >= sdate && p.date_sold < edate && p.transaction.status != "Canceled");
+                return View(sal.ToList());
+            }
+            else
+            {
+                var sal = db.sales.Where(p => p.date_sold >= sdate && p.date_sold < edate && p.insert_user == userid && p.transaction.status != "Canceled");
+                return View(sal.ToList());
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -17,9 +17,6 @@ namespace CHIMEX.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public staff()
         {
-            this.bonus = new HashSet<bonu>();
-            this.deductions = new HashSet<deduction>();
-            this.Salaries = new HashSet<Salary>();
             this.salarybatches = new HashSet<salarybatch>();
         }
     
@@ -32,12 +29,6 @@ namespace CHIMEX.Models
         public string status { get; set; }
         public string notes { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bonu> bonus { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<deduction> deductions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Salary> Salaries { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<salarybatch> salarybatches { get; set; }
     }

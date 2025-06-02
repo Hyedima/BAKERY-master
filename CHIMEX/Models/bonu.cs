@@ -22,7 +22,6 @@ namespace CHIMEX.Models
         public string decription { get; set; }
         public string batchid { get; set; }
     
-        public virtual staff staff { get; set; }
         public virtual salarybatch salarybatch { get; set; }
     }
 }

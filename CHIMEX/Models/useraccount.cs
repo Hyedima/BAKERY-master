@@ -35,6 +35,8 @@ namespace CHIMEX.Models
             this.main_stocks_Report_temp = new HashSet<main_stocks_Report_temp>();
             this.order_cart = new HashSet<order_cart>();
             this.Orders = new HashSet<Order>();
+            this.productions = new HashSet<production>();
+            this.salarybatches = new HashSet<salarybatch>();
             this.sales = new HashSet<sale>();
             this.sales_canceled = new HashSet<sales_canceled>();
             this.sales_canceled1 = new HashSet<sales_canceled>();
@@ -47,8 +49,6 @@ namespace CHIMEX.Models
             this.stocks_opening = new HashSet<stocks_opening>();
             this.supplies = new HashSet<supply>();
             this.transactions = new HashSet<transaction>();
-            this.productions = new HashSet<production>();
-            this.salarybatches = new HashSet<salarybatch>();
         }
     
         public string id { get; set; }
@@ -103,6 +103,10 @@ namespace CHIMEX.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<production> productions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<salarybatch> salarybatches { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sale> sales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sales_canceled> sales_canceled { get; set; }
@@ -126,9 +130,5 @@ namespace CHIMEX.Models
         public virtual ICollection<supply> supplies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<transaction> transactions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<production> productions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<salarybatch> salarybatches { get; set; }
     }
 }

@@ -19,13 +19,13 @@ namespace CHIMEX.Models
         {
             this.carts = new HashSet<cart>();
             this.order_cart = new HashSet<order_cart>();
+            this.productions = new HashSet<production>();
             this.sales = new HashSet<sale>();
             this.sales_canceled = new HashSet<sales_canceled>();
             this.stocks_added = new HashSet<stocks_added>();
             this.stocks_closing = new HashSet<stocks_closing>();
             this.stocks_opening = new HashSet<stocks_opening>();
             this.supplies = new HashSet<supply>();
-            this.productions = new HashSet<production>();
         }
     
         public string id { get; set; }
@@ -38,6 +38,8 @@ namespace CHIMEX.Models
         public virtual ICollection<cart> carts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order_cart> order_cart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<production> productions { get; set; }
         public virtual product product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sale> sales { get; set; }
@@ -52,7 +54,5 @@ namespace CHIMEX.Models
         public virtual useraccount useraccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<supply> supplies { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<production> productions { get; set; }
     }
 }

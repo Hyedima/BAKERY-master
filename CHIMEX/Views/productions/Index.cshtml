@@ -6,7 +6,6 @@
     int sn = 0;
 }
 
-
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -26,16 +25,16 @@
                             </div>
                             <div class="col-md-4">
                                 <button href="#" class="btn btn-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
-                                <a href="@Url.Action("Create","Productions")" class="btn btn-success">Add New</a>
+                                <a href="@Url.Action("Create","Productions")" class="btn btn-primary">Add New</a>
                             </div>
                         </div>
                         <div class="panel-body" id="rpt">
                             <table class="table table-striped" id="search">
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">
+                                        @*<th data-priority="1">
                                             SN
-                                        </th>
+                                        </th>*@
                                         <th data-priority="2">
                                             Stock
                                         </th>
@@ -59,9 +58,9 @@
                                     {
                                         sn++;
                                         <tr>
-                                            <td>
+                                            @*<td>
                                                 @sn
-                                            </td>
+                                            </td>*@
                                             <td>
                                                 @item.stock.product.product_name
                                             </td>
@@ -75,7 +74,9 @@
                                                 @item.useraccount.firstname @item.useraccount.lastname
                                             </td>
                                             <td>
-                                                @item.insertdate
+                                                <a href="@Url.Action("details","Productions", new {id = item.id})" class="btn btn-primary">View</a>
+                                                <a href="@Url.Action("Edit","Productions", new {id = item.id})" class="btn btn-warning">Edit</a>
+                                                <a href="@Url.Action("Delete","Productions", new {id = item.id})" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     }

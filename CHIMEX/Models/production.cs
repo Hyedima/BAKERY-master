@@ -14,16 +14,24 @@ namespace CHIMEX.Models
     
     public partial class production
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public production()
+        {
+            this.production_log = new HashSet<production_log>();
+        }
+    
         public string id { get; set; }
         public string name { get; set; }
         public string decription { get; set; }
+        public string stockid { get; set; }
         public Nullable<int> qty_bags { get; set; }
         public Nullable<int> qty_items { get; set; }
         public Nullable<System.DateTime> insertdate { get; set; }
         public string insertuser { get; set; }
-        public string stockid { get; set; }
     
-        public virtual useraccount useraccount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<production_log> production_log { get; set; }
         public virtual stock stock { get; set; }
+        public virtual useraccount useraccount { get; set; }
     }
 }

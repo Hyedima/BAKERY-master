@@ -249,6 +249,9 @@
     <Compile Include="Models\production.cs">
       <DependentUpon>CHIMEXModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\production_log.cs">
+      <DependentUpon>CHIMEXModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Salary.cs">
       <DependentUpon>CHIMEXModel.tt</DependentUpon>
     </Compile>
@@ -265,12 +268,6 @@
       <DependentUpon>CHIMEXModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sales_canceled.cs">
-      <DependentUpon>CHIMEXModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>CHIMEXModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>CHIMEXModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\staff.cs">
@@ -295,9 +292,6 @@
       <DependentUpon>CHIMEXModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supply.cs">
-      <DependentUpon>CHIMEXModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>CHIMEXModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\transaction.cs">
@@ -1811,8 +1805,6 @@
     <Content Include="joli\js\plugins\nvd3\src\interactiveLayer.js" />
     <Content Include="joli\js\plugins\nvd3\src\intro.js" />
     <Content Include="joli\js\plugins\nvd3\src\models\axis.js" />
-    <Content Include="joli\js\plugins\nvd3\src\models\backup\bullet.js" />
-    <Content Include="joli\js\plugins\nvd3\src\models\backup\bulletChart.js" />
     <Content Include="joli\js\plugins\nvd3\src\models\boilerplate.js" />
     <Content Include="joli\js\plugins\nvd3\src\models\bullet.js" />
     <Content Include="joli\js\plugins\nvd3\src\models\bulletChart.js" />
@@ -1970,13 +1962,6 @@
     <Content Include="joli\js\plugins\tableexport\simple_html_dom.php" />
     <Content Include="joli\js\plugins\.DS_Store" />
     <Content Include="joli\js\.DS_Store" />
-    <EntityDeploy Include="Models\CHIMEXModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CHIMEXModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\CHIMEXModel.edmx.diagram">
-      <DependentUpon>CHIMEXModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\web\assets\css\app-dark-rtl.min.css.map" />
     <Content Include="Content\web\assets\css\app-dark.min.css.map" />
     <Content Include="Content\web\assets\css\app-rtl.min.css.map" />
@@ -2059,7 +2044,15 @@
     <Content Include="Content\web\assets\libs\jquery.repeater\repeater.jquery.json" />
     <Content Include="Content\web\assets\libs\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Content\web\assets\libs\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
+    <EntityDeploy Include="Models\CHIMEXModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CHIMEXModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CHIMEXModel.edmx.diagram">
+      <DependentUpon>CHIMEXModel.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\gobblesbakery.com.ng - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\test.gobblesbakery.com.ng - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2272,6 +2265,11 @@
     <Content Include="Views\productions\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_leftbar.cshtml" />
+    <Content Include="Views\productions\postProduction.cshtml" />
+    <Content Include="Views\productions\ProductionReport.cshtml" />
+    <Content Include="Views\sales\SalesReportSummary.cshtml" />
+    <Content Include="Views\sales\SalesReportSummaryCustomer.cshtml" />
+    <Content Include="Views\staffs\PrepareSalary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

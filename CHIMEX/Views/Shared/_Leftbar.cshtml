@@ -65,21 +65,36 @@
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Products")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i>
+                                <span>
                                     PRODUCTS (FINISHED GOODS/ RAW MATERIALS)
                                 </span>
                             </a>
                         </li>
                         <li>
-                            <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
-                                    MANAGE STOCKS (FINISHED GOODS)
+                            <a class="sidebar-link" href="@Url.Action("SalesReportSummary", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>
+                                    SALES REPORT SUMMARY
                                 </span>
                             </a>
                         </li>
                         <li>
+                            <a class="sidebar-link" href="@Url.Action("SalesReportSummaryCustomer", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>
+                                    SALES REPORT SUMMARY BY CUSTOMER
+                                </span>
+                            </a>
+                        </li>
+                        @*<li>
+                    <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                            MANAGE STOCKS (FINISHED GOODS)
+                        </span>
+                    </a>
+                </li>*@
+                        <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Orders")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>
                                     ORDER
                                 </span>
                             </a>
@@ -106,35 +121,35 @@
                         <li class="menu-title">STORE KEEPER</li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Products")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     PRODUCTS (FINISHED GOODS/ RAW MATERIALS)
                                 </span>
                             </a>
                         </li>
-                        <li>
-                            <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
-                                    MANAGE STOCKS (FINISHED GOODS)
-                                </span>
-                            </a>
-                        </li>
+                        @*<li>
+                    <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
+                            MANAGE STOCKS (FINISHED GOODS)
+                        </span>
+                    </a>
+                </li>*@
                         <li>
                             <a class="sidebar-link" href="@Url.Action("index", "main_stocks")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     RAW MATERIALS
                                 </span>
                             </a>
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("supply", "main_stocks")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     GIVE OUT STOCK
                                 </span>
                             </a>
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("StockoutReport", "main_stocks")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     MAIN STORE REPORT
                                 </span>
                             </a>
@@ -142,7 +157,7 @@
 
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Customers")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     CUSTOMERS
                                 </span>
                             </a>
@@ -154,21 +169,36 @@
                         <li class="menu-title">ADMIN</li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Products")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     PRODUCTS (FINISHED GOODS/ RAW MATERIALS)
                                 </span>
                             </a>
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Productions")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
+                                    PROD. SETTINGS
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("postProduction", "Productions")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     PRODUCTION
                                 </span>
                             </a>
                         </li>
                         <li>
+                            <a class="sidebar-link" href="@Url.Action("ProductionReport", "Productions")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
+                                    PRODUCTION REPORT
+                                </span>
+                            </a>
+                        </li>
+                        <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i>
+                                <span>
                                     MANAGE STOCKS
                                 </span>
                             </a>
@@ -176,27 +206,41 @@
 
                         <li>
                             <a class="sidebar-link" href="@Url.Action("SalesReport", "Sales")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
-                                    SALES REPORT
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i>
+                                SALES REPORT
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("SalesReportSummary", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>
+                                    SALES REPORT SUMMARY
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("SalesReportSummaryCustomer", "Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>
+                                    SALES REPORT SUMMARY BY CUSTOMER
+                                </span>
                             </a>
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Customertrnx", "Sales")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     MODIFY TRANSACTION
                                 </span>
                             </a>
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Create", "Expensis")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     POST EXPENSIS
                                 </span>
                             </a>
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Staffs")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     WAGES/SALARIES
                                 </span>
                             </a>
@@ -209,7 +253,7 @@
             </li>-->
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Changeusertype", "Useraccounts")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline feather-icon"></i><span>
                                     USER ROLES
                                 </span>
                             </a>
@@ -336,14 +380,16 @@
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("StockoutReport", "main_stocks")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i>
+                                <span>
                                     MAIN STORE REPORT
                                 </span>
                             </a>
                         </li>
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Index", "Orders")">
-                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i>
+                                <span>
                                     ORDER
                                 </span>
                             </a>
@@ -351,9 +397,6 @@
                     }
                     <div class="clearfix"></div>
                 }
-
-
-
 
                 <hr />
 
@@ -374,12 +417,12 @@
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
-                        <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
-                            MANAGE STOCKS (FINISHED GOODS)
-                    </a>
-                </li>
+                @*<li>
+            <a class="sidebar-link" href="@Url.Action("Index", "Stocks")">
+                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                    MANAGE STOCKS (FINISHED GOODS)
+            </a>
+        </li>*@
                 <li>
                     <a class="sidebar-link" href="@Url.Action("Index", "Orders")">
                         <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>

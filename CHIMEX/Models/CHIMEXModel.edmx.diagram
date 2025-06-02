@@ -4,136 +4,134 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a3b0ad9214f2492d8caf3431cb45b776" Name="Diagram1">
-        <EntityTypeShape EntityType="BakeryModel.Balance" Width="1.5" PointX="5.25" PointY="47.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.BankDeposit" Width="1.5" PointX="5.25" PointY="50.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.Branch" Width="1.5" PointX="0.75" PointY="50.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.cart" Width="1.5" PointX="16.5" PointY="56.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.customer_ledger" Width="1.5" PointX="15.75" PointY="51.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.customer" Width="1.5" PointX="5.25" PointY="53.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.Empties_Backload" Width="1.5" PointX="5.25" PointY="59.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.EmptiesReceived" Width="1.5" PointX="10.5" PointY="55.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.empty_stock" Width="1.5" PointX="5.25" PointY="63.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.Emptytype" Width="1.5" PointX="8.25" PointY="44.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.EspectedEmpty" Width="1.5" PointX="7.5" PointY="59.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.Expensi" Width="1.5" PointX="5.25" PointY="66.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.larstock_added" Width="1.5" PointX="10.5" PointY="51.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.Larstock" Width="1.5" PointX="10.5" PointY="59.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.main_stocks" Width="1.5" PointX="8.25" PointY="63.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.main_stocks_Report" Width="1.5" PointX="10.5" PointY="64" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.main_stocks_Report_temp" Width="1.5" PointX="18.5" PointY="66.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.order_cart" Width="1.5" PointX="18.5" PointY="50.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.Order" Width="1.5" PointX="7.5" PointY="49.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.paymentvoucher" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.product" Width="1.5" PointX="16.25" PointY="45.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.sale" Width="1.5" PointX="19.5" PointY="56" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.sales_canceled" Width="1.5" PointX="15.5" PointY="61.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.salesman" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.salesmenledger" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.stock_complain" Width="1.5" PointX="10.25" PointY="47.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.stock" Width="1.5" PointX="13.25" PointY="60.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.stocks_added" Width="1.5" PointX="18.5" PointY="62.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.stocks_closing" Width="1.5" PointX="21.5" PointY="62" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.stocks_opening" Width="1.5" PointX="21.5" PointY="52" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.supply" Width="1.5" PointX="13.5" PointY="55.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.supplies_temp" Width="1.5" PointX="13.5" PointY="50.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.transaction" Width="1.5" PointX="7.5" PointY="54.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryModel.useraccount" Width="1.5" PointX="3" PointY="52.5" IsExpanded="true" />
-        <AssociationConnector Association="BakeryModel.FK_Balance_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_BankDeposits_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_transactions_Branch" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_useraccount_Branch" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_cart_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_cart_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_cart_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_cart_transactions" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_cart_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Account_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_customer_ledger_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_customer_ledger_transactions" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_customer_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_EmptiesReceived_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_EspectedEmpties_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_larstock_added_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Larstock_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_order_cart_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Order_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_customer_canceled" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_supplies_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_supplies_temp_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_transactions_customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Backload_Emptytype" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Empties_Backload_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_EmptiesReceived_Emptytype" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_EmptiesReceived_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_empty_stock_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_EspectedEmpties_Emptytype" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_EspectedEmpties_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Expensis_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Expensis_useraccount1" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_larstock_added_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_larstock_added_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Larstock_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Larstock_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_main_stocks_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_main_stocks_Report_main_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_main_stocks_Report_temp_main_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_main_stocks_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_main_stocks_Report_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_main_stocks_Report_temp_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_order_cart_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_order_cart_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_order_cart_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_order_cart_transactions" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_order_cart_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_Order_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_canceled_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stock_complain_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_closing_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_opening_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_supplies_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_supplies_temp_products" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_transactions" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_canceled_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_canceled_transactions" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_canceled_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_canceled_useraccount1" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_canceled_useraccount2" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_sales_canceled_useraccount3" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_salesmenledger_salesmen" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stock_complain_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_added_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_closing_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_opening_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_supplies_stocks" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_added_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_closing_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_stocks_opening_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_supplies_useraccount" ManuallyRouted="false" />
-        <AssociationConnector Association="BakeryModel.FK_transactions_useraccount" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="BakeryModel.bonu" Width="1.5" PointX="3" PointY="8.25" />
-        <EntityTypeShape EntityType="BakeryModel.deduction" Width="1.5" PointX="3" PointY="11.375" />
-        <EntityTypeShape EntityType="BakeryModel.Salary" Width="1.5" PointX="3" PointY="14.5" />
-        <EntityTypeShape EntityType="BakeryModel.staff" Width="1.5" PointX="0.75" PointY="11" />
-        <AssociationConnector Association="BakeryModel.FK_bonus_staff" />
-        <AssociationConnector Association="BakeryModel.FK_deductions_staff" />
-        <AssociationConnector Association="BakeryModel.FK_Salary_staff" />
-        <EntityTypeShape EntityType="BakeryModel.production" Width="1.5" PointX="22.5" PointY="55.5" />
-        <EntityTypeShape EntityType="BakeryModel.salarybatch" Width="1.5" PointX="5.25" PointY="35.125" />
-        <AssociationConnector Association="BakeryModel.FK_bonus_salarybatch" />
-        <AssociationConnector Association="BakeryModel.FK_deductions_salarybatch" />
-        <AssociationConnector Association="BakeryModel.FK_production_useraccounts" />
-        <AssociationConnector Association="BakeryModel.FK_Salary_salarybatch" />
-        <AssociationConnector Association="BakeryModel.FK_salarybatch_staff" />
-        <AssociationConnector Association="BakeryModel.FK_salarybatch_useraccounts" />
-        <AssociationConnector Association="BakeryModel.FK_production_stocks" />
+      <Diagram DiagramId="4beca26a08e94005b4c4a72b74289f12" Name="Diagram1">
+        <EntityTypeShape EntityType="CHIMEXModel.Balance" Width="1.5" PointX="5.25" PointY="55.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.BankDeposit" Width="1.5" PointX="5.25" PointY="58.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.bonu" Width="1.5" PointX="15.5" PointY="68.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.Branch" Width="1.5" PointX="0.75" PointY="58.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.cart" Width="1.5" PointX="16.5" PointY="59.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.customer_ledger" Width="1.5" PointX="17.75" PointY="64.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.customer" Width="1.5" PointX="5.25" PointY="61.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.deduction" Width="1.5" PointX="15.5" PointY="71.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.Empties_Backload" Width="1.5" PointX="5.25" PointY="67.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.EmptiesReceived" Width="1.5" PointX="10.5" PointY="63.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.empty_stock" Width="1.5" PointX="5.25" PointY="70.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.Emptytype" Width="1.5" PointX="8.25" PointY="51.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.EspectedEmpty" Width="1.5" PointX="7.5" PointY="67.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.Expensi" Width="1.5" PointX="5.25" PointY="74.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.larstock_added" Width="1.5" PointX="10.5" PointY="59.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.Larstock" Width="1.5" PointX="10.5" PointY="67.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.main_stocks" Width="1.5" PointX="8.25" PointY="71.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.main_stocks_Report" Width="1.5" PointX="18.5" PointY="70.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.main_stocks_Report_temp" Width="1.5" PointX="18.5" PointY="74.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.order_cart" Width="1.5" PointX="19.5" PointY="58.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.Order" Width="1.5" PointX="7.5" PointY="57.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.paymentvoucher" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.production" Width="1.5" PointX="10.25" PointY="55.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.production_log" Width="1.5" PointX="12.5" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.product" Width="1.5" PointX="14.25" PointY="43.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.Salary" Width="1.5" PointX="15.5" PointY="74.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.salarybatch" Width="1.5" PointX="13.25" PointY="68.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.sale" Width="1.5" PointX="16.5" PointY="52.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.sales_canceled" Width="1.5" PointX="19.5" PointY="52.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.salesman" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.salesmenledger" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.staff" Width="1.5" PointX="11" PointY="76.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.stock_complain" Width="1.5" PointX="11.25" PointY="72.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.stock" Width="1.5" PointX="13.25" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.stocks_added" Width="1.5" PointX="20.5" PointY="65" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.stocks_closing" Width="1.5" PointX="22.5" PointY="59.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.stocks_opening" Width="1.5" PointX="22.5" PointY="55.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.supply" Width="1.5" PointX="13.5" PointY="62.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.supplies_temp" Width="1.5" PointX="13.5" PointY="58.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.transaction" Width="1.5" PointX="7.5" PointY="61.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CHIMEXModel.useraccount" Width="1.5" PointX="3" PointY="59.875" IsExpanded="true" />
+        <AssociationConnector Association="CHIMEXModel.FK_Balance_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_BankDeposits_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_bonus_salarybatch" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_transactions_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_useraccount_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_cart_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_cart_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_cart_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_cart_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_cart_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Account_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_customer_ledger_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_customer_ledger_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_customer_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_EmptiesReceived_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_EspectedEmpties_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_larstock_added_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Larstock_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_order_cart_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Order_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_customer_canceled" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_supplies_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_supplies_temp_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_transactions_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_deductions_salarybatch" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Backload_Emptytype" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Empties_Backload_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_EmptiesReceived_Emptytype" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_EmptiesReceived_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_empty_stock_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_EspectedEmpties_Emptytype" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_EspectedEmpties_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Expensis_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Expensis_useraccount1" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_larstock_added_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_larstock_added_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Larstock_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Larstock_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_main_stocks_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_main_stocks_Report_main_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_main_stocks_Report_temp_main_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_main_stocks_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_main_stocks_Report_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_main_stocks_Report_temp_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_order_cart_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_order_cart_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_order_cart_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_order_cart_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_order_cart_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Order_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_production_log_production" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_production_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_production_useraccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_canceled_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stock_complain_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_closing_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_opening_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_supplies_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_supplies_temp_products" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_Salary_salarybatch" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_salarybatch_staff" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_salarybatch_useraccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_canceled_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_canceled_transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_canceled_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_canceled_useraccount1" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_canceled_useraccount2" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_sales_canceled_useraccount3" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_salesmenledger_salesmen" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stock_complain_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_added_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_closing_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_opening_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_supplies_stocks" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_added_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_closing_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_stocks_opening_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_supplies_useraccount" ManuallyRouted="false" />
+        <AssociationConnector Association="CHIMEXModel.FK_transactions_useraccount" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

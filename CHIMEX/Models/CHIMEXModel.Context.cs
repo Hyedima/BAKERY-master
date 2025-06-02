@@ -12,8 +12,6 @@ namespace CHIMEX.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class chimexerpEntities : DbContext
     {
@@ -29,10 +27,12 @@ namespace CHIMEX.Models
     
         public virtual DbSet<Balance> Balances { get; set; }
         public virtual DbSet<BankDeposit> BankDeposits { get; set; }
+        public virtual DbSet<bonu> bonus { get; set; }
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<cart> carts { get; set; }
         public virtual DbSet<customer_ledger> customer_ledger { get; set; }
         public virtual DbSet<customer> customers { get; set; }
+        public virtual DbSet<deduction> deductions { get; set; }
         public virtual DbSet<Empties_Backload> Empties_Backload { get; set; }
         public virtual DbSet<EmptiesReceived> EmptiesReceiveds { get; set; }
         public virtual DbSet<empty_stock> empty_stock { get; set; }
@@ -47,11 +47,16 @@ namespace CHIMEX.Models
         public virtual DbSet<order_cart> order_cart { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<paymentvoucher> paymentvouchers { get; set; }
+        public virtual DbSet<production> productions { get; set; }
+        public virtual DbSet<production_log> production_log { get; set; }
         public virtual DbSet<product> products { get; set; }
+        public virtual DbSet<Salary> Salaries { get; set; }
+        public virtual DbSet<salarybatch> salarybatches { get; set; }
         public virtual DbSet<sale> sales { get; set; }
         public virtual DbSet<sales_canceled> sales_canceled { get; set; }
         public virtual DbSet<salesman> salesmen { get; set; }
         public virtual DbSet<salesmenledger> salesmenledgers { get; set; }
+        public virtual DbSet<staff> staffs { get; set; }
         public virtual DbSet<stock_complain> stock_complain { get; set; }
         public virtual DbSet<stock> stocks { get; set; }
         public virtual DbSet<stocks_added> stocks_added { get; set; }
@@ -59,117 +64,7 @@ namespace CHIMEX.Models
         public virtual DbSet<stocks_opening> stocks_opening { get; set; }
         public virtual DbSet<supply> supplies { get; set; }
         public virtual DbSet<supplies_temp> supplies_temp { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<useraccount> useraccounts { get; set; }
-        public virtual DbSet<bonu> bonus { get; set; }
-        public virtual DbSet<deduction> deductions { get; set; }
-        public virtual DbSet<Salary> Salaries { get; set; }
-        public virtual DbSet<staff> staffs { get; set; }
-        public virtual DbSet<production> productions { get; set; }
-        public virtual DbSet<salarybatch> salarybatches { get; set; }
-    
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
     }
 }

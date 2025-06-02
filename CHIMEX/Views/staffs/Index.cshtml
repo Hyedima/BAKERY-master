@@ -19,11 +19,13 @@
                     <div class="table-responsive mb-0" data-pattern="priority-columns">
                         <div class="row">
                             <div class="col-md-8">
-                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item..">
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item.."/>
                             </div>
                             <div class="col-md-4">
-                                <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button>
-
+                                <button href="#" class="btn btn-outline-warning pull-right" onclick="printDiv('rpt')">
+                                    <span class="fa fa-print"></span>
+                                    Print
+                                </button>
                                 <a href="@Url.Action("Create", "staffs")" class="btn btn-success">Create Staffs</a>
                             </div> 
                         </div>
@@ -50,7 +52,7 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach (var item in Model)
+                                    @foreach (var item in Model.Where(p=>p.status == "TRUE").OrderByDescending(p=>p.insertdate))
                                     {
                                         <tr>
                                             <td>
@@ -65,15 +67,14 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.insertdate)
                                             </td>
-
                                             <td>
                                                 <a href="@Url.Action("Edit", "staffs", new { id = item.id })">
                                                     <i class="fa fa-edit btn btn-info btn-sm"></i>
                                                 </a> |
-                                                <a href="@Url.Action("Details", "staffs", new { id = item.id })" class="=btn btn-success btn-sm">
+                                                <a href="@Url.Action("Details", "staffs", new { id = item.id })" class="btn btn-success btn-sm">
                                                     <i class="fa fa-info"></i>
                                                 </a> |
-                                                <a href="@Url.Action("Delete", "staffs", new { id = item.id })" class="=btn btn-danger btn-sm">
+                                                <a href="@Url.Action("Delete", "staffs", new { id = item.id })" class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i>
                                                 </a> |
                                                 <a href="@Url.Action("Payrol", "staffs", new { id = item.id })" class="=btn btn-primary btn-sm">

@@ -1,0 +1,224 @@
+﻿@model IEnumerable<CHIMEX.Models.sale>
+
+@{
+    ViewBag.Title = "SalesReportSummaryCustomer";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.FirstOrDefault(p => p.id == userid);
+    decimal total = 0;
+    decimal totalCASH = 0;
+    decimal totalTransfer = 0;
+    decimal totalPOS = 0;
+    decimal totalCHEQUE = 0;
+    int sn = 0;
+}
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <!-- START PANEL WITH CONTROL CLASSES -->
+    <div class="panel panel-warning">
+        @*<div class="panel-heading">
+            <h3 class="panel-title">Sales Report</h3>
+            <ul class="panel-controls">
+                <li><button href="#" class="btn btn-default" onclick="printDiv('rpt')"><span class="fa fa-print"></span>Print</button></li>
+                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>
+        </div>*@
+        <form action="@Url.Action("SalesReportSummaryCustomer", "Sales")" method="post">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>
+                        Start Date
+                    </label>
+                    <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+                </div>
+                <div class="col-md-3">
+                    <label>
+                        End Date
+                    </label>
+                    <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+                </div>
+                <div class="col-md-3">
+                    <label>
+                        Cashier
+                    </label>
+                    <select class="form-control" name="userid" required="">
+                        <option value="ALL">ALL Users</option>
+                        @foreach (var item in db.useraccounts.Where(p => p.usertype != "sCASH"))
+                        {
+                            <option value="@item.id">@item.firstname @item.lastname @item.othernames</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <br />
+                    <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+                    <button href="#" class="btn btn-sm btn-warning" onclick="printDiv('rpt')"><span class="fa fa-print"></span> Print</button>
+                </div>
+                <div class="col-md-12">
+                    <hr />
+                </div>
+            </div>
+        </form>
+        <hr />
+        <div class="panel-body" id="rpt">
+            <table class="table">
+                <tr>
+                    <th class="text-center" colspan="2">
+                        <h4>
+                            GOBBLES BAKERY
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <h4>
+                            SALES REPORT
+                        </h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Printed by: @user.firstname @user.lastname @user.othernames
+                    </th>
+                    <th>
+                        Printed As at: @DateTime.Now
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        FROM  @Session["startdate"] TO @Convert.ToDateTime(Session["enddate"]).AddDays(-1)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <th>
+                        SN
+                    </th>
+                    <th>
+                        Customer
+                    </th>
+                    <th class="text-right">
+                        Amount ( &#8358 )
+                    </th>
+                </tr>
+
+                @foreach (var row in Model.GroupBy(p => p.customer_id).ToList()) //OrderBy(p => p.date_sold)
+                {
+                    decimal CustomerTotal = 0;
+                    sn++;
+                    foreach (var item in row.ToList())
+                    {
+                        CustomerTotal += Convert.ToDecimal(item.total_amount);
+
+                        total += Convert.ToDecimal(item.total_amount);
+
+                        if (item.transaction.paymenttype == "CASH")
+                        {
+                            totalCASH += Convert.ToDecimal(item.total_amount);
+                        }
+                        if (item.transaction.paymenttype == "POS")
+                        {
+                            totalPOS += Convert.ToDecimal(item.total_amount);
+                        }
+                        if (item.transaction.paymenttype == "TRANSFER")
+                        {
+                            totalTransfer += Convert.ToDecimal(item.total_amount);
+                        }
+                        if (item.transaction.paymenttype == "CHEQUE")
+                        {
+                            totalCHEQUE += Convert.ToDecimal(item.total_amount);
+                        }
+                    }
+                    <tr>
+                        <td>
+                            @sn
+                        </td>
+                        <th>
+                            @row.FirstOrDefault().customer.customer_name
+                        </th>
+                        <th class="text-right">
+                            @String.Format("{0:#,#.00}", CustomerTotal)
+                        </th>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3">
+                        <b>
+                            Transaction Summary By Payament Type
+                        </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        CASH: @String.Format("{0:#,#.00}", totalCASH)
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        TRANSFER: @String.Format("{0:#,#.00}", totalTransfer)
+                    </td>
+                    <td>
+                        POS: @String.Format("{0:#,#.00}", totalPOS)
+                    </td>
+                    <td>
+                        CHEQUE: @String.Format("{0:#,#.00}", totalCHEQUE)
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2" class="text-center">
+                        GRAND TOTAL(N)
+                    </th>
+                    <th class="text-right">
+                        @String.Format("{0:#,#.00}", total)
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="3">
+                        Transaction Summary by Product Quantity
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Quantiry
+                    </th>
+                    <th>
+                        Amount(N)
+                    </th>
+                </tr>
+                @foreach (var row in Model.GroupBy(p => p.stock_id).ToList())
+                {
+                    var item = row.FirstOrDefault();
+                    var totalQty = row.Sum(p => p.qty);
+                    <tr>
+                        <td>
+                            @item.product_name
+                        </td>
+                        <td>
+                            @totalQty
+                        </td>
+                        <td>
+                            @String.Format("{0:#,#.00}", row.Sum(p => p.total_amount))
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <th colspan="2">
+                        TOTAL
+                    </th>
+                    <th>
+                        @String.Format("{0:#,#.00}", total)
+                    </th>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <!-- END PANEL WITH CONTROL CLASSES -->
+</div>

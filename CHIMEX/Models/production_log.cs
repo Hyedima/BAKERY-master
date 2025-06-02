@@ -12,12 +12,14 @@ namespace CHIMEX.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class production_log
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public string id { get; set; }
+        public string productionid { get; set; }
+        public Nullable<System.DateTime> insertdate { get; set; }
+        public string insertuser { get; set; }
+        public string description { get; set; }
+    
+        public virtual production production { get; set; }
     }
 }

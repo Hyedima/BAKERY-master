@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    CHIMEX.Models.chimexerpEntities db = new CHIMEX.Models.chimexerpEntities();
 }
 
 <div class="row">
@@ -50,5 +51,28 @@
 
                     </div>
                 </div>
+        </div>
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var item in db.salarybatches.Where(p => p.staffid == Model.id).OrderByDescending(p => p.insertdate))
+                {
+                    var sal = db.Salaries.Where(p => p.batchid == item.id).Sum(p => p.salary1);
+                    var deductions = db.deductions.Where(p => p.batchid == item.id).Sum(p => p);
+                    <tr>
+                        <th>
+                            @Convert.ToDateTime(item.insertdate).Month
+                        </th>
+                        <th>
+                            @
+                        </th>
+                        <th></th>
+                    </tr>
+                }
+            </table>
         </div>
     </div>

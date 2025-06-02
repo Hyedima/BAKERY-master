@@ -17,7 +17,7 @@ namespace CHIMEX.Controllers
         // GET: Salaries
         public ActionResult Index()
         {
-            var salaries = db.Salaries.Include(s => s.staff);
+            var salaries = db.Salaries;
             return View(salaries.ToList());
         }
 

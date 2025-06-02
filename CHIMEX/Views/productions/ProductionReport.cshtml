@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CHIMEX.Models.production_log>
+
+@{
+    ViewBag.Title = "ProductionReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            Product
+        </th>
+        <th>
+            Bags
+        </th>
+        <th>
+            Qty
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            User
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.production.stock.product.product_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.production.qty_bags)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.production.qty_items)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.production.insertdate)
+        </td>
+        <td>
+            @item.insertuser
+        </td>
+    </tr>
+}
+
+</table>

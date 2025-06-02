@@ -17,7 +17,7 @@ namespace CHIMEX.Controllers
         // GET: bonus
         public ActionResult Index()
         {
-            var bonus = db.bonus.Include(b => b.staff);
+            var bonus = db.bonus;
             return View(bonus.ToList());
         }
 

@@ -17,7 +17,7 @@ namespace CHIMEX.Controllers
         // GET: deductions
         public ActionResult Index()
         {
-            var deductions = db.deductions.Include(d => d.staff);
+            var deductions = db.deductions;
             return View(deductions.ToList());
         }
 

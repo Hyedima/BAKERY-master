@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CHIMEX.Models.production>
+
+@{
+    ViewBag.Title = "postProduction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Product
+        </th>
+        <th>
+            Qty/Bag
+        </th>
+        <th>
+            Qty in Stock
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.stock.product.product_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.qty_bags)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stock.qty)
+        </td>
+        <td>
+            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newstock_@item.id">Post Production</button>
+
+            <!-- Modal -->
+            <div id="newstock_@item.id" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="modal-title">Post Production</h4>
+                            <hr />
+                            <i class="text-center alert-warning">Are your sure you want to proceed to post this production?</i>
+                            <form method="post" action="@Url.Action("postProduction","Productions")">
+
+                                <input type="hidden" name="stockid" value="@item.stockid" />
+                                <input type="hidden" name="productionid" value="@item.id" />
+                                <label>
+                                    Product
+                                </label>
+                                <input type="text" value="@item.stock.product.product_name" readonly="readonly" required="" name="name" class="form-control" />
+                                <label>
+                                    Quantity per Bag
+                                </label>
+                                <input type="number" value="@item.qty_items" readonly="readonly" required="" name="qty_items" class="form-control" />
+
+                                <label>
+                                    No. of Bags
+                                </label>
+                                <input type="number" value="@item.qty_bags" required="" name="qty_bags" class="form-control" />
+                                <hr />
+                                <button class="btn btn-success">post</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </td>
+    </tr>
+}
+
+</table>

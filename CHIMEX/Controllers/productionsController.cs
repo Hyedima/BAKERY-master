@@ -78,10 +78,6 @@ namespace CHIMEX.Controllers
                     insertdate = DateTime.Now,
                     insertuser = Session["userid"].ToString()
                 });
-
-
-
-
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -113,41 +109,45 @@ namespace CHIMEX.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,decription,stockid,qty_bags,qty_items,insertdate,insertuser")] production production)
+        public ActionResult Edit([Bind(Include = "id,name,decription,stockid,qty_bags,qty_items,insertdate,insertuser")] production production, string id, int qty_bags, int qty_items)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
 
-                //post to production
-                production.id = Setup.GenerateID.GetID();
-                production.insertuser = Session["userid"].ToString();
-                production.insertdate = DateTime.Now;
-                production.name = production.stock.product.product_name;
-                db.Entry(production).State = EntityState.Modified;
+            //post to production
+            //production.id = Setup.GenerateID.GetID();
+            var prod = db.productions.Find(id);
 
-                //post to stock
-                var stock = db.stocks.Find(production.stockid);
-                stock.qty += Convert.ToInt32(production.qty_items);
+            prod.insertuser = Session["userid"].ToString();
+            prod.insertdate = DateTime.Now;
+            prod.qty_items = qty_items;
+            prod.qty_bags = qty_bags;
+            //production.name = production.stock.product.product_name;
+            //db.Entry(production).State = EntityState.Modified;
 
-                //Post to added stock
-                db.stocks_added.Add(new stocks_added
-                {
-                    id = Setup.GenerateID.GetID(),
-                    stock_id = production.stockid,
-                    qty_added = production.qty_items,
-                    insertdate = DateTime.Now,
-                    insertuser = Session["userid"].ToString()
-                }); 
+            //post to stock
+            //var stock = db.stocks.Find(production.stockid);
+            //stock.qty += Convert.ToInt32(production.qty_items);
 
-                
+            //Post to added stock
+            //db.stocks_added.Add(new stocks_added
+            //{
+            //    id = Setup.GenerateID.GetID(),
+            //    stock_id = production.stockid,
+            //    qty_added = production.qty_items,
+            //    insertdate = DateTime.Now,
+            //    insertuser = Session["userid"].ToString()
+            //}); 
 
 
-                db.SaveChanges();
+
+
+            db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            ViewBag.productid = new SelectList(db.products, "id", "product_name", production.stockid);
-            ViewBag.insertuser = new SelectList(db.useraccounts, "id", "branchid", production.insertuser);
-            return View(production);
+            
+            //ViewBag.productid = new SelectList(db.products, "id", "product_name", production.stockid);
+            //ViewBag.insertuser = new SelectList(db.useraccounts, "id", "branchid", production.insertuser);
+            //return View(production);
         }
 
         // GET: productions/Delete/5
@@ -175,7 +175,48 @@ namespace CHIMEX.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        //Post Production
+        public ActionResult postProduction()
+        {
+            return View(db.productions.ToList());
+        }
+        [HttpPost]
+        public ActionResult postProduction (string productionid, string stockid, int qty_bags, int qty_items)
+        {
+            var stocks = db.stocks.FirstOrDefault(p => p.id == stockid);
+            int qty = Convert.ToInt32(qty_bags * qty_items);
 
+            stocks.qty += Convert.ToInt32(qty);
+
+            //get production
+            // var prod = db.productions.Find(productionid);
+
+            //Add Stock
+            var stockin = new stocks_added
+            {
+                id = Guid.NewGuid().ToString(),
+                stock_id = stockid,
+                qty_added = qty,
+                insertdate = DateTime.Now,
+                insertuser = Session["userid"].ToString()
+            };
+            //add productionlog
+            db.production_log.Add(new production_log
+            {
+                id = Guid.NewGuid().ToString(),
+                productionid = productionid,
+                insertdate = DateTime.Now,
+                insertuser = Session["email"].ToString()
+            });
+
+            db.stocks_added.Add(stockin);
+            db.SaveChanges();
+            return View(db.productions.ToList());
+        }
+        public ActionResult ProductionReport()
+        {
+            return View(db.production_log.OrderByDescending(p=>p.insertdate).ToList());
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
